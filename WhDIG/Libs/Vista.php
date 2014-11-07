@@ -2,8 +2,8 @@
 
     Class Vista{
         
-        function render($view){
-            $controlador = get_class($this);
+        function render($controlador, $view){
+            $controlador = get_class($controlador);
             require './Vistas/'.$controlador.'/'.$view.'.php';
         }
     }

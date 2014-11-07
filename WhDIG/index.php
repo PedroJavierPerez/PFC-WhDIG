@@ -15,7 +15,7 @@
             require LIBS.$class.".php";
         }  
     });
-    
+    $contr = $controlador;
     $dir = './Controladores/'.$controlador.'.php';
     if(file_exists($dir)){
         require $dir;
@@ -26,13 +26,21 @@
                 if(isset($parametros)){
                     $controlador->{$metodo}($parametros);
                 }else{
+                    if($contr == "Index"){
                     $controlador->{$metodo}();
+                    }else{
+                     echo 'Error, Para este metodo se necesitan parametros';  
+            }
                 }
             }else{
                 echo 'Error, no existe el metodo';
             }
         }else{
-           $controlador->index();
+            if($contr == "Index"){
+             $controlador->index();
+            }else{
+              echo 'Error, no vista';  
+            }
         }
        
     }else{

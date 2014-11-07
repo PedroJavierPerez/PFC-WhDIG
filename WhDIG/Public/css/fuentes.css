@@ -1,0 +1,24 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 06-sep-2014, 18:24:37
+    Author     : pedro
+*/
+
+@font-face{
+    font-family: sourcesans;
+    src:url(../fuentes/source-sans-pro/SourceSansPro-Regular.otf);
+}
+
+@font-face{
+    font-family:sourcesans-light ;
+    src:url(../fuentes/source-sans-pro/SourceSansPro-Light.otf);
+}
+
+@font-face{
+    font-family: Kaushan;
+    src:url(../fuentes/kaushan-script/KaushanScript-Regular.otf);
+}

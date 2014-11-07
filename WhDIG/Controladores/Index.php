@@ -7,7 +7,8 @@
         }
         
         function index(){
-            echo'Index/index';
+            
+            $this->vista->render($this,'index');
         }
     }
 
