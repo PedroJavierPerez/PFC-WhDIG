@@ -1,7 +1,7 @@
 <?php
 
 define('URL', 'http://localhost/PFC-WhDIG/WhDIG/');
-define('LIBS','libs/');
+define('APP','app/');
 
 define('DB_HOST' , 'localhost');
 define('DB_USER' , 'root');

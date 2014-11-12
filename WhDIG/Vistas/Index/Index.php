@@ -1,11 +1,6 @@
 <?php
-require './Controladores/Evento.php';
-require './Controladores/Negocio.php';
-
 require_once './Entidades/EntidadNegocio.php';
 require_once './Entidades/EntidadEvento.php';
-$varEvento = new Evento();
-$varNegocio = new Negocio();
 
 ?>
 <!DOCTYPE html>
@@ -19,7 +14,7 @@ $varNegocio = new Negocio();
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/estilos.css">
         <script type="text/javascript" src="<?php echo URL; ?>Public/js/jquery-1.11.1.js"></script> 
        
-        <script src="<?php echo URL; ?>Public/js/eventos_index.js"></script>
+        <script src="<?php echo URL; ?>Vistas/Index/js/index.js"></script>
 
     </head>
     <body>
@@ -57,14 +52,9 @@ $varNegocio = new Negocio();
                     </article>
                 </section>
                 <section id="eventos">
-                    <?php
-
-                        
-                        $eventos = $varEvento->cargarEventos();
-                        
-                    ?>
+                  
                     
-                   <?php foreach ($eventos as $evento) { 
+                   <?php foreach ($this->eventos as $evento) { 
                        
                        $negocio = $evento->obtenerNegocio();
                        ?>
@@ -96,8 +86,8 @@ $varNegocio = new Negocio();
                               <input list ="provincia" name="pro">
                               <datalist id="provincia" >
                                      
-                           <?php $provincias = $varEvento->cargarProvincias();?>
-                           <?php foreach ($provincias as $provincia) { ?>
+                           
+                           <?php foreach ($this->provincias as $provincia) { ?>
                                   
                         <option value='<?php echo $provincia["provincia"]?>'></option>
                         
@@ -108,12 +98,8 @@ $varNegocio = new Negocio();
                              <input list="ciudad" name="ciu" >
                                  <datalist id="ciudad" >
                                      
-                           <?php 
-//                           
-                           $localidades = $varEvento->cargarLocalidades();
-//                          
-                            ?>
-                           <?php foreach ($localidades as $localidad) { ?>
+                           
+                           <?php foreach ($this->localidades as $localidad) { ?>
                                   
                         <option value='<?php echo $localidad["nombre"]?>'></option>
                         
@@ -128,15 +114,8 @@ $varNegocio = new Negocio();
                             
                              <datalist id="tipo" >
                                      
-                                 <?php
                                  
-                                 $tipos = array("Noche",'Bares','Pubs','Deporte','Charlas y conferencias',
-                                     'Conciertos','Cursos','Espectáculos','Exposiciones','Ferias','Libros',
-                                     'Cine','Teatro','Hoteles','Otros');
-                                 
-                                 ?>
-                                 
-                                 <?php foreach ($tipos as $tipo){?>
+                                 <?php foreach ($this->tipos as $tipo){?>
                                  
                                  
                                  <option value= '<?php echo $tipo ?>'></option>
@@ -147,8 +126,8 @@ $varNegocio = new Negocio();
                              <input list="local" name="loc">
                                  <datalist id="local">
                                      
-                           <?php $negocios = $varNegocio->cargarNegocios();?>
-                           <?php foreach ($negocios as $negocio) { ?>
+                           
+                           <?php foreach ($this->negocios as $negocio) { ?>
                                   
                         <option value='<?php echo $negocio["Nombre"]?>'></option>
                         

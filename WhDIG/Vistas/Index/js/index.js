@@ -48,8 +48,8 @@ $(document).ready(function(){
         return false;
     });
 
-    $("#eventos a").click(function(){
- 
+    $("#eventos a").click(function(e){
+        
         var Id_evento = $(this).attr("id");
        
         mostrarDetallesEvento(Id_evento);
@@ -78,7 +78,7 @@ $(document).ready(function(){
 function mostrarDetallesEvento(id_evento){
    location.href= "./Evento/detalles/"+id_evento;
     
-    
+   
 }
 
 
@@ -90,7 +90,7 @@ function cambioProvincia(){
        var data = "provincia="+id1;
        
         $.ajax({
-        url:"./Evento/CargarLocalidadesProvincias/",
+        url:"./Index/CargarLocalidadesProvincias/",
         type:"POST",
 //        dataType:"JSON",
         data: data,
@@ -131,7 +131,7 @@ function opcionesFiltrado(){
         };
     
         $.ajax({
-        url:"./Evento/filtrarEventos",
+        url:"./Index/filtrarEventos",
         type:"POST",
         data: data,
         beforeSend: function() {
@@ -148,7 +148,7 @@ function opcionesFiltrado(){
             for(var i in eventos){
                 
            
-           string += "<a id='"+eventos[i].identificador+"' href=''><article>\n\
+           string += "<a id='"+eventos[i].id+"' href='Evento/detalles/"+eventos[i].id+"'><article>\n\
                 <hgroup><h4 class='titulo'>"+eventos[i].nombre+" ("+eventos[i].provincia+")</h4></hgroup>\n\
                 <p>\n\
                 <ul>\n\
@@ -176,7 +176,7 @@ function suscribir(){
     var data = "email="+email;
     
     $.ajax({
-        url:"./UsuarioNR/suscribir",
+        url:"./Index/suscribir",
         type:"POST",
         data: data,
         beforeSend: function() {
@@ -201,7 +201,7 @@ function eliminarSuscribir(){
     var data = "email="+email;
     
     $.ajax({
-        url:"./UsuarioNR/eliminarSuscribir",
+        url:"./Index/eliminarSuscribir",
         type:"POST",
         data: data,
         beforeSend: function() {

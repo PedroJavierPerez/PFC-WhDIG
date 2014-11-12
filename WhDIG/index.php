@@ -11,8 +11,8 @@
     if((isset($url[2]))&&($url[2]!='')){$parametros = $url[2];}
 
     spl_autoload_register(function($class){ 
-        if(file_exists(LIBS.$class.".php")){
-            require LIBS.$class.".php";
+        if(file_exists(APP.$class.".php")){
+            require APP.$class.".php";
         }  
     });
     $contr = $controlador;
@@ -26,21 +26,19 @@
                 if(isset($parametros)){
                     $controlador->{$metodo}($parametros);
                 }else{
-                    if($contr == "Index"){
+//                    if($contr == "Index"){
                     $controlador->{$metodo}();
-                    }else{
-                     echo 'Error, Para este metodo se necesitan parametros';  
-            }
+//                    }else{
+//                     echo 'Error, Para este metodo se necesitan parametros';  
+//            }
                 }
             }else{
                 echo 'Error, no existe el metodo';
             }
         }else{
-            if($contr == "Index"){
+            
              $controlador->index();
-            }else{
-              echo 'Error, no vista';  
-            }
+            
         }
        
     }else{
