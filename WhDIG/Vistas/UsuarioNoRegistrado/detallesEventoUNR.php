@@ -23,13 +23,13 @@ require_once './Entidades/EntidadEstadisticasEvento.php';
         
         <!--<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>-->
         <!--<script type="text/javascript" src="<?php // echo URL; ?>Public/js/eventos_index.js"></script>-->
-        <script type="text/javascript" src="<?php echo URL; ?>Vistas/Evento/js/detallesEventoUNR.js"></script>
+        <script type="text/javascript" src="<?php echo URL; ?>Vistas/UsuarioNoRegistrado/js/detallesEventoUNR.js"></script>
 
     </head>
     <body>
         <header>
             <div id="subheader">
-                <div id="logo"><p><a href="<?php echo URL; ?>Index">WhDIG</a></p></div>
+                <div id="logo"><p><a href="<?php echo URL; ?>UsuarioNoRegistrado">WhDIG</a></p></div>
                 
                 <div id="identificarse">
                     <div id="formulario">

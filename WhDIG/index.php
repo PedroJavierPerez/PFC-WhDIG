@@ -1,11 +1,20 @@
 <?php
-
+    
     require 'config.php';
-
-    $url = (isset($_GET["url"])) ? $_GET["url"] : "Index/index";
-
+    require_once 'APP/Sesion.php';
+    
+    Sesion::init();
+    if(isset($_GET["url"])){ 
+        $url =$_GET["url"]; 
+    }else{
+        if(Sesion::exist()){
+        $url = "UsuarioRegistrado/index";   
+        }else{
+        $url = "UsuarioNoRegistrado/index";
+        }
+    }
     $url = explode("/", $url);
-
+    
     if(isset($url[0])){$controlador = $url[0];}
     if((isset($url[1]))&&($url[1]!='')){$metodo = $url[1];}
     if((isset($url[2]))&&($url[2]!='')){$parametros = $url[2];}

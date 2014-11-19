@@ -1,0 +1,88 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 08-sep-2014, 17:50:02
+    Author     : pedro
+*/
+
+
+#logo{
+/*    float: left;
+    width: 685px;
+    height: 80px;*/
+    margin-top: 0px;
+    width: 600px;
+    
+}
+#logo2{
+    width: 600px;
+}
+#eventoshoy{
+   
+    
+    background-color: #2d2d2d;
+    padding: 0px 10px 5px 10px;
+    border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+}
+/*#eventoshoy ul{  
+ line-height: 25px;
+}*/
+#eventoshoy #ideventoshoy{
+    margin: 5px 5px 5px 5px;
+    background: #666666;
+    border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+}
+
+#eventoshoy #ideventoshoy p{
+    font-size: 13px;
+    color: #000;
+}
+#eventoshoy li{
+    padding: 5px 5px 5px 5px;
+}
+
+#idFiltro{
+    border-top: solid 2px #0033cc;
+}
+aside .filtro{
+    margin-bottom: 20px;
+    
+}
+aside .filtro h3{
+    width: 200px;
+}
+header #subheader nav{
+    
+    width: 400px;
+    padding: 10px 0px 10px 0px;
+    float: left;
+    
+    
+    
+}
+header #subheader nav ul li{
+    display: inline;
+    font-family:sourcesans;
+    
+}
+header #subheader nav ul li a{
+    
+    color:#000;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 2px;
+        -moz-border-radius: 2px;
+        -wetkit-border-radius: 2px;
+}
+header #subheader nav ul li a:hover{
+    color:#fff;
+    background: #1798af;
+    
+}

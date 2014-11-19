@@ -1,0 +1,115 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 16-oct-2014, 14:17:53
+    Author     : pedro
+*/
+@import url("reset.css");
+@import url("fuentes.css");
+
+/*#identificarse{
+
+    margin-top: 20px;
+       
+}*/
+
+#tituloRegistro{
+    
+    margin-bottom: 10px;
+    line-height: 30px;
+    
+   
+    }
+
+#tituloRegistro{
+    
+    font-size: 20px;
+    
+    background: rgb(96,116,242); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(96,116,242,1) 0%, rgba(64,67,135,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(96,116,242,1)), color-stop(100%,rgba(64,67,135,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(96,116,242,1) 0%,rgba(64,67,135,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(96,116,242,1) 0%,rgba(64,67,135,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(96,116,242,1) 0%,rgba(64,67,135,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(96,116,242,1) 0%,rgba(64,67,135,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6074f2', endColorstr='#404387',GradientType=0 ); /* IE6-9 */
+    
+    padding: 5px;
+    color: #fff;
+    padding-left: 20px;
+    border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+}
+
+#articleFormulario{
+    
+    
+    width: 55%;
+    margin: auto;
+    
+}
+
+#articleFormulario label{
+    color:#000;
+}
+
+form #tabla2{
+    width: 100%
+    /*line-height: 42px;*/
+}
+form #tabla3{
+    width: 100%
+    /*line-height: 42px;*/
+}
+form #tabla4{
+    width: 100%
+    /*line-height: 42px;*/
+}
+
+form .fila{
+    width: 25%
+}
+form #tdVerificar{
+    width: 42%
+}
+
+#articleFormulario form{
+    line-height: 42px;
+    padding: 15px;
+   
+}
+#articleFormulario form .tablas{
+    width: 70%;
+    margin: auto;
+}
+
+#articleFormulario .inp{
+    width: 99%;
+}
+
+#articleFormulario{
+    border-radius: 7px;
+        -moz-border-radius: 7px;
+        -webkit-border-radius: 7px;
+    background: #87C489;
+
+}
+
+#articleFormulario form .pInformacion{
+    
+   width: 90%;
+   margin: auto;
+   font-size: 20px;
+   border-bottom: solid 2px #0033cc;
+   margin-bottom: 15px;
+}
+
+form #btnEnviarDatos{
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+}

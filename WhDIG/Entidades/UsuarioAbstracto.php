@@ -4,8 +4,8 @@ class UsuarioAbstracto{
     
     private $email;
     
-    public function __construct() {
-        
+    public function __construct($array) {
+        $this->email = $array["Email"];
     }
 
     public function obtenerEmail(){

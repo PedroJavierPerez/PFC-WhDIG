@@ -1,5 +1,7 @@
 <?php
 
+
+
 class EntidadUsuarioRegistrado extends UsuarioAbstracto{
     
     private $nombre;
@@ -11,25 +13,27 @@ class EntidadUsuarioRegistrado extends UsuarioAbstracto{
     private $recibirInformacion;
     private $detallesEvento;
     private $comentarios;
-
-    public function nuevoUsuarioRegistrado($email = NULL,$nombre = NULL,$localidad = NULL,$genero = NULL,$contrasena = NULL, $provincia = NULL,$detalles = NULL,$recibirInformacion = NULL,$comentarios = NULL,$fechaNacimiento = NULL){
-        $this->email = $email;
-        $this->nombre = $nombre;
-        $this->localidad = $localidad;
-        $this->genero = $genero;
-        $this->contrasena = $contrasena;
-        $this->provincia = $provincia;
-        $this->detallesEvento = $detalles;
-        $this->recibirInformacion = $recibirInformacion;
-        $this->comentarios = $comentarios;
-        $this->fechaNacimiento = $fechaNacimiento;
-    }
+    
+public function __construct($array) {
+    parent::__construct($array);
+    
+        $this->nombre = $array["Nombre"];
+        $this->localidad = $array["Localidad"];
+        $this->genero = $array["Genero"];
+        $this->contrasena = $array["Contrasena"];
+        $this->provincia = $array["Provincia"];
+        $this->detallesEvento = NULL;
+        $this->recibirInformacion = $array["RecibirInformacion"];
+        $this->comentarios = NULL;
+        $this->fechaNacimiento = $array["FechaNacimiento"];
+}
+    
     
     public function obtenerNombre(){
         return $this->nombre;
     }
     
-    public function cambiarNombre($email){
+    public function cambiarNombre($nombre){
         $this->nombre = $nombre;
     }
     

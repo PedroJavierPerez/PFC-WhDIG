@@ -93,9 +93,16 @@ class ConexionMySQLi{
 		$stmt = "INSERT INTO ".$table." (".$columnas.") VALUES(".$valores.") ".$where.";";
 		
                 //$result = $this->conexion->query($stmt) or die($this->conexion->error.__LINE__);
-                $result = $this->conexion->query($stmt) or die($this->conexion->error);
+                $result = $this->conexion->query($stmt);
 		
-                
+                if(mysqli_errno($this->conexion) == 1062 ) {
+                    $error = false;
+                    return $error;
+                }else{
+                    if(mysqli_errno($this->conexion) != null){
+                        return "Error de acceso al servidor";
+                    }
+                }
 			$response = true;
 		
 
@@ -117,6 +124,8 @@ class ConexionMySQLi{
 	*/
 	function update($table,$values,$where){
             
+                $valores = null;
+            
 		foreach ($values as $key => $value) {
 
 			$valores .= $key.'="'.$value.'",';
@@ -125,12 +134,9 @@ class ConexionMySQLi{
 		$stmt = "UPDATE $table SET $valores WHERE $where";
 
 		$result = $this->conexion->query($stmt) or die($this->conexion->error.__LINE__);
-		if($result->num_rows > 0) {
-			$response = false;
-		}
-		else {
+		
 			$response = true;
-		}
+		
 
 		return $response;
 	}
@@ -185,9 +191,11 @@ class ConexionMySQLi{
 	function check($what,$table,$values,$complex = false){
 
 		if($complex){ $where = $values; }else{
+                    
 			foreach ($values as $key => $value) {
 				$where = $key.'="'.$value.'"';
 			}
+                     
 		}
 
 		$stmt = "SELECT ".$what." FROM ".$table." WHERE ".$where;

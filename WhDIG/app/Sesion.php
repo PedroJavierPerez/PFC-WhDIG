@@ -3,6 +3,7 @@
 class Sesion{
     
     static function init(){
+        
         @session_start();
     }
     
