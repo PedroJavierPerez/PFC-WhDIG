@@ -15,14 +15,13 @@ require_once './Entidades/EntidadEstadisticasEvento.php';
         <meta name="description" content="Web de eventos de ocio">
         <meta name="keywords" content="evento,ocio,bar,deporte,pub">
         <title>WhDIG</title>
-        <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/estilosDetalles.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/estilosDetallesUNR.css">
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/jquery.lightbox-0.5.css">
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/estilos.css">
         <script type="text/javascript" src="<?php echo URL; ?>Public/js/jquery-1.11.1.js"></script>
         <script type="text/javascript" src="<?php echo URL; ?>Public/js/jquery.lightbox-0.5.js"></script>
         
-        <!--<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>-->
-        <!--<script type="text/javascript" src="<?php // echo URL; ?>Public/js/eventos_index.js"></script>-->
+       
         <script type="text/javascript" src="<?php echo URL; ?>Vistas/UsuarioNoRegistrado/js/detallesEventoUNR.js"></script>
 
     </head>

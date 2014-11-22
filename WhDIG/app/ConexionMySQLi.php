@@ -197,7 +197,7 @@ class ConexionMySQLi{
 			}
                      
 		}
-
+               
 		$stmt = "SELECT ".$what." FROM ".$table." WHERE ".$where;
 		$result = $this->conexion->query($stmt) or die($this->conexion->error.__LINE__);
 		if($result->num_rows > 0) {
@@ -208,7 +208,8 @@ class ConexionMySQLi{
 		}
 
 		return $response;
-
+                
+                
 	}
 
 }

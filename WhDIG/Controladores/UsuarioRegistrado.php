@@ -34,6 +34,22 @@ class UsuarioRegistrado extends Controlador{
             $this->vista->render($this,'miCuenta');
         }
         
+        public function detallesEvento($id){
+        $encontrado = $this->modelo->comprobarEvento($id);
+        if($encontrado){
+            $this->vista->comentarios = $this->modelo->buscarComentariosEvento($id);
+            $this->vista->detallesEvento = $this->cargarDetallesEvento($id);
+            $this->vista->idEvento=$id;
+            $this->vista->render($this,'detallesEventoUR');
+        }else{
+            if(!$encontrado){
+           echo "No existe evento ".$id;
+            }else{
+           echo "Error en el acceso al servidor.";
+            }
+        }
+        }
+        
         public function cerrarSesion(){
         Sesion::unsetValue('email');
         Sesion::destroy();
@@ -71,4 +87,62 @@ class UsuarioRegistrado extends Controlador{
         
     }
     
+    public function incluirFavorito() {
+        
+        $usuarioEvento["Email"] = $_SESSION["email"];
+        $usuarioEvento["Id_evento"] = $_POST["idEvento"];
+        $usuarioEvento["Favorito"] = 1;
+        
+        $encontrado = $this->comprobarUsuarioEvento($usuarioEvento);
+        if($encontrado){
+        $correcto = $this->modelo->modificarFavorito($usuarioEvento);
+        echo $correcto;
+        }else{
+        $correcto = $this->modelo->modificarFavorito($usuarioEvento,True); 
+        echo $correcto;
+        }
+    }
+    
+    public function eliminarFavorito() {
+        
+        $usuarioEvento["Email"] = $_SESSION["email"];
+        $usuarioEvento["Id_evento"] = $_POST["idEvento"];
+        $usuarioEvento["Favorito"] = 0;
+        $correcto = $this->modelo->modificarFavorito($usuarioEvento);
+        echo $correcto;
+    }
+    
+    public function indicarAsistencia() {
+        
+        $usuarioEvento["Email"] = $_SESSION["email"];
+        $usuarioEvento["Id_evento"] = $_POST["idEvento"];
+        $usuarioEvento["Asistir"] = 1;
+        
+        $encontrado = $this->comprobarUsuarioEvento($usuarioEvento);
+        if($encontrado){
+        $correcto = $this->modelo->modificarAsistencia($usuarioEvento);
+        echo $correcto;
+        }else{
+        $correcto = $this->modelo->modificarAsistencia($usuarioEvento,True); 
+        echo $correcto;
+        }
+        
+    } 
+    
+        public function eliminarAsistencia() {
+        
+        $usuarioEvento["Email"] = $_SESSION["email"];
+        $usuarioEvento["Id_evento"] = $_POST["idEvento"];
+        $usuarioEvento["Asistir"] = 0;
+        $correcto = $this->modelo->modificarAsistencia($usuarioEvento);
+        echo $correcto;
+        
+        
+    }
+    
+        public function comprobarUsuarioEvento($usuarioEvento) {
+    
+            return $this->modelo->comprobarUsuarioEvento($usuarioEvento);
+        }
 }
+

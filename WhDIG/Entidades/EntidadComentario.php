@@ -7,13 +7,16 @@ class EntidadComentario{
     private $aceptado;
     private $id_respuesta;
     private $evento;
+    private $usuario;
 
-    public function nuevoComentario($id = NULL,$texto = NULL,$aceptado = NULL,$id_rep = NULL,$evento = NULL){
-        $this->identificador = $id;
-        $this->texto = $texto;
-        $this->aceptado = $aceptado;
-        $this->identificador = $id_rep;
-        $this->evento = $evento;
+    public function __construct($array) {
+        
+        $this->identificador = $array["Id_comentario"];
+        $this->texto = $array["Texto"];
+        $this->aceptado = $array["Aceptado"];
+        $this->id_respuesta = $array["Id_respuesta"];
+        $this->evento = NULL;
+        $this->usuario = NULL;
       
     }
     
@@ -51,6 +54,14 @@ class EntidadComentario{
     }
     
     public function cambiarEvento($evento){
+        $this->evento = $evento;
+    }
+    
+     public function obtenerUsuario(){
+        return $this->evento;
+    }
+    
+    public function cambiarUsuario($evento){
         $this->evento = $evento;
     }
 }

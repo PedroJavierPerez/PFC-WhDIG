@@ -42,12 +42,26 @@ $(document).ready(function(){
         
         return false;
     });
+    
+    $("#eventos a").click(function(e){
+        
+        var Id_evento = $(this).attr("id");
+       
+        mostrarDetallesEvento(Id_evento);
+        
+        return false;
+    });
 
 }); 
 
 
 // FUNCIONES
 
+function mostrarDetallesEvento(id_evento){
+   location.href= URL_BASE+"UsuarioRegistrado/detallesEvento/"+id_evento;
+    
+   
+}
 
 function cambioProvincia(){
       var id1 = $('input[name=pro]').val();

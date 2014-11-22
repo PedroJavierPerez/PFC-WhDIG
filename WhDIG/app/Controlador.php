@@ -152,7 +152,14 @@ require_once './Entidades/EntidadEvento.php';
         }
     }
 
-   
+   public function cargarDetallesEvento($id){
+        
+        $objetoEvento = $this->modelo->buscarDetallesEvento($id);
+        
+        $objetoEventoFormateado = $this->cambiarFechaHora($objetoEvento);
+                
+        return $objetoEventoFormateado[0];
+    }
 
     public function pasarEventosJSON($objetosEvento){
 
