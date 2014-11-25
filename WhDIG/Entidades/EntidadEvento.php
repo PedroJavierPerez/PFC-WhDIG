@@ -13,19 +13,10 @@ class EntidadEvento {
     private $negocio;
     private $comentarios;
     private $estadisticas;
+    private $detallesEventoUsuario;
 
 
-    public function nuevoEvento($id,$fecha,$hora,$descripcion,$nombre, $negocio,$estadisticas,$comentarios = NULL){
-        $this->identificador = $id;
-        $this->fecha = $fecha;
-        $this->hora = $hora;
-        $this->descripcion = $descripcion;
-        $this->nombre = $nombre;
-        $this->negocio = $negocio;
-        $this->estadisticas = $estadisticas;
-        $this->comentarios = $comentarios;
-    }
-    
+
     public function __construct($array){
         $this->identificador = $array["Id_evento"];
         $this->fecha = $array["Fecha"];
@@ -37,6 +28,7 @@ class EntidadEvento {
         $this->negocio = NULL;
         $this->estadisticas = NULL;
         $this->comentarios = NULL;
+        $this->detallesEventoUsuario = NULL;
     }
     
     public function obtenerIdentificador(){
@@ -117,6 +109,14 @@ class EntidadEvento {
     
     public function cambiarTipo($tipo){
         $this->tipo = $tipo;
+    }
+    
+    public function obtenerDetallesEventoUsuario(){
+        return $this->detallesEventoUsuario;
+    }
+    
+    public function cambiarDetallesEventoUsuario($detalles){
+        $this->detallesEventoUsuario = $detalles;
     }
     
 }

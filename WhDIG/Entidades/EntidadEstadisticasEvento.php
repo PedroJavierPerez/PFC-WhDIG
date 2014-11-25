@@ -2,6 +2,7 @@
 
 class EntidadEstadisticasEvento{
     
+    private $id;
     private $nuMujeres;
     private $nuHombres;
     private $nuLocales;
@@ -10,6 +11,7 @@ class EntidadEstadisticasEvento{
     private $propietario;
     
     public function __construct($array){
+        $this->id = $array["Id_estadisticas"];
         $this->nuMujeres = $array["Mujeres"];
         $this->nuHombres = $array["Hombres"];
         $this->nuLocales = $array["Locales"];
@@ -17,6 +19,10 @@ class EntidadEstadisticasEvento{
         $this->evento = NULL;
         $this->propietario = NULL;
        
+    }
+    
+    public function obtenerIdEstadisticas(){
+        return $this->id;
     }
     
     public function obtenerNuMujeres(){

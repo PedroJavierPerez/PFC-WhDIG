@@ -1,0 +1,66 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 24-nov-2014, 18:00:08
+    Author     : pedro
+*/
+
+#main #eventos{
+    
+   margin: auto;
+   float: none;
+   margin-top: 30px;
+}
+
+#main #eventos #iconos{
+    
+    width: 100%;
+    
+}
+
+#main #eventos td{
+    
+    width: 33.33%;
+    text-align: center;
+    
+}
+
+#main #eventos .oculto{
+    
+    display: none;
+    
+    
+}
+
+#main #eventos .metaforaAsistir #aAsistirBandera{
+    
+   color: #ffb64b
+    
+}
+
+#main #eventos #nAsistentes{
+    
+   color: #ffb64b
+    
+}
+
+#main #eventos .divArticle{
+    
+    float: left;
+    width: 100%;
+    margin-bottom: 42px;
+    margin-top: 0px;
+    background: #333333;
+}
+
+#eventos article{
+    margin-bottom: 7px;
+}
+
+.metaforaAsistir .asistir{
+    vertical-align: middle;  
+    
+}

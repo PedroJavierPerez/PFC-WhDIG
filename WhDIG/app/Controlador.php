@@ -23,12 +23,14 @@ require_once './Entidades/EntidadEvento.php';
         
        public function cambiarFechaHora($eventos){
         
+           if(isset($eventos)){
          foreach ($eventos as $evento) {         
          
             $evento->cambiarFecha($this->formatoFecha($evento->obtenerFecha()));
             $evento->cambiarHora($this->formatoHora($evento->obtenerHora()));
         }
         return $eventos;
+           }
     }
        public function formatoFecha($fecha){
         

@@ -44,6 +44,17 @@ $(document).ready(function(){
        
         return false;  
     });
+    
+    $("#formComentario").submit(function(){
+       
+       var Id_evento = $("#detallesEvento .numeroEvento").attr("id");
+      
+       guardarComentario(Id_evento);
+       
+       $("#miComentario").val("");
+       
+        return false;  
+    });
 });
 
 
@@ -158,6 +169,39 @@ function eliminarAsistencia(idEvento){
                
                    $("#aAsistirBandera").parent().hide();
                    $("#aAsistir").parent().fadeToggle();
+                
+            }else{
+                
+              alert("Error de acceso al servidor.");
+                
+                
+            }
+             
+        }
+    });
+    
+}
+
+
+function guardarComentario(idEvento){
+    
+    var texto =$("#miComentario").val();  
+    
+    var data = "idEvento="+idEvento+"&texto="+texto;
+    
+    
+    $.ajax({
+        url:URL_BASE+"UsuarioRegistrado/guardarComentario",
+        type:"POST",
+        data: data,
+        beforeSend: function() {
+            console.log("enviando datos a DB")
+        },
+        success: function(resp) {
+            
+            if(resp == true){
+               
+               alert("Comentario guardado correctamente.Este se publicará una vez que el propietario lo acepte. ");  
                 
             }else{
                 

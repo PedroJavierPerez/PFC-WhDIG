@@ -44,7 +44,7 @@
                         
                     
                     <a id='<?php echo $evento->obtenerIdentificador();?>' href=''><article>
-                            <hgroup><h4 class='titulo'><?php echo $evento->obtenerNombre();?>(<?php echo $negocio->obtenerProvincia();?>)</h4></hgroup>
+                            <hgroup><h4 class='titulo'><?php echo $evento->obtenerNombre();?> (<?php echo $negocio->obtenerProvincia();?>)</h4></hgroup>
                     <p>
                     <ul>
                         <li><?php echo $evento->obtenerDescripcion();?></li>

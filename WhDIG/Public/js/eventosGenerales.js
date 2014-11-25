@@ -20,5 +20,11 @@ $(document).ready(function(){
      location.href= URL_BASE+"UsuarioRegistrado";
      return false;
     });
+    
+    $("#asistencia").click(function(){
+        
+     location.href= URL_BASE+"UsuarioRegistrado/asistenciaEventos";
+     return false;
+    });
 
 }); 

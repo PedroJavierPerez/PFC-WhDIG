@@ -1,6 +1,8 @@
 <?php
 require_once './Entidades/EntidadEstadisticasEvento.php';
 require_once './Entidades/EntidadComentario.php';
+require_once './Entidades/EntidadDetallesEvento.php';
+
 
 class UsuarioRegistrado_model extends Modelo{
     
@@ -33,15 +35,7 @@ class UsuarioRegistrado_model extends Modelo{
          
          $evento = $this->db->select("*","evento","Id_evento = '".$id."' ORDER BY Id_evento DESC");
        
-      
-       $objetoEvento = new EntidadEvento($evento[0]);
-       $negocio = $this->buscarNegocio($evento[0]["Id_negocio"]);
-       $estadisticas = $this->buscarEstadisticas($evento[0]["Id_estadisticas"]);
-       $objetoEstadistica = new EntidadEstadisticasEvento($estadisticas[0]);
-       $objetoNegocio = new EntidadNegocio($negocio[0]);
-       $objetoEvento->cambiarNegocio($objetoNegocio);
-       $objetoEvento->cambiarEstadisticas($objetoEstadistica);
-       $objetosEvento[]=$objetoEvento;
+       $objetosEvento[]=$this->crearObjetoEvento($evento[0]);
        
        return $objetosEvento;
      }
@@ -49,8 +43,8 @@ class UsuarioRegistrado_model extends Modelo{
      
      public function buscarEvento($idEvento) {
          $evento = $this->db->select("*","evento","Id_evento = '".$idEvento."'");
-         $objetoEvento = new EntidadEvento($evento[0]);
-         return $objetoEvento;
+         return $this->crearObjetoEvento($evento[0]);
+         
      }
      
      public function buscarComentariosEvento($idEvento) {
@@ -105,5 +99,75 @@ class UsuarioRegistrado_model extends Modelo{
          }
      }
      
+     public function incluirNuevoComentario($datosComentario) {
+         
+          return $this->db->insert("comentario",$datosComentario);
+         
+     }
+     
+     public function buscarDetallesEventosUsuarioAsistir($email) {
+         
+         return $this->db->select("*","evento_usuario","Email = '".$email."' AND Asistir = '1'");
+              
+     }
+     
+     
+     public function buscarEventosAsistir($where) {
+         
+         $eventos = $this->db->select("*","evento",$where);
+         
+         if (isset($eventos)) {
+             
+         foreach ($eventos as $evento) {
+             
+               
+               $arrayEventos[] = $this->crearObjetoEvento($evento);    
+         
+         }
+         return $arrayEventos;
+         
+         }  else {
+             return null;
+         }
+     }
+     
+     
+     public function crearObjetoEvento($evento) {
+         
+       $objetoEvento = new EntidadEvento($evento);
+       $negocio = $this->buscarNegocio($evento["Id_negocio"]);
+       $objetoNegocio = new EntidadNegocio($negocio[0]);
+       $objetoEvento->cambiarNegocio($objetoNegocio);
+       $estadisticas = $this->buscarEstadisticas($evento["Id_estadisticas"]);
+       $objetoEstadisticas = new EntidadEstadisticasEvento($estadisticas[0]);
+       $objetoEvento->cambiarEstadisticas($objetoEstadisticas);
+       $detallesEventoUsuario = $this->buscarDetallesEventoUsuario($evento["Id_evento"],$_SESSION["email"]);
+       if(isset($detallesEventoUsuario)){
+       $objetodetallesEventoUsuario = new EntidadDetallesEvento($detallesEventoUsuario[0]);
+       }else{
+           $detallesEventoUsuario["Favorito"]=0;
+           $detallesEventoUsuario["Asistir"]=0;
+       $objetodetallesEventoUsuario = new EntidadDetallesEvento($detallesEventoUsuario);   
+       }
+       $objetoEvento->cambiarDetallesEventoUsuario($objetodetallesEventoUsuario);
+       return $objetoEvento;
+     }
+     
+     
+     public function modificarEstadisticasEvento($datosEstadisticas, $evento) {
+         
+         $where = "Id_estadisticas = '".$evento->obtenerEstadisticas()->obtenerIdEstadisticas()."'";
+         return $this->db->update("estadisticas",$datosEstadisticas,$where);
+         
+         
+     }
+     
+      public function buscarDetallesEventoUsuario($id_evento,$email) {
+         
+         return $this->db->select("*","evento_usuario","Email = '".$email."' AND Id_evento = '".$id_evento."'");
+              
+     }
+     
+    
 }
 

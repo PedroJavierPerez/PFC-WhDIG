@@ -4,12 +4,13 @@ class EntidadDetallesEvento{
     
     private $favorito;
     private $asistir;
-    private $evento;
-    
-    public function nuevoDetallesEvento($favorito = NULL,$asistir = NULL,$evento = NULL){
-        $this->favorito = $favorito;
-        $this->asistir = $asistir;
-        $this->evento = $evento;
+    private $usuario;
+
+
+    public function __construct($array){
+        $this->favorito = $array["Favorito"];
+        $this->asistir = $array["Asistir"];
+        $this->usuario = NULL;
        
     }
     
@@ -37,6 +38,13 @@ class EntidadDetallesEvento{
         $this->evento = $evento;
     }
     
+     public function obtenerUsuario(){
+        return $this->usuario;
+    }
+    
+    public function cambiarUsuario($usuario){
+        $this->usuario = $usuario;
+    }
    
 
 }

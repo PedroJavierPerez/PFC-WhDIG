@@ -82,11 +82,11 @@ require_once './Entidades/EntidadEstadisticasEvento.php';
         <table id="iconos">
             
             <tr>
-                <td class="metaforaAsistir oculto"><img class='asistir' src='<?php echo URL; ?>Public/images/bandera.png'/><a id="aAsistirBandera" href="">Asistir</a></td>
-                <td class="metaforaAsistir "><a id="aAsistir" href="">Asistir</a></td>
+                <td class="metaforaAsistir <?php if (($objEvento->obtenerDetallesEventoUsuario()->obtenerAsistir())==1){}else{echo "oculto";}?>"><img class='asistir' src='<?php echo URL; ?>Public/images/bandera.png'/><a id="aAsistirBandera" href="">Asistir</a></td>
+                <td class="metaforaAsistir <?php if (($objEvento->obtenerDetallesEventoUsuario()->obtenerAsistir())==1){echo "oculto";}else{}?>"><a id="aAsistir" href="">Asistir</a></td>
                 <td class="metaforaAsistir"></td>
-                <td class="metaforaFavorito oculto"><a href=""><img class='favorito' src='<?php echo URL; ?>Public/images/favorito.png'/></a></td>
-                <td class="metaforaFavorito"><a href=""><img class='noFavorito' src='<?php echo URL; ?>Public/images/noFavorito.png'/></a></td>
+                <td class="metaforaFavorito <?php if (($objEvento->obtenerDetallesEventoUsuario()->obtenerFavorito())==1){}else{echo "oculto";}?>"><a href=""><img class='favorito' src='<?php echo URL; ?>Public/images/favorito.png'/></a></td>
+                <td class="metaforaFavorito <?php if (($objEvento->obtenerDetallesEventoUsuario()->obtenerFavorito())==1){echo "oculto";}else{}?>"><a href=""><img class='noFavorito' src='<?php echo URL; ?>Public/images/noFavorito.png'/></a></td>
             </tr>
             
         </table>
