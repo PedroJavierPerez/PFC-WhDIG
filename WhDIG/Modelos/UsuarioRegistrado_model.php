@@ -40,6 +40,21 @@ class UsuarioRegistrado_model extends Modelo{
        return $objetosEvento;
      }
     
+     public function buscarEventosHoy() {
+         
+         $dateAtual= date("Y-m-d");
+       $eventos = $this->db->select("*","evento","Fecha = '".$dateAtual."' ORDER BY Hora");
+       
+       if(isset($eventos)){
+           foreach ($eventos as $evento) {
+             
+               
+               $arrayEventos[] = $this->crearObjetoEvento($evento);    
+         
+         }
+         return $arrayEventos;
+       }
+     }
      
      public function buscarEvento($idEvento) {
          $evento = $this->db->select("*","evento","Id_evento = '".$idEvento."'");

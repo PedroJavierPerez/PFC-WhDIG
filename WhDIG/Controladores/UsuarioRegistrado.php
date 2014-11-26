@@ -21,6 +21,7 @@ class UsuarioRegistrado extends Controlador{
             $this->vista->localidades = $this->modelo->buscarLocalidades();
             $this->vista->provincias = $this->modelo->buscarProvincias();
             $this->vista->eventos = $this->cargarEventos();
+            $this->vista->eventosHoy = $this->cargarEventosAsistir($_SESSION["email"],true);
             $this->vista->render($this,'index');
         }
         
@@ -66,7 +67,13 @@ class UsuarioRegistrado extends Controlador{
         header("Location:".URL."UsuarioNoRegistrado");
     }
 
-     
+    public function cargarEventosHoy(){
+        
+        $eventoHoy = $this->modelo->buscarEventosHoy();
+        
+        return $this->cambiarFechaHora($eventoHoy);
+        
+    }
     public function modificarDatosUsuario(){
         
         $datosUsuario["Email"] = $_POST["email"];
@@ -171,7 +178,7 @@ class UsuarioRegistrado extends Controlador{
         
     } 
     
-    public function cargarEventosAsistir($email) {
+    public function cargarEventosAsistir($email,$hoy=false) {
         
        $detallesEventos = $this->modelo->buscarDetallesEventosUsuarioAsistir($email);
        $where = '(';
@@ -182,7 +189,12 @@ class UsuarioRegistrado extends Controlador{
        }
        $where = substr($where, 0, -3);
        $dateAtual= date("Y-m-d");
-       $where .= ") AND (Fecha >= '".$dateAtual."') ORDER BY Fecha ASC";
+       
+       if(!$hoy){
+            $where .= ") AND (Fecha >= '".$dateAtual."') ORDER BY Fecha ASC";
+       }else{
+            $where .= ") AND (Fecha = '".$dateAtual."') ORDER BY Fecha ASC";    
+       }
        
         $objetosEventos = $this->modelo->buscarEventosAsistir($where);
         return $this->cambiarFechaHora($objetosEventos);

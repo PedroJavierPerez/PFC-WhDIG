@@ -64,8 +64,15 @@
                         <div id="eventoshoy">
                             <hgroup><h3>Eventos de hoy:<br><?php echo date("d-m-Y");?></h3></hgroup>
                         <ul>
-                           
-                           
+                            <?php if(isset($this->eventosHoy)) { ?>
+                            <?php foreach ($this->eventosHoy as $eventoHoy) { ?>
+                            <a id="<?php echo $eventoHoy->obtenerIdentificador();?>" href=''><div id ='ideventoshoy'><li><span id='spanHora'><?php echo $eventoHoy->obtenerHora();?></span> - 
+                                       <span id = 'spanNombreEvento'><?php echo $eventoHoy->obtenerNombre();?></span> <br>
+                                       <p id='pNombreLocal'><?php echo $eventoHoy->obtenerNegocio()->obtenerNombre();?></p></li></div></a>
+                           <?php }  ?>
+                            <?php }else{  ?>
+                            <p id="noEventosHoy">No tiene ningún evento para hoy.</p>
+                            <?php }  ?>
                         </ul>
                                 
                         </div>

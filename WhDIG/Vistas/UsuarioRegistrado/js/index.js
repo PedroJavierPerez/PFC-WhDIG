@@ -51,6 +51,15 @@ $(document).ready(function(){
         
         return false;
     });
+    
+    $("#eventoshoy a").click(function(e){
+        
+        var Id_evento = $(this).attr("id");
+       
+        mostrarDetallesEvento(Id_evento);
+        
+        return false;
+    });
 
 }); 
 

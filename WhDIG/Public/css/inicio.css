@@ -86,3 +86,8 @@ header #subheader nav ul li a:hover{
     background: #1798af;
     
 }
+
+#eventoshoy #noEventosHoy{
+    color: #ccccff;
+    text-align: center;
+}

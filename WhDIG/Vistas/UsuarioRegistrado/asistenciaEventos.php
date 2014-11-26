@@ -17,7 +17,7 @@
     <body>
         <header>
             <div id="subheader">
-                <div id="logo"><p><a href="">WhDIG</a></p></div>
+                <div id="logo"><p><a href="<?php echo URL; ?>UsuarioRegistrado">WhDIG</a></p></div>
                 
                
                 <div id="logo2"><h2>Where do I go?</h2></div>
@@ -45,8 +45,8 @@
                        $negocio = $evento->obtenerNegocio();
                        ?>
                         
-                    
-                    <a id='<?php echo $evento->obtenerIdentificador();?>' href=''><article>
+                    <div class="divEvento">
+                    <a id='<?php echo $evento->obtenerIdentificador();?>' class="enlaceEvento" href=''><article>
                             <hgroup><h4 class='titulo'><?php echo $evento->obtenerNombre();?> (<?php echo $negocio->obtenerProvincia();?>)</h4></hgroup>
                     <p>
                     <ul>
@@ -71,12 +71,14 @@
             
                         </table>
                     </div>
-                        
+                    </div> 
                     
                     <?php } 
                     
                     }else{  ?>
+                    <div id="noEventosAsistir">
                         <p class='NoFiltro'>No existen eventos a los que vaya a asistir.</p>
+                    </div>
                     <?php } ?>
                         
                 </section>

@@ -36,7 +36,7 @@ $(document).ready(function(){
         return false;  
     });
     
-    $("#aAsistirBandera").click(function(){
+    $("a#aAsistirBandera").click(function(){
        
        var Id_evento = $("#detallesEvento .numeroEvento").attr("id");
       

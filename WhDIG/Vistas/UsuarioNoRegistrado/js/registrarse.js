@@ -149,7 +149,7 @@ function autentificar(){
         };
     
     $.ajax({
-        url:"./UsuarioNoRegistrado/autenticar",
+        url:URL_BASE+"UsuarioNoRegistrado/autenticar",
         type:"POST",
         data: data,
 //        async : true,
@@ -163,7 +163,7 @@ function autentificar(){
          
             if(resp== true){
                 
-                location.href= "./UsuarioRegistrado";
+                location.href= URL_BASE+"UsuarioRegistrado";
             }else{
                 if(resp == false){
                 alert("Usuario o contraseña incorrecta");
