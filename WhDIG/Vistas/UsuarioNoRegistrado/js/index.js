@@ -1,5 +1,15 @@
+var URL_BASE = "http://localhost/PFC-WhDIG/WhDIG/";
+
 
 $(document).ready(function(){
+ 
+ regurlaPorcentajeSectionEventos();
+ 
+ $(window).resize(function(e) {
+  
+ regurlaPorcentajeSectionEventos();
+ 
+ });
  
  //Cuando se cambia el input provincia carga los municipios de esa provincia.
     $("input[name=pro]").change(function(){
@@ -67,7 +77,7 @@ $(document).ready(function(){
     
     $("#btnRegistrarse").click(function(){
         
-      location.href= "./UsuarioNoRegistrado/registrarse/";
+      location.href= URL_BASE+"UsuarioNoRegistrado/registrarse/";
     });
 
 }); 
@@ -76,7 +86,7 @@ $(document).ready(function(){
 // FUNCIONES
 
 function mostrarDetallesEvento(id_evento){
-   location.href= "./UsuarioNoRegistrado/detalles/"+id_evento;
+   location.href= URL_BASE+"UsuarioNoRegistrado/detalles/"+id_evento;
     
    
 }
@@ -92,7 +102,7 @@ function cambioProvincia(){
        
        if(id1 != ''){
         $.ajax({
-        url:"UsuarioNoRegistrado/cargarLocalidadesProvincias/",
+        url:URL_BASE+"UsuarioNoRegistrado/cargarLocalidadesProvincias/",
         type:"POST",
 //        dataType:"JSON",
         data: data,
@@ -142,7 +152,7 @@ function opcionesFiltrado(){
         };
     
         $.ajax({
-        url:"./UsuarioNoRegistrado/filtrarEventos",
+        url:URL_BASE+"UsuarioNoRegistrado/filtrarEventos",
         type:"POST",
         data: data,
         beforeSend: function() {
@@ -187,7 +197,7 @@ function suscribir(){
     var data = "email="+email;
     
     $.ajax({
-        url:"./UsuarioNoRegistrado/suscribir",
+        url:URL_BASE+"UsuarioNoRegistrado/suscribir",
         type:"POST",
         data: data,
         beforeSend: function() {
@@ -212,7 +222,7 @@ function eliminarSuscribir(){
     var data = "email="+email;
     
     $.ajax({
-        url:"./UsuarioNoRegistrado/eliminarSuscribir",
+        url:URL_BASE+"UsuarioNoRegistrado/eliminarSuscribir",
         type:"POST",
         data: data,
         beforeSend: function() {
@@ -243,7 +253,7 @@ function autentificar(){
         };
     
     $.ajax({
-        url:"./UsuarioNoRegistrado/autenticar",
+        url:URL_BASE+"UsuarioNoRegistrado/autenticar",
         type:"POST",
         data: data,
 //        async : true,
@@ -257,7 +267,7 @@ function autentificar(){
          
             if(resp== true){
                 
-                location.href= "./UsuarioRegistrado";
+                location.href= URL_BASE+"UsuarioRegistrado";
             }else{
                 if(resp == false){
                 alert("Usuario o contraseña incorrecta");
@@ -276,3 +286,20 @@ function autentificar(){
             
     
 }
+
+function regurlaPorcentajeSectionEventos(){
+    
+    var anchoWrap = $("#wrap").innerWidth();
+    var anchoAside = $("aside").outerWidth(true);
+    var viewportwidth = window.innerWidth;
+    
+     if(viewportwidth > 768){
+         var PorAside = (anchoAside * 100)/anchoWrap;
+         var PorEventos = 100- PorAside-0.6;
+
+         $("#eventos").css("width",+PorEventos+"%");
+    }else{
+        $("#eventos").css("width","100%");
+    }
+}
+

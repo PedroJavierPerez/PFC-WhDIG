@@ -19,7 +19,7 @@
     function buscarEventos(){
         $dateAtual= date("Y-m-d");
        $eventos = $this->db->select("*","evento","Fecha >= '".$dateAtual."' ORDER BY Id_evento DESC");
-       
+       if(isset($eventos)){
        foreach ($eventos as $event) {
        $evento = new EntidadEvento($event);
        $negocio = $this->buscarNegocio($event["Id_negocio"]);
@@ -28,6 +28,7 @@
        $arrayEventos[] = $evento;
        }
        return $arrayEventos;
+       }
     }
     
     function filtrarEventos($where){
