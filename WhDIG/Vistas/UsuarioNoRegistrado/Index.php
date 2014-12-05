@@ -12,7 +12,7 @@ require_once './Entidades/EntidadEvento.php';
         <meta name="keywords" content="evento,ocio,bar,deporte,pub">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>WhDIG</title>
-        <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/nuevo.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/estilos.css">
         <script type="text/javascript" src="<?php echo URL; ?>Public/js/jquery-1.11.1.js"></script> 
        
         <script src="<?php echo URL; ?>Vistas/UsuarioNoRegistrado/js/index.js"></script>

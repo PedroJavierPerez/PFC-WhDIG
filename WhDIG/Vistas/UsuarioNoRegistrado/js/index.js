@@ -79,6 +79,11 @@ $(document).ready(function(){
         
       location.href= URL_BASE+"UsuarioNoRegistrado/registrarse/";
     });
+    
+    $("#btnRegistrarseForm").click(function(){
+        
+      location.href= URL_BASE+"UsuarioNoRegistrado/registrarse/";
+    });
 
 }); 
 

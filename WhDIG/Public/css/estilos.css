@@ -30,6 +30,7 @@ header{
     background: -ms-linear-gradient(top,  #ffffff 0%,#e4e0e0 100%); /* IE10+ */
     background: linear-gradient(to bottom,  #ffffff 0%,#e4e0e0 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e4e0e0',GradientType=0 ); /* IE6-9 */
+    background: #2d2d2d;
     background: url("../images/eee4.png") no-repeat center;
 }
 
@@ -62,7 +63,7 @@ header{
     
     font-family: sourcesans-light;
     font-size: 5.4em;
-    color:#000;
+    color:#fff;
     text-shadow: 0px 0px 10px rgba(0,0,0,1);
         -moz-text-shadow: 0px 0px 10px rgba(0,0,0,1);   
         -webkit-text-shadow: 0px 0px 10px rgba(0,0,0,1);
@@ -176,6 +177,7 @@ a{
      -webkit-border-radius: 5px;
    /*font-family:sourcesans-light;*/
    color: #000;
+   cursor:pointer;
    
 }
 
@@ -408,11 +410,7 @@ aside#asideSuscribir #sectionEliminarSuscribir{
     
     #logoCompleto #logo{
         margin-top: 20px;
-    }
-    
-    
-    
-    
+    } 
     
    #subheader #divIdentificarse{
         max-width: 751px;;
@@ -448,6 +446,8 @@ aside#asideSuscribir #sectionEliminarSuscribir{
     #Registrarse{
         min-width: 380px;
         margin-top: 0px;
+        margin-bottom: 2px;
+        
         
     }
     
