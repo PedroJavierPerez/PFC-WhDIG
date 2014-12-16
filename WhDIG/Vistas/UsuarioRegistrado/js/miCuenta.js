@@ -3,6 +3,12 @@ var URL_BASE = "http://localhost/PFC-WhDIG/WhDIG/";
 $(document).ready(function(){
     
     
+    $(".inp").click(function(e){
+        
+            this.select();
+        
+      });
+      
     $("#formMiCuenta").submit(function(){ 
             
             var pass = $("#contrasena").val();
@@ -28,8 +34,8 @@ $(document).ready(function(){
         cambioProvincia();  
     });
     
-    $("#eliminarCuenta").click(function(){
-       
+    $("a#eliminarCuenta").click(function(){
+  
        $("#formMiCuenta").parent().hide();
        $("#formEliminarCuenta").parent().fadeToggle();
        

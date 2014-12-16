@@ -12,17 +12,25 @@ and open the template in the editor.
 
 
 
-.titulo{
+*{
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#tituloMiCuenta{
     
-    margin-bottom: 10px;
-    line-height: 30px;
+    margin-bottom: 0.63em;
+    line-height: 2em;
+    width: 110%;
+    margin-left: -5%;
     
    
     }
 
 .titulo{
     
-    font-size: 20px;
+    font-size: 1.25em;
     
     background: rgb(96,116,242); /* Old browsers */
     background: -moz-linear-gradient(top,  rgba(96,116,242,1) 0%, rgba(64,67,135,1) 100%); /* FF3.6+ */
@@ -33,75 +41,70 @@ and open the template in the editor.
     background: linear-gradient(to bottom,  rgba(96,116,242,1) 0%,rgba(64,67,135,1) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6074f2', endColorstr='#404387',GradientType=0 ); /* IE6-9 */
     
-    padding: 5px;
+    padding: 0.32em;
     color: #fff;
-    padding-left: 20px;
+    padding-left: 1.25em;
     border-radius: 5px;
         -moz-border-radius: 5px;
         -webkit-border-radius: 5px;
 }
 
-.articleFormulario{
-    
-    
+.articleFormulario{  
     width: 55%;
-    margin: auto;
-    
-}
-
-.articleFormulario label{
-    color:#000;
-}
-
-form #tabla2{
-    width: 100%
-    /*line-height: 42px;*/
-}
-form #tabla3{
-    width: 100%
-    /*line-height: 42px;*/
-}
-form #tabla4{
-    width: 100%
-    /*line-height: 42px;*/
-}
-
-form .fila{
-    width: 25%
-}
-form #tdVerificar{
-    width: 42%
-}
-
-.articleFormulario form{
-    line-height: 42px;
-    padding: 15px;
-   
-}
-.articleFormulario form .tablas{
-    width: 70%;
-    margin: auto;
-}
-
-.articleFormulario .inp{
-    width: 99%;
-}
-
-.articleFormulario{
+    max-width: 540px;
+    margin: auto; 
     border-radius: 7px;
         -moz-border-radius: 7px;
         -webkit-border-radius: 7px;
     background: #87C489;
+}
 
+.articleFormulario form{
+    padding: 15px;
+}
+
+.articleFormulario #divForm{
+    width: 80%;
+    margin: auto;
 }
 
 .articleFormulario form .pInformacion{
     
-   width: 90%;
-   margin: auto;
-   font-size: 20px;
+   width: 106%;
+   margin-left:-3% ;
+   font-size: 1.3em;
    border-bottom: solid 2px #0033cc;
-   margin-bottom: 15px;
+   margin-bottom: 0.96em;
+   margin-top: 0.8em;
+}
+
+
+
+.articleFormulario label{
+    cursor:pointer;
+    margin:4px 0;
+    color:#003333;
+    display:block;
+    font-weight:600;
+    font-family: sourcesans;
+}
+
+.articleFormulario #labelGenero{
+    display:inline-block;
+    /*vertical-align: top;*/
+}
+
+input.inp {
+    display:block;
+    width:96%;
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    background-color:#f4f4f4;
+    color:#000;
+    border:1px solid #5f5f5f;
+    padding:8px;
+    margin-bottom:17px;
 }
 
 form .btnFormularioCuenta{
@@ -110,15 +113,16 @@ form .btnFormularioCuenta{
     margin-top: 20px;
 }
 
-.articleFormulario #eliminarCuenta{
+.articleFormulario #EliCuenta{
     
     padding-bottom: 7px;
     padding-right: 7px;
-    color: #006600 ;
     display: block;
-    text-align: right;
-    /*float: right;*/
-    
+    text-align: right;  
+}
+
+.articleFormulario #eliminarCuenta{
+    color: #006600 ;
 }
 
 .ocultar{
@@ -132,13 +136,48 @@ form .btnFormularioCuenta{
     
 }
 
-.ocultar #formEliminarCuenta #contrasenaEliminarCuenta{
-    /*display: block;*/
-    width: 60%;
+#tituloEliminarCuenta{
+    margin-bottom: 1em;
     
 }
 
-#tituloEliminarCuenta{
-    margin-bottom: 26px;
+
+@media screen and (max-width: 768px) {
+    
+    .articleFormulario{
+        width: 100%;
+    }
+    
+    
     
 }
+
+@media screen and (max-width: 480px){
+    
+    #tituloMiCuenta{
+    
+      padding-left: 0.5em;
+    }
+    
+}
+
+@media screen and (max-width: 317px) {
+    
+    .articleFormulario #divForm{
+        width: 98%;
+    }
+    
+    #tituloMiCuenta{
+    
+      font-size: 1.1em;
+    }
+    
+    .articleFormulario form .pInformacion{
+      font-size: 1.2em;  
+    }
+    
+    .articleFormulario #divForm{
+    width: 100%;
+}
+}
+

@@ -8,17 +8,21 @@ and open the template in the editor.
     Author     : pedro
 */
 
+ #main{
+      
+      margin: auto;
+      margin-top: 2.5em;
+  }
+  
 #detallesEvento{
     width: 80%;
-    margin: auto;
-    
-    
-    
+    margin: auto;       
 }
+
 #detallesEvento article{
-   float: left;
+   
    width: 100%;
-    padding: 10px;
+    padding: 0.63em;
     color: #000;
     font-family: sourcesans;
     
@@ -44,13 +48,13 @@ and open the template in the editor.
 }
 
 #detallesEvento article .titulo{
-    font-size: 20px;
+    font-size: 1.25em;
     font-family: sourcesans;
-    padding: 10px;
+    padding: 0.63em;
     color:#ffffff;
-    margin-bottom: 5px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-bottom: 0.313em;
+    margin-left: 0.63em;
+    margin-right: 0.63em;
     border-radius: 5px;
         -moz-border-radius: 5px;
         -webkit-border-radius: 5px;
@@ -65,64 +69,11 @@ and open the template in the editor.
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6074f2', endColorstr='#404387',GradientType=0 ); /* IE6-9 */
 }
 
-
-
-#detallesEvento article .imag{
-    width: 97%;
-    float: left;
-    border: solid 4px #ffffff;
-    /*margin: 10px 20px 0px 10px;*/
-    
-}
-
-#detallesEvento article li{
-    /*text-align: justify;*/
-    line-height:32px;
-  }
-  
-#detallesEvento article #datosNegocio{
-      border-top: solid 4px #0033cc;
-      margin-top: 10px;
-      padding-top: 10px;
-      
-  }
-  
-  #detallesEvento article #datosEvento{
-     
-      padding-top: 10px;
-      
-  }
-  
-   #detallesEvento article #descri{
-     
-      line-height:25px;
-      
-      
-  }
-  
-  #detallesEvento article span{
-     
-      color: #ffffff;
-      /*color: #003366;*/
-      /*font-weight: bold;*/
-      
-  }
-  
-#detallesEvento article #lista{
-    width: 60%;
-     float: left; 
-  }
-  
-  #main{
-      
-      margin: auto;
-      margin-top: 40px;
-  }
-  
-  #galeria{
-      float: left;
-       width: 35%;
-       margin: 10px 20px 0px 10px;
+#galeria{
+       display:inline-block; 
+       width: 45%;
+       margin: 0.63em 0.6em 0px 0.63em;
+       vertical-align: top;
   }
   
   #lightbox-container-image-box {
@@ -131,17 +82,169 @@ and open the template in the editor.
   
 }
 #lightbox-container-image-data-box {
-  width: 400px !important;
+  width: 420px !important;
 }
 #lightbox-image {
   /*height: 440px;*/
   width: 400px;
 }
 
-.listaDetalles{
+#detallesEvento article .imag{
+    width: 97%;
+    /*height: 350px;*/
+    border: solid 4px #ffffff;
+    /*margin: 10px 20px 0px 10px;*/
+    
+}
+
+#detallesEvento article #lista{
+    width: 50%;
+    display:inline-block;
+     
+  }
+  
+  .listaDetalles, #descripcion{
     
     list-style: none;
 	margin-left: 0;
 	padding-left: 1em;
 	text-indent: -1em;
 }
+  
+#detallesEvento article li{
+    line-height:1.2em;
+    margin-bottom: 1em;
+  }
+ 
+#detallesEvento article #datosNegocio{
+      border-bottom: solid 4px #0033cc;
+      margin-bottom: 0.3em;
+      padding-top: 0.63em;
+      padding-bottom: 0.63em;
+      
+  }
+  
+  #detallesEvento article #datosEvento{
+     
+      padding-top: 0.4em;
+      
+  }
+  
+  #detallesEvento article #descripcion{
+      padding: 1em 1.3em;
+      text-align: justify;
+       
+  }
+   #detallesEvento article #descri{
+     
+      line-height:1.56em;
+      
+      
+  }
+  
+  #detallesEvento article span{
+     
+      color: #ffffff;
+      
+  }
+  
+
+  /*********************RESPONSIVE DESIGN**********************/
+  
+/* Tableta 768 verticale*/
+@media screen and (max-width: 768px){
+    
+    #galeria{ 
+        display: block;
+       width: 80%;
+       margin: 0.9em auto;
+       
+  }
+  
+  #detallesEvento article #lista{
+    width: 73%;
+    display:block;
+    margin: auto;
+     
+  }
+  
+  #detallesEvento article #descripcion{
+     width: 95%;
+     margin: auto;
+  }
+    
+   #detallesEvento{
+    width: 100%;       
+}
+
+#detallesEvento article .imag{
+      width: 100%;
+  }
+
+}
+
+/* Móviles menores 450*/
+@media screen and (max-width: 450px){
+    
+    #lightbox-container-image-box {
+  width: 90% !important;
+  height: auto !important;
+  
+}
+#lightbox-container-image-data-box {
+  width: 90% !important;
+}
+#lightbox-image {
+  /*height: 440px;*/
+  width: 100%;
+}
+
+
+  
+}
+@media screen and (max-width: 350px){
+    
+    #detallesEvento article #descripcion{
+      text-align: left;
+       
+  }
+}
+
+/* Móviles menores 317*/
+@media screen and (max-width: 317px){
+    
+    #galeria{ 
+      
+       width: 100%;
+      margin: auto;
+       
+  }
+  
+   #lightbox-container-image-box {
+  width: 95% !important;
+  height: auto !important;
+  
+}
+#lightbox-container-image-data-box {
+  width: 95% !important;
+}
+#lightbox-image {
+  /*height: 440px;*/
+  width: 100%;
+}
+  
+#detallesEvento article #lista{
+    width: 90%;
+     
+  }
+  
+#detallesEvento article #descripcion{
+     width: 98%;
+     padding: 0.3em 0.6em;
+  }
+ 
+  #detallesEvento article .titulo{
+      font-size: 1em;
+  }
+}
+    

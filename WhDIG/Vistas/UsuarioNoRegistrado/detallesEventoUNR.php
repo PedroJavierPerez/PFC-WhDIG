@@ -28,27 +28,33 @@ require_once './Entidades/EntidadEstadisticasEvento.php';
     <body>
         <header>
             <div id="subheader">
-                <div id="logo"><p><a href="<?php echo URL; ?>UsuarioNoRegistrado">WhDIG</a></p></div>
+                <div id="logoCompleto">
+                    <div id="logo"><p><a href="<?php echo URL; ?>UsuarioNoRegistrado"><p>WhDIG</p></a></p></div>
+                    <div id="logo2"><h2>Where do I go?</h2></div>
+                </div>
                 
-                <div id="identificarse">
+                <div id="divIdentificarse">
+                  <div id="identificarse">
                     <div id="formulario">
                     <form id="formAutentificar">
-                        <label for ="email">Email:</label>
-                        <input type="email" id="email" placeholder="Escribe tu email" required>
-                        <label for ="contrasena">Contraseña:</label>
-                        <input type="password" id="contrasena" placeholder="Escribe tu contraseña" required>
+                       <div id="labelAutenti"> <label for ="email">Email:</label>
+                        <label for ="contrasena">Contraseña:</label></div>
+                        <div id="inputAutenti"><input type="email" id="email" placeholder="Escribe tu email" required>                       
+                            <input type="password" id="contrasena" placeholder="Escribe tu contraseña" required></div>
+                            <input class="botones" id="btnRegistrarseForm" type="button" value="Regístrate">
                         <input class="botones" type="submit" value="Entrar" id="btnEntrar">
                         
                             
                     </form>
-                    <div id="olvidarContraseña">
+                    <div id="olvidarContrasena">
                     <p><a href="">¿Has olvidado tu contraseña?</a></p>
                     </div>
                     </div>
                 </div>
-                <div id="logo2"><h2>Where do I go?</h2></div>
+                
                 <div id="Registrarse"> <input class="botones" id="btnRegistrarse" type="button" value="Regístrate"></div>
             </div>
+       </div>
        
         </header>
         
@@ -68,14 +74,8 @@ require_once './Entidades/EntidadEstadisticasEvento.php';
         </a>
     </div>
     <div id='lista'>
-        <p>
-        <ul class= 'listaDetalles' id='datosEvento'>
-            <li><span>+ Tipo:</span> <?php echo $objEvento->obtenerTipo();?></li>
-            <li><span>+ Fecha:</span> <?php echo $objEvento->obtenerFecha();?></li>
-            <li><span>+ Hora:</span> <?php echo $objEvento->obtenerHora();?></li>
-            <li><span>+ Asistentes:</span> <?php echo $estadisticas->numeroAsistentes();?></li>
-            <li id='descri'><span>+ Descripción:</span> <?php echo $objEvento->obtenerDescripcion();?></li>
-        </ul>
+        
+        
         <ul class= 'listaDetalles' id='datosNegocio'>
             <li><span>+ Nombre local:</span> <?php echo $negocio->obtenerNombre();?></li>
             <li><span>+ Dirección:</span> Calle <?php echo $negocio->obtenerDireccion();?></li>
@@ -83,8 +83,19 @@ require_once './Entidades/EntidadEstadisticasEvento.php';
             <li><span>+ Provincia:</span> <?php echo $negocio->obtenerProvincia();?></li>
             <li><span>+ Teléfono:</span> <?php echo $negocio->obtenerTelefono();?></li>
         </ul>
-        </p>
+        
+        <ul class= 'listaDetalles' id='datosEvento'>
+            <li><span>+ Tipo:</span> <?php echo $objEvento->obtenerTipo();?></li>
+            <li><span>+ Fecha:</span> <?php echo $objEvento->obtenerFecha();?></li>
+            <li><span>+ Hora:</span> <?php echo $objEvento->obtenerHora();?></li>
+            <li><span>+ Asistentes:</span> <?php echo $estadisticas->numeroAsistentes();?></li>
+            
+        </ul>
     </div>
+        <ul id="descripcion">
+
+        <li id='descri'><span>+ Descripción:</span> <?php echo $objEvento->obtenerDescripcion();?></li>
+        </ul>
     </article>
                 </section>
                 

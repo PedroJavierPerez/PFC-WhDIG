@@ -47,40 +47,35 @@
                    
                     <article class="articleFormulario">
                         <form id="formMiCuenta">
-                       
+                            <div id="divForm">
                           <p class="titulo" id="tituloMiCuenta">Mi cuenta</p>  
                            
                         <p class="pInformacion">Información requerida</p>
-                       
-                        <div class="tablas">
-                        <table id="tabla2">
-                            <?php $usuario = $this->usuario?>
-                      
-                            <tr>   
-                                <td class="fila"> <label for ="nombre">Nombre:</label></td>
-                                <td><input class="inp" type="text" id="nombre" placeholder="Escriba su nombre" value="<?php echo $usuario->obtenerNombre(); ?>" required></td>
-                            </tr>
+                       <?php $usuario = $this->usuario; ?>
+                               <label for ="nombre">Nombre:</label>
+                            
+                             <input class="inp" type="text" id="nombre" placeholder="Escriba su nombre" value="<?php echo $usuario->obtenerNombre(); ?>" required>
+                            
+                           
+                                <label for ="email">Email:</label>
+                                
+                                <input class="inp" type="email" id="email" placeholder="Escriba su email" value="<?php echo $usuario->obtenerEmail(); ?>" required>
+                           
                         
-                            <tr>
-                                <td class="fila"><label for ="email">Email:</label></td>
-                                <td><input class="inp" type="email" id="email" placeholder="Escriba su email" value="<?php echo $usuario->obtenerEmail(); ?>" required></td>
-                            </tr>
-                        <tr>
-                        <td class="fila"><label for ="contrasena">Contraseña:</label></td>
-                        <td><input class="inp" type="password" id="contrasena" placeholder="Escriba su contraseña" required></td>
-                        </tr>
-                        </table>
-                        <table id="tabla3">
-                       <tr>
-                           <td id="tdVerificar"><label for ="verificarContrasena">Verificar contraseña:</label></td>
-                           <td><input class="inp" type="password" id="verificarContrasena" placeholder="Repita su contraseña" required></td>
-                       </tr>
-                        </table>
-                         <table id="tabla4">
-                             
-                               <tr>
-                        <td class="fila"><label for ="provincia">Provincia:</label></td>
-                        <td><input class="inp" list="provincia" name="prov" placeholder="Escriba su provincia" value="<?php echo $usuario->obtenerProvincia(); ?>" required></td>
+                        <label for ="contrasena">Contraseña:</label>
+                       
+                        <input class="inp" type="password" id="contrasena" placeholder="Escriba su contraseña" value="<?php echo $usuario->obtenerContrasena(); ?>" required>
+                        
+                         
+                           <label for ="verificarContrasena">Verificar contraseña:</label>
+                          
+                           <input class="inp" type="password" id="verificarContrasena" placeholder="Repita su contraseña" value="<?php echo $usuario->obtenerContrasena(); ?>" required>
+                      
+                         
+                            
+                             <label for ="provincia">Provincia:</label>
+                            
+                        <input class="inp" list="provincia" name="prov" placeholder="Escriba su provincia" value="<?php echo $usuario->obtenerProvincia(); ?>" required>
                         
                             <datalist id="provincia" >
                                      
@@ -93,11 +88,11 @@
                                      
                                      
                             </datalist>
-                        </tr>
-                             
-                            <tr>
-                        <td class="fila"><label for ="localidad">Localidad:</label></td>
-                        <td><input class="inp" list="localidad" name="loc" id= "loc" placeholder="Escriba su localidad" value="<?php echo $usuario->obtenerLocalidad(); ?>" required></td>
+                         
+                        
+                        <label for ="localidad">Localidad:</label>
+                        
+                        <input class="inp" list="localidad" name="loc" id= "loc" placeholder="Escriba su localidad" value="<?php echo $usuario->obtenerLocalidad(); ?>" required>
                         
                             <datalist id="localidad" >
                                      
@@ -110,39 +105,37 @@
                                      
                                      
                             </datalist>
-                            </tr>
+                            
+                       
+                        <label for ="genero" id="labelGenero">Genero:</label>
+                     
+                        <input type="radio" name="genero" value="M" <?php if($usuario->obtenerGenero()=='M'){echo 'checked';} ?> required/> M
+                        <input type="radio" name="genero" value="F" <?php if($usuario->obtenerGenero()=='F'){echo 'checked';} ?> required/> F 
                         
-                      
-                       <tr>
-                        <td class="fila"><label for ="genero">Genero:</label></td>
-                        <td><input type="radio" name="genero" value="M" <?php if($usuario->obtenerGenero()=='M'){echo 'checked';} ?> required/> M
-                        <input type="radio" name="genero" value="F" <?php if($usuario->obtenerGenero()=='F'){echo 'checked';} ?> required/> F </td>
-                        </tr>
-                        </table>
-                        </div>   
+                       
+                          
                         <p class="pInformacion">Información adicional</p>
-                        <div class="tablas">
-                       <table id="tabla6">
-                        <tr>
-                        <td><label for ="fecha">Fecha de Nacimiento:</label></td>
-                        <td><input type="date" id="fecha" value="<?php if($usuario->obtenerFechaNacimiento()!=NULL){echo $usuario->obtenerFechaNacimiento();} ?>"></td>
-                        </tr>
-                       </table>
-                        <div id="divInformacion">
+                        
+                       
+                        <label for ="fecha">Fecha de Nacimiento:</label>
+                        
+                        <input  class="inp" type="date" id="fecha" value="<?php if($usuario->obtenerFechaNacimiento()!=NULL){echo $usuario->obtenerFechaNacimiento();} ?>">
+                        
                         <label for ="informacion"></label>
-                        <input type="checkbox" id="informacion" name="informacion" value="1" <?php if($usuario->obtenerRecibirInformacion()==1){echo 'checked';} ?>> Permitir recibir información.
-                        </div>
+                       
+                        <input type="checkbox" id="informacion" name="informacion" value="1" <?php if($usuario->obtenerRecibirInformacion()==1){echo 'checked';} ?>/> Permitir recibir información.
+                        
                         <input  class="botones btnFormularioCuenta" type="submit" value="Guardar datos" id="btnGuardarDatos">
-                        </div>
-                    </form>
-                        <a href="" id="eliminarCuenta">Eliminar cuenta</a>
+                            </div>
+                        </form>
+                        <div id="EliCuenta"><a href="" id="eliminarCuenta">Eliminar cuenta</a></div>
                     </article>
                     
                       <article class="articleFormulario ocultar">
                         <form id="formEliminarCuenta">
                        
                             <p class="titulo" id="tituloEliminarCuenta">Eliminar cuenta</p>
-                        <label for ="contrasena">Comprobar contraseña:</label>
+                        <label for ="contrasenaEliminarCuenta">Comprobar contraseña:</label>
                         <input class="inp" type="password" id="contrasenaEliminarCuenta" placeholder="Escriba su contraseña" required>
                         <input  class="botones btnFormularioCuenta" type="submit" value="Eliminar cuenta" id="btnEliminarCuenta">
                        
