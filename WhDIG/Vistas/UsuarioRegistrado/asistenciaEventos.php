@@ -63,7 +63,7 @@
             
                             <tr>
                                 <td id= "nAsistentes">Asistentes: <?php echo $evento->obtenerEstadisticas()->numeroAsistentes();?></td>
-                                <td class="metaforaAsistir "><img class='asistir' src='<?php echo URL; ?>Public/images/bandera.png'/><a id="aAsistirBandera" href="">Asistir</a></td>
+                                <td class="metaforaAsistir "><a id="aAsistirBandera" href=""><img class='asistir' src='<?php echo URL; ?>Public/images/bandera.png'/></a></td>
                                 <td class="metaforaAsistir oculto"><a id="aAsistir" href="">Asistir</a></td>
                                 <td class="metaforaFavorito <?php if (($evento->obtenerDetallesEventoUsuario()->obtenerFavorito())==1){}else{echo "oculto";}?>"><a href=""><img class='favorito' src='<?php echo URL; ?>Public/images/favorito.png'/></a></td>
                                 <td class="metaforaFavorito <?php if (($evento->obtenerDetallesEventoUsuario()->obtenerFavorito())==1){ echo "oculto"; }else{}?>"><a href=""><img class='noFavorito' src='<?php echo URL; ?>Public/images/noFavorito.png'/></a></td>

@@ -61,15 +61,9 @@ require_once './Entidades/EntidadEstadisticasEvento.php';
             <img class='imag' src='<?php echo URL; ?>Public/fotos/<?php echo $objEvento->obtenerFoto();?>'/>
         </a>
     </div>
-    <div id='lista'>
-        <p>
-        <ul class= 'listaDetalles' id='datosEvento'>
-            <li><span>+ Tipo:</span> <?php echo $objEvento->obtenerTipo();?></li>
-            <li><span>+ Fecha:</span> <?php echo $objEvento->obtenerFecha();?></li>
-            <li><span>+ Hora:</span> <?php echo $objEvento->obtenerHora();?></li>
-            <li><span>+ Asistentes:</span> <?php echo $estadisticas->numeroAsistentes();?></li>
-            <li id='descri'><span>+ Descripción:</span> <?php echo $objEvento->obtenerDescripcion();?></li>
-        </ul>
+        <div id='lista'>
+        
+        
         <ul class= 'listaDetalles' id='datosNegocio'>
             <li><span>+ Nombre local:</span> <?php echo $negocio->obtenerNombre();?></li>
             <li><span>+ Dirección:</span> Calle <?php echo $negocio->obtenerDireccion();?></li>
@@ -78,13 +72,25 @@ require_once './Entidades/EntidadEstadisticasEvento.php';
             <li><span>+ Teléfono:</span> <?php echo $negocio->obtenerTelefono();?></li>
         </ul>
         
+        <ul class= 'listaDetalles' id='datosEvento'>
+            <li><span>+ Tipo:</span> <?php echo $objEvento->obtenerTipo();?></li>
+            <li><span>+ Fecha:</span> <?php echo $objEvento->obtenerFecha();?></li>
+            <li><span>+ Hora:</span> <?php echo $objEvento->obtenerHora();?></li>
+            <li><span>+ Asistentes:</span> <?php echo $estadisticas->numeroAsistentes();?></li>
+            
+        </ul>
     </div>
+        <ul id="descripcion">
+
+        <li id='descri'><span>+ Descripción:</span> <?php echo $objEvento->obtenerDescripcion();?></li>
+        </ul>
+        
         <table id="iconos">
             
             <tr>
-                <td class="metaforaAsistir <?php if (($objEvento->obtenerDetallesEventoUsuario()->obtenerAsistir())==1){}else{echo "oculto";}?>"><img class='asistir' src='<?php echo URL; ?>Public/images/bandera.png'/><a id="aAsistirBandera" href="">Asistir</a></td>
+                <td class="metaforaAsistir <?php if (($objEvento->obtenerDetallesEventoUsuario()->obtenerAsistir())==1){}else{echo "oculto";}?>"><a id="aAsistirBandera" href=""><img class='asistir' src='<?php echo URL; ?>Public/images/bandera.png'/></a></td>
                 <td class="metaforaAsistir <?php if (($objEvento->obtenerDetallesEventoUsuario()->obtenerAsistir())==1){echo "oculto";}else{}?>"><a id="aAsistir" href="">Asistir</a></td>
-                <td class="metaforaAsistir"></td>
+                <td class="metaforaAsistir" id="tdBlanco"></td>
                 <td class="metaforaFavorito <?php if (($objEvento->obtenerDetallesEventoUsuario()->obtenerFavorito())==1){}else{echo "oculto";}?>"><a href=""><img class='favorito' src='<?php echo URL; ?>Public/images/favorito.png'/></a></td>
                 <td class="metaforaFavorito <?php if (($objEvento->obtenerDetallesEventoUsuario()->obtenerFavorito())==1){echo "oculto";}else{}?>"><a href=""><img class='noFavorito' src='<?php echo URL; ?>Public/images/noFavorito.png'/></a></td>
             </tr>
