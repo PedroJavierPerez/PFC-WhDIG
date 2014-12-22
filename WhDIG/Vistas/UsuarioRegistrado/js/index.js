@@ -2,6 +2,13 @@ var URL_BASE = "http://localhost/PFC-WhDIG/WhDIG/";
 
 $(document).ready(function(){
  
+   regurlaPorcentajeSectionEventos();
+ 
+ $(window).resize(function(e) {
+  
+ regurlaPorcentajeSectionEventos();
+ 
+ }); 
     
  //Cuando se cambia el input provincia carga los municipios de esa provincia.
     $("input[name=pro]").change(function(){
@@ -201,4 +208,20 @@ function buscarDatosUsuario(){
         }
     });
     
+}
+
+function regurlaPorcentajeSectionEventos(){
+    
+    var anchoWrap = $("#wrap").innerWidth();
+    var anchoAside = $("aside").outerWidth(true);
+    var viewportwidth = window.innerWidth;
+    
+     if(viewportwidth > 768){
+         var PorAside = (anchoAside * 100)/anchoWrap;
+         var PorEventos = 100- PorAside-0.6;
+
+         $("#eventos").css("width",+PorEventos+"%");
+    }else{
+        $("#eventos").css("width","100%");
+    }
 }

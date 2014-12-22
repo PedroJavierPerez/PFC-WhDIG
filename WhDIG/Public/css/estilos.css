@@ -37,8 +37,8 @@ header{
     background: -ms-linear-gradient(top,  #ffffff 0%,#e4e0e0 100%); /* IE10+ */
     background: linear-gradient(to bottom,  #ffffff 0%,#e4e0e0 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e4e0e0',GradientType=0 ); /* IE6-9 */
-    background: #2d2d2d;
-    background: url("../images/eee4.png") no-repeat center;
+    /*background: #2d2d2d;*/
+/*    background: url("../images/eee4.png") no-repeat center;*/
 }
 
 #subheader{
@@ -396,7 +396,7 @@ aside#asideSuscribir #sectionEliminarSuscribir{
     
     header{
         
-        background: url("../images/eee4.png") no-repeat center top;
+        /*background: url("../images/eee4.png") no-repeat center top;*/
     }
     
     #subheader{
@@ -423,7 +423,7 @@ aside#asideSuscribir #sectionEliminarSuscribir{
         max-width: 751px;;
         width: 100%;
         display: block;
-        background: url("../images/arena.png") no-repeat center;
+        /*background: url("../images/arena.png") no-repeat center;*/
 
         text-align: center;
         margin: auto;

@@ -9,67 +9,40 @@ and open the template in the editor.
 */
 
 
+header{
+    min-height: 0px;
+}
+
+#subheader{
+    min-height: 0px;
+}
+
+#subheader #logoCompleto{
+   vertical-align: bottom; 
+}
+
 #logo{
-/*    float: left;
-    width: 685px;
-    height: 80px;*/
+    
+    
     margin-top: 0px;
-/*    width: 600px;*/
+/*    margin-top: 1.8em;*/
     
-}
-#logo2{
-/*    width: 600px;*/
-}
-#eventoshoy{
-   
     
-    background-color: #2d2d2d;
-    padding: 0px 10px 5px 10px;
-    border-radius: 5px;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-}
-/*#eventoshoy ul{  
- line-height: 25px;
-}*/
-#eventoshoy #ideventoshoy{
-    margin: 5px 5px 5px 5px;
-    background: #666666;
-    border-radius: 5px;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
 }
 
-#eventoshoy #ideventoshoy p{
-    font-size: 13px;
-    color: #000;
-}
-#eventoshoy li{
-    padding: 5px 5px 5px 5px;
-}
 
-#idFiltro{
-    border-top: solid 2px #0033cc;
-}
-aside .filtro{
-    margin-bottom: 20px;
-    
-}
-aside .filtro h3{
-    width: 200px;
-}
+
 header #subheader nav{
     
-    width: 400px;
-    padding: 10px 0px 10px 0px;
-    float: left;
-    
-    
+    display: inline-block;
+    text-align: center;
+    padding: 10px 0px 10px 0px;  
     
 }
 header #subheader nav ul li{
     display: inline;
     font-family:sourcesans;
+    
     
 }
 header #subheader nav ul li a{
@@ -87,7 +60,105 @@ header #subheader nav ul li a:hover{
     
 }
 
+#eventoshoy{
+      
+    background-color: #2d2d2d;
+    padding: 0px 0.625em 0.315em 0.625em;
+    border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+}
+
+#eventoshoy #ideventoshoy{
+    margin: 0.315em 0.315em;
+    background: #666666;
+    border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+}
+
+#eventoshoy #ideventoshoy p{
+    font-size: 0.81em;
+    color: #000;
+}
+#eventoshoy li{
+    padding: 0.315em 0.315em;
+}
+
+#sectionFiltro{
+    border-top: solid 2px #0033cc;
+}
+
+aside .filtro h3{
+    margin-top: 0.6em;
+}
+aside .filtro{
+    margin-bottom: 1.25em;
+    
+}
+
 #eventoshoy #noEventosHoy{
     color: #ccccff;
     text-align: center;
+}
+
+/* Móviles menores 768*/
+@media screen and (max-width: 768px){
+    
+    #eventoshoy{
+        width: 70%;
+        margin: auto;
+    }
+
+
+}
+
+/* Móviles menores 974*/
+@media screen and (max-width: 974px){
+    
+    header #subheader nav{
+        display: block;
+        background: #ccccff;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+    }
+    
+}
+
+/* Móviles menores 411*/
+@media screen and (max-width: 411px){
+    
+   header #subheader nav ul li{
+    display: block; 
+    background: #ccccff;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+    margin-bottom: 0.3em;
+    padding: 0.3em;
+}
+
+    header #subheader nav{
+    background:none; 
+    }
+    
+    header #subheader nav ul li:hover{
+    color:#fff;
+    background: #1798af;
+    
+    }
+
+    header #subheader nav ul li a:hover{
+    color:#fff;
+    background: none;
+    
+}
+
+#eventoshoy{
+        width: 97%;
+        margin: auto;
+    }
+
+    
 }
