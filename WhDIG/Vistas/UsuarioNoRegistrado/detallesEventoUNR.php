@@ -23,6 +23,7 @@ require_once './Entidades/EntidadEstadisticasEvento.php';
         
        
         <script type="text/javascript" src="<?php echo URL; ?>Vistas/UsuarioNoRegistrado/js/detallesEventoUNR.js"></script>
+        <script src="<?php echo URL; ?>Public/js/eventosGenerales.js"></script>
 
     </head>
     <body>

@@ -31,7 +31,7 @@ require_once './Entidades/EntidadEstadisticasEvento.php';
         <header>
             <div id="subheader">
                 <div id="logoCompleto">
-                    <div id="logo"><p><a href=""><p>WhDIG</p></a></p></div>
+                    <div id="logo"><p><a href="<?php echo URL; ?>UsuarioRegistrado"><p>WhDIG</p></a></p></div>
                     <div id="logo2"><h2>Where do I go?</h2></div>
                 </div>
                 <nav>

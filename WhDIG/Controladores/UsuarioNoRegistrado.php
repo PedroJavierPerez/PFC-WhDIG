@@ -11,7 +11,7 @@ require_once './Entidades/EntidadEvento.php';
            
         }
         
-        function index(){
+        function index($numPag = 1){
             
             $this->vista->negocios = $this->modelo->buscarNegocios();
             $this->vista->tipos = array("Noche",'Bares','Pubs','Deporte','Charlas y conferencias',
@@ -19,6 +19,7 @@ require_once './Entidades/EntidadEvento.php';
                                      'Cine','Teatro','Hoteles','Otros');
             $this->vista->localidades = $this->modelo->buscarLocalidades();
             $this->vista->provincias = $this->modelo->buscarProvincias();
+            $this->vista->cortePag = $numPag;
             $this->vista->eventos = $this->cargarEventos();
             $this->vista->render($this,'index');
         }
@@ -39,6 +40,13 @@ require_once './Entidades/EntidadEvento.php';
             $this->vista->localidades = $this->modelo->buscarLocalidades();
             $this->vista->provincias = $this->modelo->buscarProvincias();
             $this->vista->render($this,'registrarse');
+            
+        }
+        
+        public function olvidarContrasena(){
+            
+            
+            $this->vista->render($this,'olvidarContrasena');
             
         }
 
@@ -66,6 +74,14 @@ require_once './Entidades/EntidadEvento.php';
         $datosUsuario["RecibirInformacion"] = $_POST["informacion"];
         $datosUsuario["Propietario"]= 0;
         
+         if(!filter_var($datosUsuario["Email"], FILTER_VALIDATE_EMAIL))
+              {
+              echo "email no valido";
+              }else{
+                  $dateAtual= date("Y-m-d");
+                  if(isset($datosUsuario["FechaNacimiento"])&& $datosUsuario["FechaNacimiento"]> $dateAtual){
+                      echo "Fecha no valida";
+                  }else{
         $correcto2 =true;
         if($this->modelo->comprobarUNR($datosUsuario["Email"])){
           $correcto2 =  $this->modelo->EliminarSuscribir($datosUsuario["Email"]);
@@ -77,8 +93,8 @@ require_once './Entidades/EntidadEvento.php';
           }else{
               echo "Error de acceso al servidor";
           }
-        
-        
+              }
+              }
     }
     
     
@@ -86,9 +102,14 @@ require_once './Entidades/EntidadEvento.php';
         
         if((isset($_POST["email"]))&& ($_POST["email"]!= '')){
             $data["email"]= $_POST["email"];
-
+            
+            if(!filter_var($data["email"], FILTER_VALIDATE_EMAIL))
+              {
+              echo "email no valido";
+              }else{
             $correcto = $this->modelo->suscribir($data);
              echo $correcto;
+              }
         }  
     }
     

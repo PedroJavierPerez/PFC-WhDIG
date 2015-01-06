@@ -13,6 +13,10 @@ header{
     min-height: 0px;
 }
 
+#inicio{
+    background: #6699ff;
+}
+
 #subheader{
     min-height: 0px;
 }
@@ -102,6 +106,14 @@ aside .filtro{
     text-align: center;
 }
 
+#divPag{
+    margin: auto;
+    text-align: center;
+    
+}
+
+
+
 /* Móviles menores 768*/
 @media screen and (max-width: 768px){
     
@@ -154,6 +166,10 @@ aside .filtro{
     background: none;
     
 }
+
+    header #subheader nav ul li a{
+    padding: 4.7px;
+    }
 
 #eventoshoy{
         width: 97%;

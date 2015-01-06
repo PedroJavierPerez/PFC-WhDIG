@@ -74,6 +74,9 @@ function modificarDatosUsuario(){
         },
         success: function(resp) {
             
+            if(resp == 'Fecha no valida'){
+             alert("La fecha de nacimiento no es válida");
+                }else{
             if(resp == true){
                alert("Datos modificados correctamente."); 
                 
@@ -83,7 +86,7 @@ function modificarDatosUsuario(){
                 
                 
             }
-             
+        } 
         }
     });
 }

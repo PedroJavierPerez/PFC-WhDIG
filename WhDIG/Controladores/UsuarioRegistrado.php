@@ -11,7 +11,7 @@ class UsuarioRegistrado extends Controlador{
            
         }
         
-        function index(){
+        function index($numPag = 1){
             
            
             $this->vista->negocios = $this->modelo->buscarNegocios();
@@ -21,6 +21,7 @@ class UsuarioRegistrado extends Controlador{
             $this->vista->localidades = $this->modelo->buscarLocalidades();
             $this->vista->provincias = $this->modelo->buscarProvincias();
             $this->vista->eventos = $this->cargarEventos();
+            $this->vista->cortePag = $numPag;
             $this->vista->eventosHoy = $this->cargarEventosAsistir($_SESSION["email"],true);
             $this->vista->render($this,'index');
         }
@@ -87,8 +88,13 @@ class UsuarioRegistrado extends Controlador{
         $datosUsuario["RecibirInformacion"] = $_POST["informacion"];
         $datosUsuario["Propietario"]= 0;
         
+        $dateAtual= date("Y-m-d");
+            if(isset($datosUsuario["FechaNacimiento"])&& $datosUsuario["FechaNacimiento"]> $dateAtual){
+                echo "Fecha no valida";
+                  }else{
          $correcto = $this->modelo->modificarDatosUsuario($datosUsuario);
          echo $correcto;
+                  }
     }
     
     public function eliminarCuentaUsuario() {

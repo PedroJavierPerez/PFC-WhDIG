@@ -68,6 +68,12 @@ function registrar(){
         },
         success: function(resp) {
             
+         if(resp == 'email no valido'){
+             alert("El email no es válido");
+                }else{
+                     if(resp == 'Fecha no valida'){
+             alert("La fecha de nacimiento no es válida");
+                }else{
             if(resp == true){
                 location.href= URL_BASE+"UsuarioRegistrado";
                 
@@ -77,9 +83,9 @@ function registrar(){
                 }else{
                     alert("El usuario no fue registrado. Error de acceso al servidor.");
                 }
-                
+            } 
             }
-             
+        }  
         }
     });
 }

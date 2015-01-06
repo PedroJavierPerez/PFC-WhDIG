@@ -16,6 +16,14 @@ and open the template in the editor.
    margin-top: 2em;
 }
 
+#asistencia{
+    background: #6699ff;
+}
+
+#inicio{
+    background: none;
+}
+
 #main #eventos #iconos{
     
     width: 100%;

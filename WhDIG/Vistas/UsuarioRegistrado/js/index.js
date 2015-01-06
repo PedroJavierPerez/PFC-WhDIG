@@ -50,7 +50,7 @@ $(document).ready(function(){
         return false;
     });
     
-    $("#eventos a").click(function(e){
+    $("#eventos a.articulos").click(function(e){
         
         var Id_evento = $(this).attr("id");
        
@@ -68,10 +68,31 @@ $(document).ready(function(){
         return false;
     });
 
+
+    $(" #eventos #divPag a").click(function(e){
+        
+        var numPag = $(this).attr("id");
+       
+        cambiarPagina(numPag);
+        
+        return false;
+    });
+    
+    var numPag = $("#divPag").attr("class");
+    document.getElementById(numPag).style.color = '#FF0000';
+    
 }); 
 
 
 // FUNCIONES
+
+function cambiarPagina(numPag){
+//    numPag = (Id_evento -1) * 2;
+    
+      location.href= URL_BASE+"UsuarioRegistrado/index/"+numPag;
+    
+}
+
 
 function mostrarDetallesEvento(id_evento){
    location.href= URL_BASE+"UsuarioRegistrado/detallesEvento/"+id_evento;

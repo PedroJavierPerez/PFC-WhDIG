@@ -378,6 +378,12 @@ aside#asideSuscribir #sectionEliminarSuscribir{
    text-align: center;
 }
 
+#divPag{
+    margin: auto;
+    text-align: center;
+    
+}
+
 #copyright{
     display: block;
     text-align: center;
@@ -424,7 +430,7 @@ aside#asideSuscribir #sectionEliminarSuscribir{
         width: 100%;
         display: block;
         /*background: url("../images/arena.png") no-repeat center;*/
-
+        background: #e4e0e0;
         text-align: center;
         margin: auto;
         

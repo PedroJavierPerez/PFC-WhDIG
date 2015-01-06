@@ -16,6 +16,7 @@ require_once './Entidades/EntidadEvento.php';
         <script type="text/javascript" src="<?php echo URL; ?>Public/js/jquery-1.11.1.js"></script> 
        
         <script src="<?php echo URL; ?>Vistas/UsuarioNoRegistrado/js/index.js"></script>
+        <script src="<?php echo URL; ?>Public/js/eventosGenerales.js"></script>
 
     </head>
     <body>
@@ -128,10 +129,19 @@ require_once './Entidades/EntidadEvento.php';
                 <section id="eventos">
                   
                     
+                   <?php  $i =0;
+                    $numPa = floor((count($this->eventos))/2);
+                    $resto = (count($this->eventos))%2;
+                    if($resto != 0){ $numPa = $numPa +1;}
+                    
+                    ?>
                    <?php 
                    if(isset($this->eventos)){
                    foreach ($this->eventos as $evento) { 
-                       
+                       $i = $i +1;
+                       $evenPag = isset($this->cortePag)? ($this->cortePag*2)-2 :0;
+                       if(($i>$evenPag)&&($i<=$evenPag + 2)){
+                           
                        $negocio = $evento->obtenerNegocio();
                        ?>
                         
@@ -140,18 +150,31 @@ require_once './Entidades/EntidadEvento.php';
                             <hgroup><h4 class='titulo'><?php echo $evento->obtenerNombre();?> (<?php echo $negocio->obtenerProvincia();?>)</h4></hgroup>
                     <p>
                     <ul>
-                        <li><?php echo $evento->obtenerDescripcion();?></li>
+                        <li><?php echo substr($evento->obtenerDescripcion(), 0, 297);?> . . .</li>
                     <li class='fechalista'>+ Fecha: <?php echo $evento->obtenerFecha();?></li>
                     <li>+ Hora: <?php echo $evento->obtenerHora();?></li>
                     </ul>
                     </p>
                     </article></a>
                     
-                   <?php } ?>
+                  <?php 
+                  
+                   }
+                   }
+                   ?>
+                    <div id="divPag" class="<?php echo $this->cortePag;?>">
+                   <?php
+                   for($j=0;$j<$numPa;$j++){
+                   ?>
+                        <a id="<?php echo $j+1;?>" href=""><?php echo $j+1;?> </a>
+                   <?php }?>
+                    </div>
+                    
                     <?php
                    }else{?>
                     <p class='NoFiltro'>No hay eventos disponibles.</p>
                     <?php } ?>
+                    
                 </section>
                 
                 <aside class="aside" id="asideSuscribir">

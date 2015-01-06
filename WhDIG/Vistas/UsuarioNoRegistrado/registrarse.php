@@ -10,6 +10,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/registrarse.css">
         <script type="text/javascript" src="<?php echo URL; ?>Public/js/jquery-1.11.1.js"></script>
         <script src="<?php echo URL; ?>Vistas/UsuarioNoRegistrado/js/registrarse.js"></script>
+        <script src="<?php echo URL; ?>Public/js/eventosGenerales.js"></script>
         
         
     </head>

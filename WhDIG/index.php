@@ -5,7 +5,12 @@
     
     Sesion::init();
     if(isset($_GET["url"])){ 
-        $url =$_GET["url"]; 
+        $url =$_GET["url"];
+        $urlAux = explode("/", $url);
+        if((!Sesion::exist()) && ($urlAux[0] == 'UsuarioRegistrado')){
+            $url = "UsuarioNoRegistrado/index";
+//            header(' Location: http://localhost/PFC-WhDIG/WhDIG/');
+        }
     }else{
         if(Sesion::exist()){
         $url = "UsuarioRegistrado/index";   
@@ -14,6 +19,7 @@
         }
     }
     $url = explode("/", $url);
+    
     
     if(isset($url[0])){$controlador = $url[0];}
     if((isset($url[1]))&&($url[1]!='')){$metodo = $url[1];}

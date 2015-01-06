@@ -26,5 +26,11 @@ $(document).ready(function(){
      location.href= URL_BASE+"UsuarioRegistrado/asistenciaEventos";
      return false;
     });
+    
+    $("#olvidarContrasena a").click(function(){
+        
+     location.href= URL_BASE+"UsuarioNoRegistrado/olvidarContrasena";
+     return false;
+    });
 
 }); 

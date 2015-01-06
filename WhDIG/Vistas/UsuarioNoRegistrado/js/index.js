@@ -47,7 +47,7 @@ $(document).ready(function(){
  //Obtiene el valor del imput suscribir y permite suscribir al usuario.
     $("#formSuscribir").submit(function(){ 
         suscribir();
-        $("#Iemail").val("");
+        
         return false;
     });
     
@@ -85,10 +85,30 @@ $(document).ready(function(){
       location.href= URL_BASE+"UsuarioNoRegistrado/registrarse/";
     });
 
+    $(" #eventos #divPag a").click(function(e){
+        
+        var numPag = $(this).attr("id");
+       
+        cambiarPagina(numPag);
+        document.getElementById(numPag).style.color = '#FF0000';
+        return false;
+    });
+    
+    var numPag = $("#divPag").attr("class");
+    document.getElementById(numPag).style.color = '#FF0000';
+    
 }); 
 
 
 // FUNCIONES
+
+
+function cambiarPagina(numPag){
+//    numPag = (Id_evento -1) * 2;
+    
+      location.href= URL_BASE+"UsuarioNoRegistrado/index/"+numPag;
+    
+}
 
 function mostrarDetallesEvento(id_evento){
    location.href= URL_BASE+"UsuarioNoRegistrado/detalles/"+id_evento;
@@ -212,8 +232,14 @@ function suscribir(){
             
             if(resp == true){
                 alert("Suscripción exitosa!");
+                $("#Iemail").val("");
             }else{
+                if(resp == 'email no valido'){
+                    alert("El email no es válido");
+                }else{
                 alert("El email introducido ya esta suscrito");
+                $("#Iemail").val("");
+            }
             }
             
         }

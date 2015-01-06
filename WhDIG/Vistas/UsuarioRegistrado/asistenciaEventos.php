@@ -18,7 +18,7 @@
         <header>
             <div id="subheader">
                 <div id="logoCompleto">
-                    <div id="logo"><p><a href=""><p>WhDIG</p></a></p></div>
+                    <div id="logo"><p><a href="<?php echo URL; ?>UsuarioRegistrado"><p>WhDIG</p></a></p></div>
                     <div id="logo2"><h2>Where do I go?</h2></div>
                 </div>
                  <nav>
@@ -50,7 +50,7 @@
                             <hgroup><h4 class='titulo'><?php echo $evento->obtenerNombre();?> (<?php echo $negocio->obtenerProvincia();?>)</h4></hgroup>
                     <p>
                     <ul>
-                        <li><?php echo $evento->obtenerDescripcion();?></li>
+                        <li><?php echo substr($evento->obtenerDescripcion(), 0, 297);?> . . .</li>
                     <li class='fechalista'>+ Fecha: <?php echo $evento->obtenerFecha();?></li>
                     <li>+ Hora: <?php echo $evento->obtenerHora();?></li>
                     </ul>
