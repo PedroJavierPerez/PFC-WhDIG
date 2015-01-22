@@ -22,6 +22,11 @@ $(document).ready(function(){
     
 });
 
+/**
+* autentificar
+*
+* Se comunica con el servidor para autentificar a un usuario con la contraseña y email obtenidos.
+*/
 function autentificar(){
     
     var email = $("#email").val();

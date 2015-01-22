@@ -11,6 +11,14 @@ class UsuarioRegistrado extends Controlador{
            
         }
         
+        /**
+	* index
+	*
+	* Renderiza la vista principal del usuario registrado e inicializa
+	* las variables necesarias para esta.
+	*
+	* @param int $numPag Número de página de eventos que queremos mostrar.
+	*/
         function index($numPag = 1){
             
            
@@ -26,6 +34,12 @@ class UsuarioRegistrado extends Controlador{
             $this->vista->render($this,'index');
         }
         
+        /**
+	* miCuenta
+	*
+	* Renderiza la vista mi cuenta e inicializa
+	* las variables necesarias para esta.
+	*/
         function miCuenta(){
             
             $usuario = $this->modelo->buscarUsuario($_SESSION["email"]);
@@ -36,23 +50,36 @@ class UsuarioRegistrado extends Controlador{
             $this->vista->render($this,'miCuenta');
         }
         
+        /**
+	* detallesEvento
+	*
+	* Renderiza la vista para mostrar los detalles de un evento para un usuario registrado e inicializa
+	* las variables necesarias para esta.
+	*
+	* @param int $id Identificador del evento.
+	*/
         public function detallesEvento($id){
         $encontrado = $this->modelo->comprobarEvento($id);
-        if($encontrado){
-            $this->vista->comentarios = $this->modelo->buscarComentariosEvento($id);
-            $this->vista->detallesEvento = $this->cargarDetallesEvento($id);
-            $this->vista->idEvento=$id;
-            $this->vista->render($this,'detallesEventoUR');
-        }else{
-            if(!$encontrado){
-           echo "No existe evento ".$id;
+            if($encontrado){
+                $this->vista->comentarios = $this->modelo->buscarComentariosEvento($id);
+                $this->vista->detallesEvento = $this->cargarDetallesEvento($id);
+                $this->vista->idEvento=$id;
+                $this->vista->render($this,'detallesEventoUR');
             }else{
-           echo "Error en el acceso al servidor.";
+                if(!$encontrado){
+                   echo "No existe evento ".$id;
+                }else{
+                   echo "Error en el acceso al servidor.";
+                }
             }
         }
-        }
         
-        
+        /**
+	* asistenciaEventos
+	*
+	* Renderiza la vista asistencia a eventos del usuario registrado e inicializa
+	* las variables necesarias para esta.
+	*/
          function asistenciaEventos(){
             
             $this->vista->eventosAsistir = $this->cargarEventosAsistir($_SESSION["email"]);
@@ -61,13 +88,24 @@ class UsuarioRegistrado extends Controlador{
         }
         
         
-        
+        /**
+	* cerrarSesion
+	*
+	* Cierra y destruye sesión de usuario y redirige a la página principal de UR.
+	*/
         public function cerrarSesion(){
-        Sesion::unsetValue('email');
-        Sesion::destroy();
-        header("Location:".URL."UsuarioNoRegistrado");
+            Sesion::unsetValue('email');
+            Sesion::destroy();
+            header("Location:".URL."UsuarioNoRegistrado");
     }
 
+    /**
+    * cargarEventosHoy
+    *
+    * Carga los eventos con la fecha igual al actual y que el usuario haya indicado que va a asistir.
+    *
+    * @return Array<EntidadEvento> Eventos con fecha actual, con la hora y fecha formateada.
+    */
     public function cargarEventosHoy(){
         
         $eventoHoy = $this->modelo->buscarEventosHoy();
@@ -75,6 +113,14 @@ class UsuarioRegistrado extends Controlador{
         return $this->cambiarFechaHora($eventoHoy);
         
     }
+    
+    /**
+    * modificarDatosUsuario
+    *
+    * Obtiene los nuevos datos del usuario y comprueba que la fecha de nacimiento sea correcta.
+    * Se comunica con el modelo para modificar los datos del usuario.
+    * 
+    */
     public function modificarDatosUsuario(){
         
         $datosUsuario["Email"] = $_POST["email"];
@@ -91,12 +137,19 @@ class UsuarioRegistrado extends Controlador{
         $dateAtual= date("Y-m-d");
             if(isset($datosUsuario["FechaNacimiento"])&& $datosUsuario["FechaNacimiento"]> $dateAtual){
                 echo "Fecha no valida";
-                  }else{
-         $correcto = $this->modelo->modificarDatosUsuario($datosUsuario);
-         echo $correcto;
-                  }
+            }else{
+                $correcto = $this->modelo->modificarDatosUsuario($datosUsuario);
+                echo $correcto;
+            }
     }
     
+    /**
+    * eliminarCuentaUsuario
+    *
+    * Obtiene el email y contraseña del usuario
+    * si son correctas se comunica con el modelo para eliminarlo.
+    *
+    */
     public function eliminarCuentaUsuario() {
         
         $usuario["Email"] = $_SESSION["email"];
@@ -110,6 +163,12 @@ class UsuarioRegistrado extends Controlador{
         
     }
     
+    /**
+    * incluirFavorito
+    *
+    * Obtiene el email y el identificador de evento 
+    * Se comunica con el modelo para incluir el evento como favorito del usuario.
+    */
     public function incluirFavorito() {
         
         $usuarioEvento["Email"] = $_SESSION["email"];
@@ -117,15 +176,21 @@ class UsuarioRegistrado extends Controlador{
         $usuarioEvento["Favorito"] = 1;
         
         $encontrado = $this->comprobarUsuarioEvento($usuarioEvento);
-        if($encontrado){
-        $correcto = $this->modelo->modificarFavorito($usuarioEvento);
-        echo $correcto;
-        }else{
-        $correcto = $this->modelo->modificarFavorito($usuarioEvento,True); 
-        echo $correcto;
-        }
+            if($encontrado){
+                $correcto = $this->modelo->modificarFavorito($usuarioEvento);
+                echo $correcto;
+            }else{
+                $correcto = $this->modelo->modificarFavorito($usuarioEvento,True); 
+                echo $correcto;
+            }
     }
     
+    /**
+    * eliminarFavorito
+    *
+    * Obtiene el email y el identificador de evento 
+    * Se comunica con el modelo para eliminar el evento como favorito del usuario.
+    */
     public function eliminarFavorito() {
         
         $usuarioEvento["Email"] = $_SESSION["email"];
@@ -135,6 +200,12 @@ class UsuarioRegistrado extends Controlador{
         echo $correcto;
     }
     
+    /**
+    * indicarAsistencia
+    *
+    * Obtiene el email y el identificador de evento 
+    * Se comunica con el modelo para indicar la asistencia del usuario al evento.
+    */
     public function indicarAsistencia() {
         
         $usuarioEvento["Email"] = $_SESSION["email"];
@@ -142,117 +213,163 @@ class UsuarioRegistrado extends Controlador{
         $usuarioEvento["Asistir"] = 1;
         
         $encontrado = $this->comprobarUsuarioEvento($usuarioEvento);
-        if($encontrado){
-        $correcto = $this->modelo->modificarAsistencia($usuarioEvento);
-        $correcto2 =$this->sumarEstadisticasEvento($usuarioEvento);
-        echo $correcto;
-        }else{
-        $correcto = $this->modelo->modificarAsistencia($usuarioEvento,True);
-        $correcto2 =$this->sumarEstadisticasEvento($usuarioEvento);
-        echo $correcto;
-        }
+            if($encontrado){
+                $correcto = $this->modelo->modificarAsistencia($usuarioEvento);
+                $correcto2 =$this->sumarEstadisticasEvento($usuarioEvento);
+                echo $correcto;
+            }else{
+                $correcto = $this->modelo->modificarAsistencia($usuarioEvento,True);
+                $correcto2 =$this->sumarEstadisticasEvento($usuarioEvento);
+                echo $correcto;
+            }
         
     } 
     
-        public function eliminarAsistencia() {
-        
-        $usuarioEvento["Email"] = $_SESSION["email"];
-        $usuarioEvento["Id_evento"] = $_POST["idEvento"];
-        $usuarioEvento["Asistir"] = 0;
-        $correcto = $this->modelo->modificarAsistencia($usuarioEvento);
-        $correcto2 =$this->restarEstadisticasEvento($usuarioEvento);
-        echo $correcto;
+    /**
+    * eliminarAsistencia
+    *
+    * Obtiene el email y el identificador de evento 
+    * Se comunica con el modelo para eliminar la asistencia del usuario al evento.
+    */
+    public function eliminarAsistencia() {
+
+    $usuarioEvento["Email"] = $_SESSION["email"];
+    $usuarioEvento["Id_evento"] = $_POST["idEvento"];
+    $usuarioEvento["Asistir"] = 0;
+    $correcto = $this->modelo->modificarAsistencia($usuarioEvento);
+    $correcto2 =$this->restarEstadisticasEvento($usuarioEvento);
+    echo $correcto;
         
         
     }
     
-        public function comprobarUsuarioEvento($usuarioEvento) {
-    
-            return $this->modelo->comprobarUsuarioEvento($usuarioEvento);
-        }
-        
-        
-        public function guardarComentario() {
-        
+    /**
+    * comprobarUsuarioEvento
+    *
+    * Se comunica con el modelo para comprobar que ya existe relación entre usuario y evento.
+    * 
+    * @param array $usuarioEvento Identificador de evento y email de usuario.
+    * 
+    * @return Boolean True/false
+    */
+    public function comprobarUsuarioEvento($usuarioEvento) {
+
+        return $this->modelo->comprobarUsuarioEvento($usuarioEvento);
+    }
+
+    /**
+    * guardarComentario
+    *
+    * Obtiene el email y el identificador de evento. 
+    * Se comunica con el modelo para incluir el nuevo comentario.
+    */
+    public function guardarComentario() {
+
         $datosComentario["Email"] = $_SESSION["email"];
         $datosComentario["Id_evento"] = $_POST["idEvento"];
         $datosComentario["Texto"] = $_POST["texto"];
-        
-        
+
+
         $correcto = $this->modelo->incluirNuevoComentario($datosComentario); 
         echo $correcto;
-        
+
     } 
     
+    /**
+    * cargarEventosAsistir
+    *
+    * Obtiene del modelo los eventos a los que el usuario va a asiatir.
+    *
+    * @param String $email Email del usuario.
+    * @param String $hoy Indica si se desean todos los eventos a lo que va a asstir el usuario 
+    *    o solo los de la fecha actual
+    * 
+    * @return Array<EntidadEvento> Eventos a los que el usuario va a asistir o eventos que va a asitir hoy.
+    */
     public function cargarEventosAsistir($email,$hoy=false) {
         
        $detallesEventos = $this->modelo->buscarDetallesEventosUsuarioAsistir($email);
        $where = '(';
-       if(isset($detallesEventos)){
-       foreach ($detallesEventos as $detallesEvento) {
+           if(isset($detallesEventos)){
+               foreach ($detallesEventos as $detallesEvento) {
            
-           $where .="Id_evento = '".$detallesEvento["Id_evento"]."' OR ";            
-       }
-       $where = substr($where, 0, -3);
-       $dateAtual= date("Y-m-d");
+                   $where .="Id_evento = '".$detallesEvento["Id_evento"]."' OR ";            
+               }
+               $where = substr($where, 0, -3);
+               $dateAtual= date("Y-m-d");
        
-       if(!$hoy){
-            $where .= ") AND (Fecha >= '".$dateAtual."') ORDER BY Fecha ASC";
-       }else{
-            $where .= ") AND (Fecha = '".$dateAtual."') ORDER BY Fecha ASC";    
-       }
+               if(!$hoy){
+                    $where .= ") AND (Fecha >= '".$dateAtual."') ORDER BY Fecha ASC";
+               }else{
+                    $where .= ") AND (Fecha = '".$dateAtual."') ORDER BY Fecha ASC";    
+               }
        
-        $objetosEventos = $this->modelo->buscarEventosAsistir($where);
-        return $this->cambiarFechaHora($objetosEventos);
+                $objetosEventos = $this->modelo->buscarEventosAsistir($where);
+                return $this->cambiarFechaHora($objetosEventos);
       
-       }else{
-           return null;
-       }
+           }else{
+               return null;
+           }
        
     }
     
-    
+    /**
+    * sumarEstadisticasEvento
+    *
+    * Obtiene a través del modelo las estadisticas de un evento.
+    * Suma 1 a las estadisticas segun los datos del usuario.
+    *
+    * @return Boolean True/False Si las estadisticas se modificaron correctamente.
+    */
     public function sumarEstadisticasEvento($usuarioEvento) {
         
      $usuario = $this->modelo->buscarUsuario($usuarioEvento["Email"]);
      $evento = $this->modelo->buscarEvento($usuarioEvento["Id_evento"]);
      $estadisticas = $evento->obtenerEstadisticas();
      
-     if($usuario->obtenerGenero()== 'M'){
-         $datosEstadisticas["Hombres"]= $estadisticas->obtenerNuHombres()+1;
-     }else{
-         $datosEstadisticas["Mujeres"]= $estadisticas->obtenerNuMujeres()+1;
-     }
-       
-     if($usuario->obtenerLocalidad() == $evento->obtenerNegocio()->obtenerLocalidad()){
-         $datosEstadisticas["Locales"]=$estadisticas->obtenerNuLocales()+1;
-     }else{
-         $datosEstadisticas["Forasteros"]=$estadisticas->obtenerNuForasteros()+1;
-     }
-     
-     return $this->modelo->modificarEstadisticasEvento($datosEstadisticas,$evento);
+         if($usuario->obtenerGenero()== 'M'){
+             $datosEstadisticas["Hombres"]= $estadisticas->obtenerNuHombres()+1;
+         }else{
+             $datosEstadisticas["Mujeres"]= $estadisticas->obtenerNuMujeres()+1;
+         }
+
+         if($usuario->obtenerLocalidad() == $evento->obtenerNegocio()->obtenerLocalidad()){
+             $datosEstadisticas["Locales"]=$estadisticas->obtenerNuLocales()+1;
+         }else{
+             $datosEstadisticas["Forasteros"]=$estadisticas->obtenerNuForasteros()+1;
+         }
+
+         return $this->modelo->modificarEstadisticasEvento($datosEstadisticas,$evento);
     }
       
-    
+    /**
+    * restarEstadisticasEvento
+    *
+    * Obtiene a través del modelo las estadisticas de un evento.
+    * Resta 1 a las estadisticas segun los datos del usuario.
+    *
+    * @return Boolean True/False Si las estadisticas se modificaron correctamente.
+    */
     public function restarEstadisticasEvento($usuarioEvento) {
         
      $usuario = $this->modelo->buscarUsuario($usuarioEvento["Email"]);
      $evento = $this->modelo->buscarEvento($usuarioEvento["Id_evento"]);
      $estadisticas = $evento->obtenerEstadisticas();
      
-     if($usuario->obtenerGenero()== 'M'){
-         $datosEstadisticas["Hombres"]= $estadisticas->obtenerNuHombres()-1;
-     }else{
-         $datosEstadisticas["Mujeres"]= $estadisticas->obtenerNuMujeres()-1;
-     }
-       
-     if($usuario->obtenerLocalidad() == $evento->obtenerNegocio()->obtenerLocalidad()){
-         $datosEstadisticas["Locales"]=$estadisticas->obtenerNuLocales()-1;
-     }else{
-         $datosEstadisticas["Forasteros"]=$estadisticas->obtenerNuForasteros()-1;
-     }
-     
-     return $this->modelo->modificarEstadisticasEvento($datosEstadisticas,$evento);
+         if($usuario->obtenerGenero()== 'M'){
+             $datosEstadisticas["Hombres"]= $estadisticas->obtenerNuHombres()-1;
+         }else{
+             $datosEstadisticas["Mujeres"]= $estadisticas->obtenerNuMujeres()-1;
+         }
+
+         if($usuario->obtenerLocalidad() == $evento->obtenerNegocio()->obtenerLocalidad()){
+             $datosEstadisticas["Locales"]=$estadisticas->obtenerNuLocales()-1;
+         }else{
+             $datosEstadisticas["Forasteros"]=$estadisticas->obtenerNuForasteros()-1;
+         }
+
+         return $this->modelo->modificarEstadisticasEvento($datosEstadisticas,$evento);
     }
+        
 }
 

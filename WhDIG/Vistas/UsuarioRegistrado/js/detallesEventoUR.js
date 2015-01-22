@@ -7,6 +7,7 @@ $(document).ready(function(){
      $("#galeria a").lightBox();   
     });
     
+    //Cuando se pulsa en hacer favorito se obtiene el id del evento y se añade como favorito.
     $(".noFavorito").click(function(){
        
        var Id_evento = $("#detallesEvento .numeroEvento").attr("id");
@@ -16,6 +17,7 @@ $(document).ready(function(){
         return false;  
     });
     
+    //Cuando se pulsa en eliminar favorito se obtiene el id del evento y se elimina como favorito.
     $(".favorito").click(function(){
        
        var Id_evento = $("#detallesEvento .numeroEvento").attr("id");
@@ -26,6 +28,7 @@ $(document).ready(function(){
         return false;  
     });
     
+    //Cuando se pulsa en asistir se obtiene el id del evento y se añade a los evento que el usuario asistirá.
     $("#aAsistir").click(function(){
        
        var Id_evento = $("#detallesEvento .numeroEvento").attr("id");
@@ -36,6 +39,7 @@ $(document).ready(function(){
         return false;  
     });
     
+    //Cuando se pulsa en eliminar asistencia se obtiene el id del evento y se elimina la asistencia del usuario al evento.
     $("a#aAsistirBandera").click(function(){
        
        var Id_evento = $("#detallesEvento .numeroEvento").attr("id");
@@ -45,6 +49,7 @@ $(document).ready(function(){
         return false;  
     });
     
+    //Cuando se pulsa en comentar se obtiene el id del evento y se guarda el comentario.
     $("#formComentario").submit(function(){
        
        var Id_evento = $("#detallesEvento .numeroEvento").attr("id");
@@ -57,7 +62,12 @@ $(document).ready(function(){
     });
 });
 
-
+/**
+* incluirFavorito
+*
+* Se comunica con el controlador para añadir el evento como uno de los favoritos del usuario.
+* @param {int} idEvento Identificador del evento.
+*/
 function incluirFavorito(idEvento){
     
       var data = "idEvento="+idEvento;
@@ -89,6 +99,12 @@ function incluirFavorito(idEvento){
     
 }
 
+/**
+* eliminarFavorito
+*
+* Se comunica con el controlador para eliminar el evento como favorito del usuario.
+* @param {int} idEvento Identificador del evento.
+*/
 function eliminarFavorito(idEvento){
     
       var data = "idEvento="+idEvento;
@@ -120,6 +136,12 @@ function eliminarFavorito(idEvento){
     
 }
 
+/**
+* indicarAsistencia
+*
+* Se comunica con el controlador para añadir la asistencia del usuario al evento.
+* @param {int} idEvento Identificador del evento.
+*/
 function indicarAsistencia(idEvento){
     
       var data = "idEvento="+idEvento;
@@ -151,6 +173,12 @@ function indicarAsistencia(idEvento){
     
 }
 
+/**
+* eliminarAsistencia
+*
+* Se comunica con el controlador para eliminar la asistencia del usuario al evento.
+* @param {int} idEvento Identificador del evento.
+*/
 function eliminarAsistencia(idEvento){
     
       var data = "idEvento="+idEvento;
@@ -182,7 +210,12 @@ function eliminarAsistencia(idEvento){
     
 }
 
-
+/**
+* guardarComentario
+*
+* Obtiene los datos del nuevo comentario y se comunica con el controlador para añadirlo. 
+* @param {int} idEvento Identificador del evento.
+*/
 function guardarComentario(idEvento){
     
     var texto =$("#miComentario").val();  

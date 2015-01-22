@@ -2,7 +2,7 @@ var URL_BASE = "http://localhost/PFC-WhDIG/WhDIG/";
 
 $(document).ready(function(){
     
-    
+    //Cuando se pulsa en hacer favorito se obtiene el id del evento y se añade como favorito.
     $(".noFavorito").click(function(){
        
        var Id_evento = $(this).parents(".divArticle").attr("id");
@@ -12,6 +12,8 @@ $(document).ready(function(){
         return false;  
     });
     
+    
+    //Cuando se pulsa en eliminar favorito se obtiene el id del evento y se elimina como favorito.
     $(".favorito").click(function(){
        
        var Id_evento = $(this).parents(".divArticle").attr("id");
@@ -22,16 +24,7 @@ $(document).ready(function(){
         return false;  
     });
     
-//    $("#aAsistir").click(function(){
-//       
-//       var Id_evento = $(this).parents(".divArticle").attr("id");
-//      
-//       
-//       indicarAsistencia(Id_evento);
-//       
-//        return false;  
-//    });
-    
+    //Cuando se pulsa en eliminar sistencia se obtiene el id del evento y se elimina la asistencia.
     $("a#aAsistirBandera").click(function(){
        
        var Id_evento = $(this).parents(".divArticle").attr("id");
@@ -41,6 +34,7 @@ $(document).ready(function(){
         return false;  
     });
     
+    //Cuando se pulsa sobre un evento, se obtiene el id y mustra sus detalles.
     $("#eventos a.enlaceEvento").click(function(e){
         
         var Id_evento = $(this).attr("id");
@@ -54,11 +48,23 @@ $(document).ready(function(){
 });
 
 
+/**
+* mostrarDetallesEvento
+*
+* Se comunica con el controlador para redirigir a la página de detalles del evento seleccionado.
+* @param {int} id_evento Identificador de evento
+*/
 function mostrarDetallesEvento(id_evento){
    location.href= URL_BASE+"UsuarioRegistrado/detallesEvento/"+id_evento;   
    
 }
 
+/**
+* incluirFavorito
+*
+* Se comunica con el controlador para añadir el evento como uno de los favoritos del usuario.
+* @param {int} idEvento Identificador del evento.
+*/
 function incluirFavorito(idEvento){
     
       var data = "idEvento="+idEvento;
@@ -90,6 +96,12 @@ function incluirFavorito(idEvento){
     
 }
 
+/**
+* eliminarFavorito
+*
+* Se comunica con el controlador para eliminar el evento como favorito del usuario.
+* @param {int} idEvento Identificador del evento.
+*/
 function eliminarFavorito(idEvento){
     
       var data = "idEvento="+idEvento;
@@ -121,37 +133,12 @@ function eliminarFavorito(idEvento){
     
 }
 
-//function indicarAsistencia(idEvento){
-//    
-//      var data = "idEvento="+idEvento;
-//    
-//    
-//    $.ajax({
-//        url:URL_BASE+"UsuarioRegistrado/indicarAsistencia/",
-//        type:"POST",
-//        data: data,
-//        beforeSend: function() {
-//            console.log("enviando datos a DB")
-//        },
-//        success: function(resp) {
-//            
-//            if(resp == true){
-//                
-//                  $("#aAsistir").parent().hide();
-//                  $("#aAsistirBandera").parent().fadeToggle();
-//                
-//            }else{
-//                
-//              alert("Error de acceso al servidor.");
-//                
-//                
-//            }
-//             
-//        }
-//    });
-//    
-//}
-
+/**
+* eliminarAsistencia
+*
+* Se comunica con el controlador para eliminar la asistencia del usuario al evento.
+* @param {int} idEvento Identificador del evento.
+*/
 function eliminarAsistencia(idEvento){
     
       var data = "idEvento="+idEvento;
@@ -186,7 +173,11 @@ function eliminarAsistencia(idEvento){
     
 }
 
-
+/**
+* mostrarNoEventosAsistir
+*
+* En el caso de no existir eventos a los que el usuario vaya a asistir se muestra el mensaje.
+*/
 function mostrarNoEventosAsistir(){
     
     string = "<div id=noEventosAsistir>\n\

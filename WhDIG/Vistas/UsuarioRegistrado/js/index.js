@@ -50,6 +50,7 @@ $(document).ready(function(){
         return false;
     });
     
+  //Cuando se pulsa un evento se muestran los detalles de ese evento.
     $("#eventos a.articulos").click(function(e){
         
         var Id_evento = $(this).attr("id");
@@ -59,6 +60,7 @@ $(document).ready(function(){
         return false;
     });
     
+    //Cuando se pulsa un evento de hoy se muestran los detalles de ese evento.
     $("#eventoshoy a").click(function(e){
         
         var Id_evento = $(this).attr("id");
@@ -68,7 +70,7 @@ $(document).ready(function(){
         return false;
     });
 
-
+    //Cuando se pulsa en el numero de pagina cambia el color del numero y muestra la nueva página.
     $(" #eventos #divPag a").click(function(e){
         
         var numPag = $(this).attr("id");
@@ -86,6 +88,13 @@ $(document).ready(function(){
 
 // FUNCIONES
 
+
+/**
+* cambiarPagina
+*
+* Se comunica con el controlador para redirigir a la página de eventos seleccionada.
+* @param {int} numPag Numero de página seleccionado.
+*/
 function cambiarPagina(numPag){
 //    numPag = (Id_evento -1) * 2;
     
@@ -93,13 +102,24 @@ function cambiarPagina(numPag){
     
 }
 
-
+/**
+* mostrarDetallesEvento
+*
+* Se comunica con el controlador para redirigir a la página de detalles del evento seleccionado.
+* @param {int} id_evento Identificador de evento.
+*/
 function mostrarDetallesEvento(id_evento){
    location.href= URL_BASE+"UsuarioRegistrado/detallesEvento/"+id_evento;
     
    
 }
 
+/**
+* cambioProvincia
+*
+* Obtiene la provincia seleccionada y se comunica con el controlador para buscar las localidades de esta.
+* Modifica estas en la vista
+*/
 function cambioProvincia(){
       var id1 = $('input[name=pro]').val();
         $("input[name=ciu]").val(null);
@@ -138,6 +158,12 @@ function cambioProvincia(){
        }  
 }
 
+/**
+* opcionesFiltrado
+*
+* Obtiene las opciones de filtrado y se comunica con el controlador para buscar los eventos que cumplen estas.
+* Modifica estas en la vista.
+*/
 function opcionesFiltrado(){
     var fechaI = $("#fechaInicio").val();
     var fechaF = $("#fechaFin").val();
@@ -203,34 +229,11 @@ function cargarMenuMiCuenta(){
 }
 
 
-function buscarDatosUsuario(){
-    
-        var email = leerCookie("username");
-        var data = "email="+email;
-    
-    
-    $.ajax({
-        url:"./PHP/buscarDatosUsuario.php",
-        type:"POST",
-        data: data,
-        beforeSend: function() {
-            console.log("enviando datos a DB")
-        },
-        success: function(resp) {
-            console.log("resp");
-            
-            if(resp==="True"){
-                location.href= "./inicio.php";
-            }else{
-                
-                alert(resp);
-            }
-             
-        }
-    });
-    
-}
-
+/**
+* regurlaPorcentajeSectionEventos
+*
+* Al cambiar el tamaño de la página se recalcula el tamaño de la section eventos en funcion del tamaño del aside.
+*/
 function regurlaPorcentajeSectionEventos(){
     
     var anchoWrap = $("#wrap").innerWidth();

@@ -57,7 +57,8 @@ $(document).ready(function(){
         $("#NIemail").val("");
         return false;
     });
-
+    
+ //Cuando se pulsa un evento se muestran los detalles de ese evento.
     $("#eventos a").click(function(e){
         
         var Id_evento = $(this).attr("id");
@@ -75,16 +76,19 @@ $(document).ready(function(){
         return false;
     });  
     
+  //Cuando se pulsa en el input registrarse se redirige a esta página.Para moviles
     $("#btnRegistrarse").click(function(){
         
       location.href= URL_BASE+"UsuarioNoRegistrado/registrarse/";
     });
     
+   //Cuando se pulsa en el input registrarse se redirige a esta página. 
     $("#btnRegistrarseForm").click(function(){
         
       location.href= URL_BASE+"UsuarioNoRegistrado/registrarse/";
     });
 
+    //Cuando se pulsa en el numero de pagina cambia el color del numero y muestra la nueva página.
     $(" #eventos #divPag a").click(function(e){
         
         var numPag = $(this).attr("id");
@@ -102,7 +106,12 @@ $(document).ready(function(){
 
 // FUNCIONES
 
-
+/**
+* cambiarPagina
+*
+* Se comunica con el controlador para redirigir a la página de eventos seleccionada.
+* @param {int} numPag Numero de página seleccionado.
+*/
 function cambiarPagina(numPag){
 //    numPag = (Id_evento -1) * 2;
     
@@ -110,6 +119,12 @@ function cambiarPagina(numPag){
     
 }
 
+/**
+* mostrarDetallesEvento
+*
+* Se comunica con el controlador para redirigir a la página de detalles del evento seleccionado.
+* @param {int} id_evento Identificador de evento.
+*/
 function mostrarDetallesEvento(id_evento){
    location.href= URL_BASE+"UsuarioNoRegistrado/detalles/"+id_evento;
     
@@ -117,7 +132,12 @@ function mostrarDetallesEvento(id_evento){
 }
 
 
-
+/**
+* cambioProvincia
+*
+* Obtiene la provincia seleccionada y se comunica con el controlador para buscar las localidades de esta.
+* Modifica estas en la vista
+*/
 function cambioProvincia(){
       var id1 = $('input[name=pro]').val();
         $("input[name=ciu]").val('');
@@ -157,6 +177,12 @@ function cambioProvincia(){
        }  
 }
 
+/**
+* opcionesFiltrado
+*
+* Obtiene las opciones de filtrado y se comunica con el controlador para buscar los eventos que cumplen estas.
+* Modifica estas en la vista.
+*/
 function opcionesFiltrado(){
     var fechaI = $("#fechaInicio").val();
     var fechaF = $("#fechaFin").val();
@@ -215,6 +241,12 @@ function opcionesFiltrado(){
      
 }
 
+/**
+* suscribir
+*
+* Obtiene el email del usuario y se comunica con el controlador para realizar la suscripción de este.
+* Muestra el mensaje que corresponda.
+*/
 function suscribir(){
     
     var email = $("#Iemail").val();
@@ -231,14 +263,18 @@ function suscribir(){
         success: function(resp) {
             
             if(resp == true){
-                alert("Suscripción exitosa!");
+                alert("En breve recibirá un email para confirmar la suscripción.");
                 $("#Iemail").val("");
             }else{
                 if(resp == 'email no valido'){
                     alert("El email no es válido");
                 }else{
-                alert("El email introducido ya esta suscrito");
-                $("#Iemail").val("");
+                    if(resp == false){
+                         alert("El email introducido ya esta suscrito");
+                         $("#Iemail").val("");
+                    }else{
+                        alert("Error de acceso al servidor.");
+                    }
             }
             }
             
@@ -246,6 +282,12 @@ function suscribir(){
     });
 }
 
+/**
+* eliminarSuscribir
+*
+* Obtiene el email del usuario y se comunica con el controlador para realizar la eliminación de la suscripción de este.
+* Muestra el mensaje que corresponda.
+*/
 function eliminarSuscribir(){
     
     var email = $("#NIemail").val();
@@ -253,7 +295,7 @@ function eliminarSuscribir(){
     var data = "email="+email;
     
     $.ajax({
-        url:URL_BASE+"UsuarioNoRegistrado/eliminarSuscribir",
+        url:URL_BASE+"UsuarioNoRegistrado/confirmarEliminarSuscripcion",
         type:"POST",
         data: data,
         beforeSend: function() {
@@ -261,15 +303,25 @@ function eliminarSuscribir(){
         },
         success: function(resp) {
             if(resp == true){
-                alert("La suscripción se eliminó correctamente.");
+                alert("En breve recibirá un email para eliminar la suscripción.");
             }else{
+                if( resp== false){
                 alert("El email intruducido no esta suscrito.");
+            }else{
+                alert("Error al eliminar suscripción");
+            }
             }
             
         }
     });
 }
 
+/**
+* autentificar
+*
+* Se comunica con el servidor para autentificar a un usuario con la contraseña y email obtenidos.
+* Muestra el mensaje correspondiente.
+*/
 function autentificar(){
     
     var email = $("#email").val();
@@ -318,6 +370,11 @@ function autentificar(){
     
 }
 
+/**
+* regurlaPorcentajeSectionEventos
+*
+* Al cambiar el tamaño de la página se recalcula el tamaño de la section eventos en funcion del tamaño del aside.
+*/
 function regurlaPorcentajeSectionEventos(){
     
     var anchoWrap = $("#wrap").innerWidth();

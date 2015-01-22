@@ -18,22 +18,22 @@ $(document).ready(function(){
         cambioProvincia();  
     });
     
-    
-        $("#formRegistro").submit(function(){ 
+    //Comprueba que las contraseñas coinciden y realiza el registro.
+    $("#formRegistro").submit(function(){ 
             
-            var pass = $("#Rcontrasena").val();
-            var verificarPass = $("#verificarContrasena").val();
+        var pass = $("#Rcontrasena").val();
+        var verificarPass = $("#verificarContrasena").val();
+
+        if(pass === verificarPass){
+            registrar();
+  //        $("#Iemail").val("");
+            return false;
+        }else{
+            alert("La contraseña no coincide"); 
+            return false;
+        }
             
-            if(pass === verificarPass){
-                registrar();
-      //        $("#Iemail").val("");
-                return false;
-            }else{
-                alert("La contraseña no coincide"); 
-                return false;
-            }
-            
-        });
+    });
     
     
      //Obtiene la contraseña y email de usuario para validar y iniciar sesión.
@@ -45,6 +45,12 @@ $(document).ready(function(){
     
 });
 
+/**
+* registrar
+*
+* Obtiene los datos del nuevo usuario y se comunica con el controlador para realizar el nuevo registro.
+* Muestra el mensaje que corresponda en caso de error y en caso contrario redirige a al página usuario registrado.
+*/
 function registrar(){
     
     var email = $("#Remail").val();
@@ -69,10 +75,10 @@ function registrar(){
         success: function(resp) {
             
          if(resp == 'email no valido'){
-             alert("El email no es válido");
+                    alert("El email no es válido");
                 }else{
                      if(resp == 'Fecha no valida'){
-             alert("La fecha de nacimiento no es válida");
+                    alert("La fecha de nacimiento no es válida");
                 }else{
             if(resp == true){
                 location.href= URL_BASE+"UsuarioRegistrado";
@@ -90,6 +96,12 @@ function registrar(){
     });
 }
 
+/**
+* cambioProvincia
+*
+* Obtiene la provincia seleccionada y se comunica con el controlador para buscar las localidades de esta.
+* Modifica estas en la vista
+*/
 function cambioProvincia(){
       var id1 = $('input[name=prov]').val();
         $("input[name=loc]").val('');
@@ -127,11 +139,25 @@ function cambioProvincia(){
        }  
 }
 
+/**
+* obtenerRadioButton
+*
+* Comprueba que radio button esta seleccionado.
+* @param {Array<String>} ctrl Valores del radio button.
+* @return {String} Valor seleccionado.
+*/
 function obtenerRadioButton(ctrl){
     for(i=0;i<ctrl.length;i++)
         if(ctrl[i].checked) return ctrl[i].value;
 }
 
+/**
+* obtenerCheckbox
+*
+* Comprueba que checkbox esta seleccionado.
+* @param {Array<String>} ctrl Valores del checkbox.
+* @return {String} Valor seleccionado.
+*/
 function obtenerCheckbox(ctrl){
     for(i=0;i<ctrl.length;i++)
         if(ctrl[i].checked){
@@ -141,6 +167,12 @@ function obtenerCheckbox(ctrl){
         }
 }
 
+/**
+* autentificar
+*
+* Se comunica con el servidor para autentificar a un usuario con la contraseña y email obtenidos.
+* Muestra el mensaje correspondiente.
+*/
 function autentificar(){
     
     var email = $("#email").val();
