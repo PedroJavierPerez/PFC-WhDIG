@@ -9,7 +9,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/estilos.css">
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/olvidarContrasena.css">
         <script type="text/javascript" src="<?php echo URL; ?>Public/js/jquery-1.11.1.js"></script>
-        <script src="<?php echo URL; ?>Vistas/UsuarioRegistrado/js/olvidarContrasena.js"></script>
+        <script src="<?php echo URL; ?>Vistas/UsuarioNoRegistrado/js/olvidarContrasena.js"></script>
         <script src="<?php echo URL; ?>Public/js/eventosGenerales.js"></script>
         
         

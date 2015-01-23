@@ -220,14 +220,14 @@ require_once './Entidades/EntidadEvento.php';
     }
     
     /**
-	* enviarEmailEliminarSuscribir
-	*
-	* Envia email para confirmar la eliminación de la suscripción.
-	*
-	* @param String $destino Email de destino donde se enviara el correo.
-        * 
-        * @return Boolean Se envio correctamente el correo True/False.
-	*/
+    * enviarEmailEliminarSuscribir
+    *
+    * Envia email para confirmar la eliminación de la suscripción.
+    *
+    * @param String $destino Email de destino donde se enviara el correo.
+    * 
+    * @return Boolean Se envio correctamente el correo True/False.
+    */
     public function enviarEmailEliminarSuscribir($destino){
         
         $activateLink1 = "http://localhost/PFC-WhDIG/WhDIG/UsuarioNoRegistrado/eliminarSuscribir/".$destino;
@@ -250,23 +250,91 @@ require_once './Entidades/EntidadEvento.php';
            return mail(utf8_decode($destino), utf8_decode($asunto), utf8_decode($comentario), $headers);
     }
     
+    /**
+    * generaContrasena_random
+    *
+    * Obtiene el email y lo valida, modifica la contraseña del usuario y se envia al correo.
+    * 
+    */ 
+    function recuperarContrasena(){
+        
+        $email= $_POST["email"];
+        
+            if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+                echo "email no valido";
+            }else{
+                $usuario["Email"] = $email;
+                    if($this->modelo->comprobarUsuario($usuario)){
+                        $nuevaContrasena = $this->generaContrasena_random(5);
+                        if($this->modelo->modificarContrasenaUsuario($email,$nuevaContrasena)){
+                            if(!$this->enviarEmailNuevaContasena($email,$nuevaContrasena)){
+                                $correcto = "email no enviado";
+                            }else{     
+                                $correcto = true;
+                            }
+                        }else{
+                            $correcto = "Contrasena no modificada";
+                        }
+                    }else{
+                        $correcto =false;
+                    }
+                    echo $correcto;
+            }
+    }
     
-//    //añadimos la funcion que se encargara de generar un numero aleatorio 
-//    function genera_random($longitud){  
-//        $exp_reg="[^A-Z0-9]";  
-//        return substr(eregi_replace($exp_reg, "", md5(rand())) .  
-//           eregi_replace($exp_reg, "", md5(rand())) .  
-//           eregi_replace($exp_reg, "", md5(rand())),  
-//           0, $longitud);  
-//    } 
+    /**
+    * generaContrasena_random
+    *
+    * Genera contraseña aleatoria.
+    *
+    * @param int $longitud Longitud de la contraseña.
+    * 
+    * @return String Contraseña creada aleatoriamente.
+    */ 
+    function generaContrasena_random($longitud){  
+         $caracteres = 'ABCDEFGHIJuvwxRST234567UVWXYZabcdefghijklmnopqKLMNOPQrstyz0189';
+         $pass = '';
+            for ($i=0; $i<$longitud; ++$i){ 
+                $pass .= substr($caracteres, (mt_rand() % strlen($caracteres)), 1);
+            }
+        return $pass;
+    } 
+    
+     /**
+    * enviarEmailNuevaContasena
+    *
+    * Envia email para obtener la nueva contraseña en caso de olvido
+    *
+    * @param String $destino Email de destino donde se enviara el correo.
+    * @param String $nuevaContrasena Nueva contraseña del usuario.
+    * @return Boolean Se envió correctamente el correo True/False.
+    */
+    public function enviarEmailNuevaContasena($destino, $nuevaContrasena){
+        
+        $asunto = "Nueva contraseña[WhDIG]";
+        $comentario = 
+                '<strong>EMAIL: </strong>'.$destino.'</strong><br>
+                <strong>NUEVA CONTRASEÑA:'.$nuevaContrasena.'</strong><br><br>
+                
+                <strong>ARRIBA PUEDES ENCONTRAR SU NUEVA CONTRASEÑA.</strong><br>
+                <strong>PUEDES CAMBIARLA EN CUALQUIER MOMENTO DESDE LA PESTAÑA MI CUENTA DENTRO DE LA APLICACIÓN.</strong><br><br><br>';            
+        
+        $headers = 'From:'.$destino."\r\n".
+                    'Reply-To:'.$destino."\r\n".
+                    'Content-type: text/html; charset=UTF-8 \r\n'.
+                    'X-Mailer:PHP/'.phpversion();
+                     
+                    
+           return mail(utf8_decode($destino), utf8_decode($asunto), utf8_decode($comentario), $headers);
+    }
 
     /**
-	* confirmarEliminarSuscripcion
-	*
-	* Comprueba que existe la suscripción y en caso afirmativo envia un correo
-	* para confirmar la eliminación de la suscripción.
-        * 
-	*/
+    * confirmarEliminarSuscripcion
+    *
+    * Comprueba que existe la suscripción y en caso afirmativo envia un correo
+    * para confirmar la eliminación de la suscripción.
+    * 
+    */
       public function confirmarEliminarSuscripcion(){
         
         if((isset($_POST["email"]))&& ($_POST["email"]!= '')){

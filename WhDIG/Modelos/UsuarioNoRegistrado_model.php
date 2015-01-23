@@ -16,6 +16,7 @@ class UsuarioNoRegistrado_model extends Modelo{
     * Realiza la nueva suscripción
     *
     * @param String $unr Email del usuario no registrado.
+    * @return Boolean Indica si la suscripción se realizó correctamente.
     */
     function suscribir($unr){
         
@@ -29,6 +30,7 @@ class UsuarioNoRegistrado_model extends Modelo{
     *
     * @param String $unr estado = 1.
     * @param String $email Email del usuario no registrado.
+    * @return Boolean Indica si el UNR se modifico correctamente.
     */
     function editarUNR($unr, $email){
         
@@ -41,6 +43,7 @@ class UsuarioNoRegistrado_model extends Modelo{
     * Elimina la suscripción.
     *
     * @param String $unr email del usuario no registrado.
+    * @return Boolean Indica si la suscripción se borro correctamente.
     */
     function EliminarSuscribir($unr){
         
@@ -54,7 +57,8 @@ class UsuarioNoRegistrado_model extends Modelo{
     *
     * Busca los detalles de un evento concreto.
     *
-    * @param int $id Identificador del email a buscar.
+    * @param int $id Identificador del evento a buscar.
+    * @return Array<EntidadEvento> Objetos evento.
     */
     public function buscarDetallesEvento($id){
          
@@ -80,6 +84,7 @@ class UsuarioNoRegistrado_model extends Modelo{
     * Comprueba la suscripcion de un usuario pasando su email.
     *
     * @param String $email Email del usuario.
+    * @return Boolean Indica si existe el usuario no registrado.
     */
     function comprobarUNR($email){
         
@@ -94,6 +99,7 @@ class UsuarioNoRegistrado_model extends Modelo{
     * Guarda los datos del nuevo usuario.
     *
     * @param Array<String> $datosUsuario Datos del nuevo usuario.
+    * @return Boolean Indica si el usuario se inserto correctamente.
     */
     public function guardarDatosNuevoUsuario($datosUsuario){
         
@@ -108,6 +114,7 @@ class UsuarioNoRegistrado_model extends Modelo{
     *
     * @param Array<String> $usuario email y contraseña del usuario.
     * @param Boolean $completo Indica si se pasara $usuario como arreglo o se formara el String de condición.
+    * @return Boolean Indica si existe el usuario.
     */
     public function comprobarUsuario($usuario,$completo = False){
         
@@ -119,6 +126,21 @@ class UsuarioNoRegistrado_model extends Modelo{
         }else{
            return $this->db->check("Email","usuario",$usuario); 
         }
+    }
+    
+    /**
+    * modificarContrasenaUsuario
+    *
+    * Modifica la contraseña del usuario.
+    *
+    * @param String $email Email del usuario.
+    * @param String $contrasena Nueva contraseña
+    * @return Boolean Indica si la contraseña se modifico correctamente.
+    */
+    public function modificarContrasenaUsuario($email,$contrasena){
+        
+        $datos["Contrasena"]=$contrasena;
+        return $this->db->update("usuario",$datos,"Email = '".$email."'");
     }
             
 }
