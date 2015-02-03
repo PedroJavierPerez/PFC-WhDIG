@@ -152,14 +152,20 @@ require_once './Entidades/EntidadEvento.php';
             
                 if(!filter_var($data["email"], FILTER_VALIDATE_EMAIL)){
                     echo "email no valido";
-                }else{
-                  
+                }else{   
                     $correcto = $this->modelo->suscribir($data);
                     if($correcto == True){
                         if(!$this->enviarEmailSuscribir($data["email"])){
                             $correcto = "email no enviado";
-                            $this->modelo->EliminarSuscribir($data["email"]);
+                                $this->modelo->EliminarSuscribir($data["email"]);
                         }  
+                    }else{  
+                        $correcto2 = $this->modelo->comprobarUNRactivo($data["email"]);
+                        if($correcto2 == False){
+                            $correcto = True;
+                             if(!$this->enviarEmailSuscribir($data["email"])){
+                                 $correcto = "email no enviado";}
+                        }else{ $correcto = False;}  
                     }
                     echo $correcto;
                 }

@@ -11,6 +11,8 @@ class EntidadUsuarioRegistrado extends UsuarioAbstracto{
     private $provincia;
     private $localidad;
     private $recibirInformacion;
+    private $EsPropietario;
+    private $Esadministrador;
     private $detallesEvento;
     private $comentarios;
     

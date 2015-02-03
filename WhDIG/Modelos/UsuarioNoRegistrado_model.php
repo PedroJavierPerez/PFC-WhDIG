@@ -142,6 +142,20 @@ class UsuarioNoRegistrado_model extends Modelo{
         $datos["Contrasena"]=$contrasena;
         return $this->db->update("usuario",$datos,"Email = '".$email."'");
     }
-            
+     
+    /**
+    * comprobarUNRactivo
+    *
+    * Comprueba que la suscripción del usuario no registrado esta activa.
+    *
+    * @param String $email Email del usuario.
+    * @return Boolean Indica si la suscripción esta activa.
+    */
+    public function comprobarUNRactivo($email){
+        
+        $where = "Email = '".$email."' AND Estado = 1";
+        return $this->db->check("Email","usuario_no_registrado",$where,True);
+        
+    }
 }
 
