@@ -11,10 +11,11 @@ class EntidadUsuarioRegistrado extends UsuarioAbstracto{
     private $provincia;
     private $localidad;
     private $recibirInformacion;
-    private $EsPropietario;
-    private $Esadministrador;
+    private $esPropietario;
+    private $esAdministrador;
     private $detallesEvento;
     private $comentarios;
+    private $negocios;
     
 public function __construct($array) {
     parent::__construct($array);
@@ -26,8 +27,11 @@ public function __construct($array) {
         $this->provincia = $array["Provincia"];
         $this->detallesEvento = NULL;
         $this->recibirInformacion = $array["RecibirInformacion"];
+        $this->esPropietario = $array["Propietario"];
+        $this->esAdministrador = $array["Administrador"];
         $this->comentarios = NULL;
         $this->fechaNacimiento = $array["FechaNacimiento"];
+        $this->negocios = NULL;
 }
     
     /**
@@ -225,6 +229,72 @@ public function __construct($array) {
     */
     public function cambiarComentarios($comentarios){
         $this->comentarios = $comentarios;
+    }
+    
+      /**
+    * obtenerNegocios
+    *
+    * Obtiene los negocios pertenecientes al propietario.
+    *
+    * @return Array<EntidadNegocio> $negocios
+    */
+    public function obtenerNegocios(){
+        return $this->negocios;
+    }
+    
+    /**
+    * CambiarNegocios
+    *
+    * Modifica los negocios pertenecientes al propietario.
+    *
+    *@param Array<EntidadNegocio> $negocios Negocios del propietario.  
+    */
+    public function cambiarNegocios($negocios){
+        $this->negocios = $negocios;
+    }
+    
+    /**
+    * obtenerEsPropietario
+    *
+    * Obtiene si el usuario es propietario.
+    *
+    * @return int $esPropietario 1/0
+    */
+    public function obtenerEsPropietario(){
+        return $this->esPropietario;
+    }
+    
+     /**
+    * CambiarEsPropietario
+    *
+    * Modifica si el usuario es Propietario.
+    *
+    *@param char $esPropietario 1/0.  
+    */
+    public function cambiarEsPropietario($esPropietario){
+        $this->esPropietario = $esPropietario;
+    }
+    
+    /**
+    * obtenerEsAdministrador
+    *
+    * Obtiene si el usuario es Administrador.
+    *
+    * @return int $esAdministrador 1/0
+    */
+    public function obtenerEsAdministrador(){
+        return $this->esAdministrador;
+    }
+    
+     /**
+    * CambiarEsAdministrador
+    *
+    * Modifica si el usuario es Administrador.
+    *
+    *@param char $esAdministrador 1/0.  
+    */
+    public function cambiarEsAdministrador($esAdministrador){
+        $this->esAdministrador = $esAdministrador;
     }
 }
 

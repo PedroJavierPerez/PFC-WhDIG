@@ -21,9 +21,10 @@ class UsuarioRegistrado_model extends Modelo{
     public function buscarUsuario($email){
         
         $usuario = $this->db->select("*","usuario","Email = '".$email."'");
-        $objetoUsuario = new EntidadUsuarioRegistrado($usuario[0]);
-        return $objetoUsuario;
-        
+        if(isset($usuario)){
+            $objetoUsuario = new EntidadUsuarioRegistrado($usuario[0]);
+            return $objetoUsuario;
+        }
     }
     
     /**
@@ -126,10 +127,12 @@ class UsuarioRegistrado_model extends Modelo{
            foreach ($comentarios as $comentario) {
              $objetoComentario = new EntidadComentario($comentario);
              $objetoUsuario = $this->buscarUsuario($comentario["Email"]);
-             $objetoEvento = $this->buscarEvento($idEvento);
-             $objetoComentario->cambiarEvento($objetoEvento);
-             $objetoComentario->cambiarUsuario($objetoUsuario);
-             $objetosComentarios[]=$objetoComentario;
+             if(isset($objetoUsuario)){
+                 $objetoEvento = $this->buscarEvento($idEvento);
+                 $objetoComentario->cambiarEvento($objetoEvento);
+                 $objetoComentario->cambiarUsuario($objetoUsuario);
+                 $objetosComentarios[]=$objetoComentario;
+             }
            }        
           return $objetosComentarios;
          
@@ -253,14 +256,14 @@ class UsuarioRegistrado_model extends Modelo{
     *
     * Crea un objeto de tipo evento.
     *
-    * @param String $evento Datos del evento.
+    * @param Array<String> $evento Datos del evento.
     * @return EntidadEvento Objeto evento.
     */
      public function crearObjetoEvento($evento) {
          
        $objetoEvento = new EntidadEvento($evento);
        $negocio = $this->buscarNegocio($evento["Id_negocio"]);
-       $objetoNegocio = new EntidadNegocio($negocio[0]);
+       $objetoNegocio = $this->crearObjetoNegocio($negocio[0]);
        $objetoEvento->cambiarNegocio($objetoNegocio);
        $estadisticas = $this->buscarEstadisticas($evento["Id_estadisticas"]);
        $objetoEstadisticas = new EntidadEstadisticasEvento($estadisticas[0]);
@@ -276,6 +279,22 @@ class UsuarioRegistrado_model extends Modelo{
        }
            $objetoEvento->cambiarDetallesEventoUsuario($objetodetallesEventoUsuario);
            return $objetoEvento;
+     }
+     
+        /**
+    * crearObjetoNegocio
+    *
+    * Crea un objeto de tipo negocio.
+    *
+    * @param Array<String> $negocio Datos del evento.
+    * @return EntidadNegocio Objeto negocio.
+    */
+     public function crearObjetoNegocio($negocio) {
+         
+         $propietario =  $this->buscarUsuario($negocio["Email"]);
+         $objetoNegocio = new EntidadNegocio($negocio);
+         $objetoNegocio->cambiarPropietario($propietario);
+         return $objetoNegocio;
      }
      
        /**
@@ -310,6 +329,75 @@ class UsuarioRegistrado_model extends Modelo{
               
      }
      
+    /**
+    * cargarNegociosSinAlta
+    *
+    * Obtiene los negocios que no han sido dados de alta.
+    *
+    * @return Array<EntidadNegocio> Negocios.
+    */
+      public function cargarNegociosSinAlta() {
+         
+         $negocios = $this->db->select("*","negocio","EstadoAlta = 0");
+           if(isset($negocios)) {
+               foreach ($negocios as $negocio) {
+                   $propietario =  $this->buscarUsuario($negocio["Email"]);
+                       if(isset($propietario)){
+                           $objetosNegocio[] = $this->crearObjetoNegocio($negocio);
+                       }
+               }
+               return $objetosNegocio;
+           } 
+          
+            
+         
+     }
+     
+     
+     /**
+    * modificarAceptarEstadoAltaNegocio
+    *
+    * Modifica el estado de alta del negocio a aceptado.
+    *
+    * @param String $idNegocio identificador del negocio.
+    * @return Boolean Indica si se modificó correctamente el alta del negocio.
+    */
+    public function modificarAceptarEstadoAltaNegocio($idNegocio){
+        
+        $altaNegocio["EstadoAlta"] = 1;
+       return $this->db->update("negocio",$altaNegocio,"Id_negocio = '".$idNegocio."'");
+        
+    }
+     
+      /**
+    * modificarRechazarEstadoAltaNegocio
+    *
+    * Elimina el negocio que se ha rechazado.
+    *
+    * @param String $idNegocio identificador del negocio.
+    * @return Boolean Indica si se elimino correctamente el negocio.
+    */
+     public function modificarRechazarEstadoAltaNegocio($idNegocio) {
+        
+        $where = "Id_negocio = '".$idNegocio."'";
+        return $this->db->delete("negocio",$where,True);
+        
+    }
+     
+     /**
+    * modificarEstadoAltaNegocioEnEspera
+    *
+    * Modifica el estado de alta del negocio a en espera.
+    *
+    * @param String $idNegocio identificador del negocio.
+    * @return Boolean Indica si se modificó correctamente el estado del negocio.
+    */
+    public function modificarEstadoAltaNegocioEnEspera($idNegocio){
+        
+        $altaNegocio["EstadoAlta"] = 0;
+       return $this->db->update("negocio",$altaNegocio,"Id_negocio = '".$idNegocio."'");
+        
+    }
     
 }
 

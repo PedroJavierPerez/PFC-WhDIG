@@ -10,6 +10,7 @@ class EntidadNegocio{
     private $provincia;
     private $telefono;
     private $propietario;
+    private $tipo;
     
     public function __construct($array){
         $this->identificador = $array["Id_negocio"];
@@ -19,6 +20,7 @@ class EntidadNegocio{
         $this->codigoPostal = $array["CodigoPostal"];
         $this->provincia = $array["Provincia"];
         $this->telefono = $array["Telefono"];
+        $this->tipo = $array["Tipo"];
         $this->propietario = NULL;
     }
 
@@ -155,6 +157,17 @@ class EntidadNegocio{
     }
     
     /**
+    * obtenerTipo
+    *
+    * Obtiene el tipo de negocio.
+    *
+    * @return String $tipo Tipo de negocio.
+    */
+    public function obtenerTipo(){
+        return $this->tipo;
+    }
+    
+    /**
     * CambiarTelefono
     *
     * Modifica el teléfono del negocio.
@@ -177,11 +190,11 @@ class EntidadNegocio{
     }
     
     /**
-    * CambiarPropietario
+    * cambiarPropietario
     *
     * Modifica el propietario del negocio.
     *
-    *@param EntidadNegocio $propietario Propietario del negocio.  
+    *@param EntidadPropietario $propietario Propietario del negocio.  
     */
     public function cambiarPropietario($propietario){
         $this->propietario = $propietario;

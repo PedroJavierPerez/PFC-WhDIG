@@ -31,6 +31,7 @@ class UsuarioRegistrado extends Controlador{
             $this->vista->eventos = $this->cargarEventos();
             $this->vista->cortePag = $numPag;
             $this->vista->eventosHoy = $this->cargarEventosAsistir($_SESSION["email"],true);
+            $this->vista->usuario = $this->modelo->buscarUsuario($_SESSION["email"]);
             $this->vista->render($this,'index');
         }
         
@@ -59,8 +60,10 @@ class UsuarioRegistrado extends Controlador{
 	* @param int $id Identificador del evento.
 	*/
         public function detallesEvento($id){
+            
         $encontrado = $this->modelo->comprobarEvento($id);
             if($encontrado){
+                $this->vista->usuario = $this->modelo->buscarUsuario($_SESSION["email"]);
                 $this->vista->comentarios = $this->modelo->buscarComentariosEvento($id);
                 $this->vista->detallesEvento = $this->cargarDetallesEvento($id);
                 $this->vista->idEvento=$id;
@@ -83,10 +86,23 @@ class UsuarioRegistrado extends Controlador{
          function asistenciaEventos(){
             
             $this->vista->eventosAsistir = $this->cargarEventosAsistir($_SESSION["email"]);
-            
+            $this->vista->usuario = $this->modelo->buscarUsuario($_SESSION["email"]);
             $this->vista->render($this,'asistenciaEventos');
         }
         
+        /**
+	* administrador
+	*
+	* Renderiza la vista administrador e inicializa
+	* las variables necesarias para esta.
+	*/
+         function administrador($numPag = 1){
+            
+            $this->vista->negociosEsperaAlta = $this->modelo->cargarNegociosSinAlta();
+            $this->vista->usuario = $this->modelo->buscarUsuario($_SESSION["email"]);
+            $this->vista->cortePag = $numPag;
+            $this->vista->render($this,'administrador');
+        }
         
         /**
 	* cerrarSesion
@@ -369,6 +385,132 @@ class UsuarioRegistrado extends Controlador{
          }
 
          return $this->modelo->modificarEstadisticasEvento($datosEstadisticas,$evento);
+    }
+    
+    
+     /**
+    * aceptarNegocio
+    *
+    * Modifica el estado de alta del negocio a aceptado. 
+    */
+    public function aceptarNegocio() {
+
+        $idNegocio = $_POST["idNegocio"];
+
+
+        $correcto = $this->modelo->modificarAceptarEstadoAltaNegocio($idNegocio); 
+        
+         if($correcto){
+             $negocio = $this->modelo->buscarNegocio($idNegocio);
+             $objetoNegocio = $this->modelo->crearObjetoNegocio($negocio[0]);
+             $destino = $objetoNegocio->obtenerPropietario()->obtenerEmail();
+             $nombreNegocio = $objetoNegocio->obtenerNombre();
+            $correcto = $this->enviarEmailconfirmarAlta($destino, $nombreNegocio);
+            if($correcto == false){
+                $this->modelo->modificarEstadoAltaNegocioEnEspera($idNegocio);
+            }
+         }
+         echo $correcto;
+    } 
+    
+    
+      /**
+    * rechazarNegocio
+    *
+    * Modifica el estado de alta del negocio a rechazado. 
+    */
+    public function rechazarNegocio() {
+
+        $idNegocio = $_POST["idNegocio"];
+        
+        $negocio = $this->modelo->buscarNegocio($idNegocio);
+        $correcto = $this->modelo->modificarRechazarEstadoAltaNegocio($idNegocio);
+        
+         if($correcto){
+             
+             $objetoNegocio = $this->modelo->crearObjetoNegocio($negocio[0]);
+             $destino = $objetoNegocio->obtenerPropietario()->obtenerEmail();
+             $nombreNegocio = $objetoNegocio->obtenerNombre();
+            $correcto = $this->enviarEmailRechazarAlta($destino,$nombreNegocio);
+            
+         }
+        echo $correcto;
+
+    } 
+    
+    
+        /**
+	* enviarEmailconfirmarAlta
+	*
+	* Envia email para confirmar alta de negocio.
+	*
+	* @param String $destino Email de destino donde se enviara el correo.
+        * @param String $negocio Nombre del negocio.
+        * @return Boolean Se envio correctamente el correo True/False.
+	*/
+    public function enviarEmailconfirmarAlta($destino, $negocio){
+        
+        $asunto = "Alta negocio[WhDIG]";
+        $comentario = 
+                '<strong>EMAIL: </strong>'.$destino.'</strong><br><br>
+                
+                <strong>EL ADMINISTRADOR DE LA APLICACIÓN WhDIG LE INFORMA QUE SU NEGOCIO '.$negocio.' HA SIDO VERIFICADO CORRECTAMENTE.</strong><br><br> 
+                <strong>EL NEGOCIO YA FUE DADO DE ALTA.</strong><br><br><br> 
+           
+                <strong>GRACIAS POR CONFIAR EN WhDIG.</strong><br><br><br>';
+                
+        
+        $headers = 'From:'.$destino."\r\n".
+                    'Reply-To:'.$destino."\r\n".
+                    'Content-type: text/html; charset=UTF-8 \r\n'.
+                    'X-Mailer:PHP/'.phpversion();
+                     
+                    
+            return mail(utf8_decode($destino), utf8_decode($asunto), utf8_decode($comentario), $headers);
+    }
+    
+       /**
+	* enviarEmailRechazarAlta
+	*
+	* Envia email para denegar alta de negocio.
+	*
+	* @param String $destino Email de destino donde se enviara el correo.
+        * @param String $negocio Nombre del negocio.
+        * @return Boolean Se envio correctamente el correo True/False.
+	*/
+    public function enviarEmailRechazarAlta($destino, $negocio){
+        
+        $asunto = "Alta negocio[WhDIG]";
+        $comentario = 
+                '<strong>EMAIL: </strong>'.$destino.'</strong><br><br>
+                
+                <strong>EL ADMINISTRADOR DE LA APLICACIÓN WhDIG LE INFORMA QUE SU NEGOCIO '.$negocio.' NO CUMPLE LAS CONDICIONES NECESARIAS PARA SER VERIFICADO CORRECTAMENTE.</strong><br><br> 
+                <strong>EL NEGOCIO NO FUE DADO DE ALTA.</strong><br><br><br> 
+           
+                <strong>GRACIAS POR CONFIAR EN WhDIG.</strong><br><br><br>';
+                
+        
+        $headers = 'From:'.$destino."\r\n".
+                    'Reply-To:'.$destino."\r\n".
+                    'Content-type: text/html; charset=UTF-8 \r\n'.
+                    'X-Mailer:PHP/'.phpversion();
+                     
+                    
+            return mail(utf8_decode($destino), utf8_decode($asunto), utf8_decode($comentario), $headers);
+    }
+    
+    function enviarCorreoInformativo(){
+        $destino = $_POST["email"];
+        $asunto = $_POST["asunto"]." [WhDIG]";
+        $comentario = $_POST["texto"];
+        
+        $headers = 'From:'.$destino."\r\n".
+                    'Reply-To:'.$destino."\r\n".
+                    'Content-type: text/html; charset=UTF-8 \r\n'.
+                    'X-Mailer:PHP/'.phpversion();
+        
+        $correcto = mail(utf8_decode($destino), utf8_decode($asunto), utf8_decode($comentario), $headers);
+        echo $correcto;
     }
         
 }

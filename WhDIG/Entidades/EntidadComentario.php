@@ -138,7 +138,7 @@ class EntidadComentario{
     *@param EntidadUsuarioRegistrado $usuario
     */
     public function cambiarUsuario($usuario){
-        $this->evento = $usuario;
+        $this->usuario = $usuario;
     }
 }
 

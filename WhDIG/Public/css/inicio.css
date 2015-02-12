@@ -138,6 +138,16 @@ aside .filtro{
     
 }
 
+/* Móviles menores 543 para administrador*/
+@media screen and (max-width: 543px){
+    
+    header #subheader nav ul li{
+        display: inline-block;
+        margin-top: 0.6em;
+    }
+    
+}
+
 /* Móviles menores 411*/
 @media screen and (max-width: 411px){
     

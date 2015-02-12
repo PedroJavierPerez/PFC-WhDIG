@@ -39,6 +39,9 @@ require_once './Entidades/EntidadEstadisticasEvento.php';
                          <li><a id="inicio" href="">Inicio</a></li>
                          <li><a id="miCuenta" href="">Mi cuenta</a></li>
                          <li><a id="asistencia" href="">Asistencia a eventos</a></li>
+                         <?php if($this->usuario->obtenerEsAdministrador() == 1){ ?>
+                         <li><a id="administrador" href="">Administrador</a></li>
+                         <?php } ?>
                          <li><a id="salir" href="">Salir</a></li>
                     </ul>
                 </nav>
@@ -106,7 +109,7 @@ require_once './Entidades/EntidadEstadisticasEvento.php';
                      <div id="nuevoComentario">
                         <form id="formComentario">
                             <!--<input type="text" id="comentario" placeholder="Escriba su comentario" required>-->
-                            <textarea placeholder="Escribe aquí tus comentarios" id="miComentario" rows="4" cols="90"></textarea>
+                            <textarea placeholder="Escribe aquí tus comentarios" id="miComentario" rows="4" cols="90" required></textarea>
                             <input  class="botones btnFormularioComentario" type="submit" value="Comentar" id="btnComentar">
                         </form>
                      </div>

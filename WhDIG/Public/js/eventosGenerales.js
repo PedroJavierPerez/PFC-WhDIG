@@ -36,5 +36,12 @@ $(document).ready(function(){
      location.href= URL_BASE+"UsuarioNoRegistrado/olvidarContrasena";
      return false;
     });
+    
+    // Cuando el usuario pulsa la opción OLVIDAR CONTRASEÑA le redirige a esa página.
+    $("#administrador").click(function(){
+        
+     location.href= URL_BASE+"UsuarioRegistrado/administrador";
+     return false;
+    });
 
 }); 

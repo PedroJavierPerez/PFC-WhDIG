@@ -94,13 +94,14 @@ $(document).ready(function(){
         var numPag = $(this).attr("id");
        
         cambiarPagina(numPag);
-        document.getElementById(numPag).style.color = '#FF0000';
+        
         return false;
     });
     
     var numPag = $("#divPag").attr("class");
+    if(document.getElementById("divPag")){
     document.getElementById(numPag).style.color = '#FF0000';
-    
+    }
 }); 
 
 

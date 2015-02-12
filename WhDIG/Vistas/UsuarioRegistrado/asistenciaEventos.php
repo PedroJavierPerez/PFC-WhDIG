@@ -26,6 +26,9 @@
                          <li><a id="inicio" href="">Inicio</a></li>
                          <li><a id="miCuenta" href="">Mi cuenta</a></li>
                          <li><a id="asistencia" href="">Asistencia a eventos</a></li>
+                         <?php if($this->usuario->obtenerEsAdministrador() == 1){ ?>
+                         <li><a id="administrador" href="">Administrador</a></li>
+                         <?php } ?>
                          <li><a id="salir" href="">Salir</a></li>
                     </ul>
                 </nav>

@@ -9,7 +9,7 @@
         $urlAux = explode("/", $url);
         if((!Sesion::exist()) && ($urlAux[0] == 'UsuarioRegistrado')){
             $url = "UsuarioNoRegistrado/index";
-//            header(' Location: http://localhost/PFC-WhDIG/WhDIG/');
+
         }
     }else{
         if(Sesion::exist()){
