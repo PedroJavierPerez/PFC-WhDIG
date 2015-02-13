@@ -22,7 +22,7 @@
                     <div id="logo2"><h2>Where do I go?</h2></div>
                 </div>
                  <nav>
-                     <ul>
+                     <ul id="menu">
                          <li><a id="inicio" href="">Inicio</a></li>
                          <li><a id="miCuenta" href="">Mi cuenta</a></li>
                          <li><a id="asistencia" href="">Asistencia a eventos</a></li>
@@ -69,16 +69,12 @@
                         <li>+ Codigo Postal: <?php echo $negocio->obtenerCodigoPostal();?></li>
                     </ul>
                     
-                      <table id="bot">
-            
-                        <tr>
-                            <td><input  class="botones" type="submit" value="Aceptar" id="btnAceptarNegocio"></td>
-                             <td class="tdEnviarCorreo"><input  class="botones" type="submit" value="Enviar correo" id="btnEnviarCorreo"></td>
-                             <td class="tdCancelarCorreo"><input  class="botones" type="submit" value="Cancelar correo" id="btnCancelarCorreo"></td>
-                            <td id="rechazar"> <input class="botones" type="submit" value="Rechazar" id="btnRechazarNegocio"></td>
-                        </tr>
-                       
-                       </table>  
+                    <div id="bot">
+                         <div><input  class="botones" type="submit" value="Aceptar" id="btnAceptarNegocio"></div>
+                         <div class="tdEnviarCorreo"><input  class="botones" type="submit" value="Enviar correo" id="btnEnviarCorreo"></div>
+                         <div class="tdCancelarCorreo"><input  class="botones" type="submit" value="Cancelar correo" id="btnCancelarCorreo"></div>
+                         <div id="rechazar"><input class="botones" type="submit" value="Rechazar" id="btnRechazarNegocio"></div>
+                    </div>            
                         
                     <div id="formCorreo">
                         

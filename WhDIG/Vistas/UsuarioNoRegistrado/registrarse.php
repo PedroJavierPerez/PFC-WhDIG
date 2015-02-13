@@ -133,6 +133,8 @@
                         
                         <label for ="informacion"></label>
                        
+                        <span id="pro"><input type="checkbox" id="propietario" name="propietario" value="1"/> Eres propietario.</span>
+                        
                         <input type="checkbox" id="informacion" name="informacion" value="1"/> Permitir recibir información.
                         
                         <input  class="botones" type="submit" value="Enviar datos" id="btnEnviarDatos">

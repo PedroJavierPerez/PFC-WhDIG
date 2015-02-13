@@ -105,6 +105,11 @@ input.inp {
     margin-bottom:17px;
 }
 
+span#pro{
+    display: block;
+    margin-bottom: 0.5em;
+}
+
 form #btnEnviarDatos{
     display: block;
     margin: auto;

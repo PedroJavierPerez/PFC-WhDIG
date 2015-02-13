@@ -61,8 +61,9 @@ function registrar(){
     var provincia = $("input[name=prov]").val();
     var fecha = $("#fecha").val();
     var informacion = obtenerCheckbox(document.getElementsByName("informacion"));
+    var propietario = obtenerCheckbox(document.getElementsByName("propietario"));
             
-    var data = "email="+email+"&nombre="+nombre+"&pass="+pass+"&genero="+genero+"&localidad="+localidad+"&provincia="+provincia+"&fecha="+fecha+"&informacion="+informacion;
+    var data = "email="+email+"&nombre="+nombre+"&pass="+pass+"&genero="+genero+"&localidad="+localidad+"&provincia="+provincia+"&fecha="+fecha+"&informacion="+informacion+"&propietario="+propietario;
     
     
     $.ajax({
@@ -81,8 +82,9 @@ function registrar(){
                     alert("La fecha de nacimiento no es válida");
                 }else{
             if(resp == true){
-                location.href= URL_BASE+"UsuarioRegistrado";
                 
+                    location.href= URL_BASE+"UsuarioRegistrado";
+               
             }else{
                 if(resp == false){
                     alert("El email ingresado ya esta registrado.");

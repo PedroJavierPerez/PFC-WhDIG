@@ -114,7 +114,7 @@ require_once './Entidades/EntidadEvento.php';
         $fecha = $_POST["fecha"];
         if(!empty($_POST['fecha'])){ $datosUsuario["FechaNacimiento"] = $fecha;}
         $datosUsuario["RecibirInformacion"] = $_POST["informacion"];
-        $datosUsuario["Propietario"]= 0;
+        $datosUsuario["Propietario"]= $_POST["propietario"];
         
          if(!filter_var($datosUsuario["Email"], FILTER_VALIDATE_EMAIL)){
               echo "email no valido";
@@ -129,7 +129,9 @@ require_once './Entidades/EntidadEvento.php';
                 }
                 if($correcto2 == true){
                     $correcto = $this->modelo->guardarDatosNuevoUsuario($datosUsuario);
-                    $this->iniciarSesion($correcto,$datosUsuario["Email"]);
+                   
+                        $this->iniciarSesion($correcto,$datosUsuario["Email"]);
+                    
                     echo $correcto;
                 }else{
                     echo "Error de acceso al servidor";

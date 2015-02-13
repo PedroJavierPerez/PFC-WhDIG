@@ -52,18 +52,20 @@ ul li{
     margin-top: 0.5em;
 }
 
-table{
-    width: 80%;
+#bot{
+    width: 86%;
     margin: auto;
     margin-top: 1.2em;
     margin-bottom: 0.8em;
-}
-table td{
-    width: 33.3333%;
     text-align: center;
 }
+#bot div{
+    width: 33.3333%;
+    text-align: center;
+    display: inline;
+}
 
-table #btnAceptarNegocio{
+#bot #btnAceptarNegocio{
     min-width: 84px;
 }
 
@@ -132,9 +134,11 @@ div#noEventosAsistir .NoFiltro{
 
 }
 
+
+
 @media screen and (max-width: 667px) {
     
-    table{
+    #bot{
     width: 96%;
     }
 }
@@ -143,16 +147,16 @@ div#noEventosAsistir .NoFiltro{
 
 @media screen and (max-width: 423px) {
     
-    table{
+    #bot{
     width: 99%;
    
     }
     
-    table td{
+    #bot div{
     text-align: center;
     }
     
-    table #rechazar{
+    #bot #rechazar{
     text-align: center;
 }
 
@@ -166,11 +170,14 @@ div#noEventosAsistir .NoFiltro{
     
 }
 
-@media screen and (max-width: 415px) {
+}
+
+@media screen and (max-width: 409px) {
     
-  
-    
-    
+    #bot div{
+        width: 100%;
+        
+    }  
 
 }
-}
+

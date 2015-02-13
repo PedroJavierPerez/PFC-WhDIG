@@ -4,7 +4,7 @@ $(document).ready(function(){
     
     $("input#btnAceptarNegocio").click(function(){
   
-      var Id_negocio = $(this).parent().parent().parent().parent().parent().attr("id");
+      var Id_negocio = $(this).parent().parent().parent().attr("id");
      
       aceptarNegocio(Id_negocio);
        
@@ -14,8 +14,8 @@ $(document).ready(function(){
     
     $("input#btnRechazarNegocio").click(function(){
   
-       var Id_negocio = $(this).parent().parent().parent().parent().parent().attr("id");
-      
+       var Id_negocio = $(this).parent().parent().parent().attr("id");
+     
       rechazarNegocio(Id_negocio);
        
         return false;  
@@ -23,7 +23,7 @@ $(document).ready(function(){
     
     $("input#btnEnviarCorreo").click(function(){
       
-      var Id_negocio = $(this).parent().parent().parent().parent().parent().attr("id");
+      var Id_negocio = $(this).parent().parent().parent().attr("id");
       
       mostrarFormularioCorreo(Id_negocio);
        
@@ -32,7 +32,7 @@ $(document).ready(function(){
     
     $("input#btnCancelarCorreo").click(function(){
         
-        var Id_negocio = $(this).parent().parent().parent().parent().parent().attr("id");
+        var Id_negocio = $(this).parent().parent().parent().attr("id");
         
       ocultarFormularioCorreo(Id_negocio);
        
@@ -42,11 +42,17 @@ $(document).ready(function(){
     $("div#formCorreo form").submit(function(){
         
         var Id_negocio = $(this).parent().parent().attr("id");
-        
+         
       enviarCorreoInformativo(Id_negocio);
        
         return false;  
     });
+    
+//    $(window).resize(function(e) {
+//  
+//     controlarBotones();
+//
+//     });
     
     
 });
@@ -96,7 +102,7 @@ function rechazarNegocio(Id_negocio){
             console.log("enviando datos a DB")
         },
         success: function(resp) {
-            alert(resp);
+          
             if(resp == true){
                
                 $("article#"+Id_negocio).remove();
@@ -133,10 +139,14 @@ function mostrarNoEventosAsistir(){
 
 function mostrarFormularioCorreo(Id_negocio){
   
+//     var viewportwidth = window.innerWidth;
      $("#"+Id_negocio+" div#formCorreo").fadeToggle();
-     $("#"+Id_negocio+" #bot tbody tr td.tdEnviarCorreo").hide();
-     $("#"+Id_negocio+" #bot tbody tr td.tdCancelarCorreo").fadeToggle();
-     
+     $("#"+Id_negocio+" #bot div.tdEnviarCorreo").hide();
+//     if(viewportwidth <= 409){
+//     $("#"+Id_negocio+" #bot div.tdCancelarCorreo").fadeToggle().css("display","block");
+//     }else{
+     $("#"+Id_negocio+" #bot div.tdCancelarCorreo").fadeToggle().css("display","inline");   
+//     }
      $("#"+Id_negocio+" div#formCorreo #inp").val("");
      $("#"+Id_negocio+" div#formCorreo #textoCorreo").val("");
     
@@ -144,9 +154,15 @@ function mostrarFormularioCorreo(Id_negocio){
 
 function ocultarFormularioCorreo(Id_negocio){
     
+//    var viewportwidth = window.innerWidth;
       $("#"+Id_negocio+" div#formCorreo").hide();
-      $("#"+Id_negocio+" #bot tbody tr td.tdCancelarCorreo").hide();
-     $("#"+Id_negocio+" #bot tbody tr td.tdEnviarCorreo").fadeToggle();
+      $("#"+Id_negocio+" #bot div.tdCancelarCorreo").hide();
+//      if(viewportwidth <= 409){
+//     $("#"+Id_negocio+" #bot div.tdEnviarCorreo").fadeToggle().css("display","block");
+//     }else{
+     $("#"+Id_negocio+" #bot div.tdEnviarCorreo").fadeToggle().css("display","inline");   
+//     }
+     
      
     
 }
@@ -184,3 +200,4 @@ function enviarCorreoInformativo(Id_negocio){
     
     
 }
+

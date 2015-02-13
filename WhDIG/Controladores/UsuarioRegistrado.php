@@ -499,6 +499,11 @@ class UsuarioRegistrado extends Controlador{
             return mail(utf8_decode($destino), utf8_decode($asunto), utf8_decode($comentario), $headers);
     }
     
+    /**
+	* enviarCorreoInformativo
+	*
+	* Envia email al propietario.
+	*/
     function enviarCorreoInformativo(){
         $destino = $_POST["email"];
         $asunto = $_POST["asunto"]." [WhDIG]";
