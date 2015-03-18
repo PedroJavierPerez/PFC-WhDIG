@@ -81,6 +81,9 @@ function registrar(){
                      if(resp == 'Fecha no valida'){
                     alert("La fecha de nacimiento no es válida");
                 }else{
+                    if(resp == 'Datos incompletos'){
+                    alert("Debe completar todos los datos obligatorios");
+                }else{
             if(resp == true){
                 
                     location.href= URL_BASE+"UsuarioRegistrado";
@@ -93,6 +96,7 @@ function registrar(){
                 }
             } 
             }
+                }
         }  
         }
     });

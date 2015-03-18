@@ -653,6 +653,15 @@ aside#asideSuscribir #sectionEliminarSuscribir{
         
     }
     
+    #identificarse{
+        min-width: 195px;
+    }
+    
+    #identificarse #formulario{
+    margin: 0.2em;
+    
+}
+    
     #logo a{
         font-size: 4.8em;
     }

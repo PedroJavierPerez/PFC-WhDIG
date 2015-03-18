@@ -173,6 +173,10 @@ function opcionesFiltrado(){
     var tipo = $('input[name=tip]').val();
     var local = $('input[name=loc]').val();
     
+    if((fechaI === '')&&(fechaF === '')&&(provincia === '')&&(municipio === '')&&(tipo === '')&&(local === '')){
+        location.href= URL_BASE+"UsuarioRegistrado";
+    }
+    
     var data = { 
 
                 "fechaI" : fechaI, 
@@ -192,7 +196,10 @@ function opcionesFiltrado(){
             console.log("enviando datos a DB")
         },
         success: function(resp) {
-//            alert(resp);
+
+        if(resp === "Fecha no valida"){
+                alert("Formato de la fecha no válido.");
+            }else{
             var eventos = eval(resp);
             
             var string = '';
@@ -201,12 +208,14 @@ function opcionesFiltrado(){
                 
             for(var i in eventos){
                 
-           
+           var des = eventos[i].descripcion;
+           var desString = des.toString();
+           var subDesString = desString.substring(0, 297);
            string += "<a id='"+eventos[i].id+"' href='UsuarioNoRegistrado/detalles/"+eventos[i].id+"'><article>\n\
                 <hgroup><h4 class='titulo'>"+eventos[i].nombre+" ("+eventos[i].provincia+")</h4></hgroup>\n\
                 <p>\n\
                 <ul>\n\
-                <li>"+eventos[i].descripcion+"</li>\n\
+                <li>"+subDesString+"...</li>\n\
                 <li class='fechalista'>+ Fecha: "+eventos[i].fecha+"</li>\n\
                 <li>+ Hora: "+eventos[i].hora+"</li>\n\
                 </ul>\n\
@@ -219,6 +228,7 @@ function opcionesFiltrado(){
          document.getElementById("eventos").innerHTML = string;
         }
         }
+    }
     });
      
 }

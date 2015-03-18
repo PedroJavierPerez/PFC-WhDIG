@@ -116,28 +116,35 @@ require_once './Entidades/EntidadEvento.php';
         $datosUsuario["RecibirInformacion"] = $_POST["informacion"];
         $datosUsuario["Propietario"]= $_POST["propietario"];
         
-         if(!filter_var($datosUsuario["Email"], FILTER_VALIDATE_EMAIL)){
-              echo "email no valido";
-         }else{
-              $dateAtual= date("Y-m-d");
-            if(isset($datosUsuario["FechaNacimiento"])&& $datosUsuario["FechaNacimiento"]> $dateAtual){
-                 echo "Fecha no valida";
-            }else{
-                $correcto2 =true;
-                if($this->modelo->comprobarUNR($datosUsuario["Email"])){
-                    $correcto2 =  $this->modelo->EliminarSuscribir($datosUsuario["Email"]);
-                }
-                if($correcto2 == true){
-                    $correcto = $this->modelo->guardarDatosNuevoUsuario($datosUsuario);
-                   
-                        $this->iniciarSesion($correcto,$datosUsuario["Email"]);
-                    
-                    echo $correcto;
+        if(isset($datosUsuario["Email"])&& isset($datosUsuario["Nombre"])&& isset($datosUsuario["Contrasena"])&& 
+           isset($datosUsuario["Genero"])&& isset($datosUsuario["Localidad"])&& isset($datosUsuario["Provincia"])&& ($datosUsuario["Email"]!=='')
+                && ($datosUsuario["Nombre"]!=='') && ($datosUsuario["Contrasena"]!=='') && ($datosUsuario["Genero"]!=='') && ($datosUsuario["Localidad"]!=='') && ($datosUsuario["Provincia"]!=='')){
+             
+            if(!filter_var($datosUsuario["Email"], FILTER_VALIDATE_EMAIL)){
+                  echo "email no valido";
+             }else{
+                  $dateAtual= date("Y-m-d");
+                if(isset($datosUsuario["FechaNacimiento"])&& $datosUsuario["FechaNacimiento"]> $dateAtual){
+                     echo "Fecha no valida";
                 }else{
-                    echo "Error de acceso al servidor";
+                    $correcto2 =true;
+                    if($this->modelo->comprobarUNR($datosUsuario["Email"])){
+                        $correcto2 =  $this->modelo->EliminarSuscribir($datosUsuario["Email"]);
+                    }
+                    if($correcto2 == true){
+                        $correcto = $this->modelo->guardarDatosNuevoUsuario($datosUsuario);
+
+                            $this->iniciarSesion($correcto,$datosUsuario["Email"]);
+
+                        echo $correcto;
+                    }else{
+                        echo "Error de acceso al servidor";
+                    }
                 }
-            }
-         }
+             }
+        }else{
+            echo "Datos incompletos";
+        }
     }
     
     /**

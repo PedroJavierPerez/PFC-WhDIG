@@ -120,7 +120,23 @@ require_once './Entidades/EntidadEvento.php';
         $municipio = $_POST["municipio"];
         $tipo = $_POST["tipo"];
         $local = $_POST["local"];
-
+        if (isset($fechaI)&& ($fechaI !='')){
+        $fechaI = $this->validar_fecha($fechaI);
+        if($fechaI===false){
+            echo "Fecha no valida";
+            
+            exit();
+        }
+        }
+        if (isset($fechaF)&& ($fechaF !='')){
+        $fechaF = $this->validar_fecha($fechaF);
+        if($fechaF===false){
+            echo "Fecha no valida";
+            
+            exit();
+        }
+        }
+        
         $fechaActual = date("Y-m-d");
         $consulta = "Fecha >= '".$fechaActual."'";
 
@@ -136,24 +152,26 @@ require_once './Entidades/EntidadEvento.php';
             $bandera = false;
             $negocios = $this->modelo->buscarNegocio($consulta2,true);
             if(count($negocios)!=0){
+                
             foreach ($negocios as $negocio) {
+                $consultaFinal = $consulta;
                $idnegocio = $negocio["Id_negocio"];
-               $consulta.=" AND Id_negocio = '".$idnegocio."' ORDER BY Id_evento DESC";
-               $eventos = $this->modelo->filtrarEventos($consulta);
+               $consultaFinal.=" AND Id_negocio = '".$idnegocio."' ORDER BY Id_evento DESC";
+               $eventos = $this->modelo->filtrarEventos($consultaFinal);
                if($eventos!= "false"){
                    $bandera = true;
                foreach ($eventos as $evento) {
                 $arrayObjetosEvento[] = $evento;
                }
-               }else{
-                   echo json_encode($eventos);
                }
             }
             if($bandera){
              $objetosEventoFormateado = $this->cambiarFechaHora($arrayObjetosEvento);
              $eventosJSON = $this->pasarEventosJSON($objetosEventoFormateado);
                 echo $eventosJSON;
-            }
+            }else{
+                   echo json_encode($eventos);
+               }
             }else{
                 echo json_encode("false");
             }
@@ -170,6 +188,23 @@ require_once './Entidades/EntidadEvento.php';
         }
     }
 
+    function validar_fecha($fecha){
+        if(preg_match("/(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20)[0-9]{2}/", $fecha )){
+           $fecha = explode("-", $fecha);
+                if(isset($fecha[0])){$day = $fecha[0];}
+                if((isset($fecha[1]))&&($fecha[1]!='')){$month = $fecha[1];}
+                if((isset($fecha[2]))&&($fecha[2]!='')){$year = $fecha[2];}
+            $nuevaFecha = $year."-".$month."-".$day;
+            return $nuevaFecha;
+            
+        }else{
+         if(preg_match("/(19|20)[0-9]{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])/", $fecha )){
+             return $fecha;
+         }else{
+            return false;
+        }
+        }
+    }
     /**
     * formarConsultaCondicionFechas
     *

@@ -55,6 +55,7 @@ public function __construct($array) {
     public function cambiarNombre($nombre){
         $this->nombre = $nombre;
     }
+    
     /**
     * obtenerContrasena
     *

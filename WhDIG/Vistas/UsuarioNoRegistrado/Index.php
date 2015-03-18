@@ -65,9 +65,9 @@ require_once './Entidades/EntidadEvento.php';
 
                          <form id= "formFiltro">
                              <div class="izquierda"><label for ="fechaInicio">Desde:</label>
-                                 <input type="date" id="fechaInicio"></div>
+                                 <input type="date" id="fechaInicio" placeholder="dd-mm-aaaa"></div>
                              <div class="derecha"><label for ="fechaInicio">Hasta:</label>
-                                 <input type="date" id="fechaFin"></div>
+                                 <input type="date" id="fechaFin" placeholder="dd-mm-aaaa"></div>
                               <div class="izquierda"><label for ="provincia">Provincia:</label>
                               <input list ="provincia" name="pro" class="inp"></div>
                               <datalist id="provincia" >
@@ -130,8 +130,8 @@ require_once './Entidades/EntidadEvento.php';
                   
                     
                    <?php  $i =0;
-                    $numPa = floor((count($this->eventos))/2);
-                    $resto = (count($this->eventos))%2;
+                    $numPa = floor((count($this->eventos))/4);
+                    $resto = (count($this->eventos))%4;
                     if($resto != 0){ $numPa = $numPa +1;}
                     
                     ?>
@@ -139,8 +139,8 @@ require_once './Entidades/EntidadEvento.php';
                    if(isset($this->eventos)){
                    foreach ($this->eventos as $evento) { 
                        $i = $i +1;
-                       $evenPag = isset($this->cortePag)? ($this->cortePag*2)-2 :0;
-                       if(($i>$evenPag)&&($i<=$evenPag + 2)){
+                       $evenPag = isset($this->cortePag)? ($this->cortePag*4)-4 :0;
+                       if(($i>$evenPag)&&($i<=$evenPag + 4)){
                            
                        $negocio = $evento->obtenerNegocio();
                        ?>

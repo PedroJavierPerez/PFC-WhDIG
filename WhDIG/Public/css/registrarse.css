@@ -7,13 +7,18 @@ and open the template in the editor.
     Created on : 16-oct-2014, 14:17:53
     Author     : pedro
 */
-@import url("reset.css");
+/*@import url("reset.css");*/
 @import url("fuentes.css");
 
 *{
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+
+#btnRegistrarse{
+    display: none;
 }
 
 #tituloRegistro{
@@ -133,6 +138,8 @@ form #btnEnviarDatos{
     
       padding-left: 0.5em;
     }
+    
+
     
 }
 

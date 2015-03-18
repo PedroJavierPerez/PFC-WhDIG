@@ -20,6 +20,12 @@ $(document).ready(function(){
       location.href= URL_BASE+"UsuarioNoRegistrado/registrarse/";
     });
     
+    //Cuando se pulsa en el input registrarse se redirige a esta página. 
+    $("#btnRegistrarseForm").click(function(){
+        
+      location.href= URL_BASE+"UsuarioNoRegistrado/registrarse/";
+    });
+    
 });
 
 /**

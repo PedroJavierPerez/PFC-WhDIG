@@ -6,7 +6,8 @@
         <meta name="description" content="Web de eventos de ocio">
         <meta name="keywords" content="evento,ocio,bar,deporte,pub">
         <title>WhDIG</title>
-        <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/estilos.css">
+        
+        <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/estilos.css"> 
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/registrarse.css">
         <script type="text/javascript" src="<?php echo URL; ?>Public/js/jquery-1.11.1.js"></script>
         <script src="<?php echo URL; ?>Vistas/UsuarioNoRegistrado/js/registrarse.js"></script>
@@ -30,7 +31,7 @@
                         <label for ="contrasena">Contraseña:</label></div>
                         <div id="inputAutenti"><input type="email" id="email" placeholder="Escribe tu email" required>                       
                             <input type="password" id="contrasena" placeholder="Escribe tu contraseña" required></div>
-                            <input class="botones" id="btnRegistrarseForm" type="button" value="Regístrate">
+                            <!--<input class="botones" id="btnRegistrarseForm" type="button" value="Regístrate">-->
                         <input class="botones" type="submit" value="Entrar" id="btnEntrar">
                         
                             

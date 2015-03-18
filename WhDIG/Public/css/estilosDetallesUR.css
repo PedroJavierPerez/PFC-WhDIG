@@ -15,6 +15,10 @@ and open the template in the editor.
       margin-top: 2.5em;
   }
   
+  #inicio{
+    background: none;
+}
+  
 #detallesEvento{
     width: 80%;
     margin: auto;       
