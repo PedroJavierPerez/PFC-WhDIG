@@ -2,7 +2,7 @@
 require_once ('./Entidades/UsuarioAbstracto.php');
 require_once ('./Entidades/EntidadUsuarioRegistrado.php');
 
-class UsuarioRegistrado extends Controlador{
+class UsuarioRegistrado extends ControladorUsuario{
         
 
 
@@ -90,19 +90,7 @@ class UsuarioRegistrado extends Controlador{
             $this->vista->render($this,'asistenciaEventos');
         }
         
-        /**
-	* administrador
-	*
-	* Renderiza la vista administrador e inicializa
-	* las variables necesarias para esta.
-	*/
-         function administrador($numPag = 1){
-            
-            $this->vista->negociosEsperaAlta = $this->modelo->cargarNegociosSinAlta();
-            $this->vista->usuario = $this->modelo->buscarUsuario($_SESSION["email"]);
-            $this->vista->cortePag = $numPag;
-            $this->vista->render($this,'administrador');
-        }
+        
         
         /**
 	* cerrarSesion
@@ -150,13 +138,24 @@ class UsuarioRegistrado extends Controlador{
         $datosUsuario["RecibirInformacion"] = $_POST["informacion"];
         $datosUsuario["Propietario"]= 0;
         
-        $dateAtual= date("Y-m-d");
-            if(isset($datosUsuario["FechaNacimiento"])&& $datosUsuario["FechaNacimiento"]> $dateAtual){
-                echo "Fecha no valida";
-            }else{
-                $correcto = $this->modelo->modificarDatosUsuario($datosUsuario);
-                echo $correcto;
-            }
+        if(isset($datosUsuario["Email"])&& isset($datosUsuario["Nombre"])&& isset($datosUsuario["Contrasena"])&& 
+           isset($datosUsuario["Genero"])&& isset($datosUsuario["Localidad"])&& isset($datosUsuario["Provincia"])&& ($datosUsuario["Email"]!=='')
+                && ($datosUsuario["Nombre"]!=='') && ($datosUsuario["Contrasena"]!=='') && ($datosUsuario["Genero"]!=='') && ($datosUsuario["Localidad"]!=='') && ($datosUsuario["Provincia"]!=='')){
+             
+            if(!filter_var($datosUsuario["Email"], FILTER_VALIDATE_EMAIL)){
+                  echo "email no valido";
+             }else{
+                $dateAtual= date("Y-m-d");
+                 if(isset($datosUsuario["FechaNacimiento"])&& $datosUsuario["FechaNacimiento"]> $dateAtual){
+                    echo "Fecha no valida";
+                 }else{
+                    $correcto = $this->modelo->modificarDatosUsuario($datosUsuario);
+                    echo $correcto;
+                }
+             }
+        }else{
+            echo "Datos incompletos";
+        }
     }
     
     /**
@@ -171,12 +170,18 @@ class UsuarioRegistrado extends Controlador{
         $usuario["Email"] = $_SESSION["email"];
         $usuario["Contrasena"] = $_POST["pass"];
        
-        
-            $correcto = $this->modelo->eliminarCuentaUsuario($usuario);
+        if((isset($usuario["Contrasena"]))&&($usuario["Contrasena"]!=='')){
+            if(!filter_var($usuario["Email"], FILTER_VALIDATE_EMAIL)){
+                  echo "email no valido";
+             }else{
+                $correcto = $this->modelo->eliminarCuentaUsuario($usuario);
             
-            echo $correcto;
+                echo $correcto;
         
-        
+             }
+        }else{
+            echo "Datos incompletos";
+        }
     }
     
     /**
@@ -285,10 +290,13 @@ class UsuarioRegistrado extends Controlador{
         $datosComentario["Id_evento"] = $_POST["idEvento"];
         $datosComentario["Texto"] = $_POST["texto"];
 
-
-        $correcto = $this->modelo->incluirNuevoComentario($datosComentario); 
-        echo $correcto;
-
+        if((isset($datosComentario["Texto"]))&&($datosComentario["Texto"]!=='')){
+           
+            $correcto = $this->modelo->incluirNuevoComentario($datosComentario); 
+            echo $correcto;
+        }else{
+            echo "Datos incompletos";
+        }
     } 
     
     /**
@@ -387,136 +395,144 @@ class UsuarioRegistrado extends Controlador{
          return $this->modelo->modificarEstadisticasEvento($datosEstadisticas,$evento);
     }
     
-    
-     /**
-    * aceptarNegocio
-    *
-    * Modifica el estado de alta del negocio a aceptado. 
-    */
-    public function aceptarNegocio() {
-
-        $idNegocio = $_POST["idNegocio"];
-
-
-        $correcto = $this->modelo->modificarAceptarEstadoAltaNegocio($idNegocio); 
+    /**
+	* autenticar
+	*
+	* Obtiene el email y contraseña del usuario y comprueba que existe.
+        * LLama a la función iniciar sesión.
+	*/
+    public function autenticar(){
+        $usuario["Email"] = $_POST["email"];
+        $usuario["Contrasena"] = $_POST["pass"];
         
-         if($correcto){
-             $negocio = $this->modelo->buscarNegocio($idNegocio);
-             $objetoNegocio = $this->modelo->crearObjetoNegocio($negocio[0]);
-             $destino = $objetoNegocio->obtenerPropietario()->obtenerEmail();
-             $nombreNegocio = $objetoNegocio->obtenerNombre();
-            $correcto = $this->enviarEmailconfirmarAlta($destino, $nombreNegocio);
-            if($correcto == false){
-                $this->modelo->modificarEstadoAltaNegocioEnEspera($idNegocio);
+        if(!filter_var($usuario["Email"], FILTER_VALIDATE_EMAIL)){
+                echo "email no valido";
+        }else{
+                $correcto = $this->modelo->comprobarUsuario($usuario,True);
+        
+        
+            if($correcto){
+
+                $usu = $this->modelo->buscarUsuario($usuario["Email"]);
+                $usuario["Administrador"] = $usu->obtenerEsAdministrador();
+                $this->iniciarSesion($correcto, $usuario);
+
+                    if($usu->obtenerEsAdministrador() == 1){
+                        echo "A";
+                    }else{
+                        echo "NA";
+                    }
+            }else{
+                echo $correcto;
             }
-         }
-         echo $correcto;
-    } 
-    
-    
-      /**
-    * rechazarNegocio
-    *
-    * Modifica el estado de alta del negocio a rechazado. 
-    */
-    public function rechazarNegocio() {
-
-        $idNegocio = $_POST["idNegocio"];
-        
-        $negocio = $this->modelo->buscarNegocio($idNegocio);
-        $correcto = $this->modelo->modificarRechazarEstadoAltaNegocio($idNegocio);
-        
-         if($correcto){
-             
-             $objetoNegocio = $this->modelo->crearObjetoNegocio($negocio[0]);
-             $destino = $objetoNegocio->obtenerPropietario()->obtenerEmail();
-             $nombreNegocio = $objetoNegocio->obtenerNombre();
-            $correcto = $this->enviarEmailRechazarAlta($destino,$nombreNegocio);
-            
-         }
-        echo $correcto;
-
-    } 
-    
-    
-        /**
-	* enviarEmailconfirmarAlta
-	*
-	* Envia email para confirmar alta de negocio.
-	*
-	* @param String $destino Email de destino donde se enviara el correo.
-        * @param String $negocio Nombre del negocio.
-        * @return Boolean Se envio correctamente el correo True/False.
-	*/
-    public function enviarEmailconfirmarAlta($destino, $negocio){
-        
-        $asunto = "Alta negocio[WhDIG]";
-        $comentario = 
-                '<strong>EMAIL: </strong>'.$destino.'</strong><br><br>
-                
-                <strong>EL ADMINISTRADOR DE LA APLICACIÓN WhDIG LE INFORMA QUE SU NEGOCIO '.$negocio.' HA SIDO VERIFICADO CORRECTAMENTE.</strong><br><br> 
-                <strong>EL NEGOCIO YA FUE DADO DE ALTA.</strong><br><br><br> 
-           
-                <strong>GRACIAS POR CONFIAR EN WhDIG.</strong><br><br><br>';
-                
-        
-        $headers = 'From:'.$destino."\r\n".
-                    'Reply-To:'.$destino."\r\n".
-                    'Content-type: text/html; charset=UTF-8 \r\n'.
-                    'X-Mailer:PHP/'.phpversion();
-                     
-                    
-            return mail(utf8_decode($destino), utf8_decode($asunto), utf8_decode($comentario), $headers);
+        }
     }
-    
-       /**
-	* enviarEmailRechazarAlta
+
+    /**
+	* iniciarSesion
 	*
-	* Envia email para denegar alta de negocio.
+	* Inicia sesión de usuario.
 	*
-	* @param String $destino Email de destino donde se enviara el correo.
-        * @param String $negocio Nombre del negocio.
-        * @return Boolean Se envio correctamente el correo True/False.
+	* @param Boolean $registrado Indica si existe usuario con la contraseña y email indicados.True/False
+        * @param Array $usuario datos usuario.
 	*/
-    public function enviarEmailRechazarAlta($destino, $negocio){
+    public function iniciarSesion($registrado,$usuario){
         
-        $asunto = "Alta negocio[WhDIG]";
-        $comentario = 
-                '<strong>EMAIL: </strong>'.$destino.'</strong><br><br>
-                
-                <strong>EL ADMINISTRADOR DE LA APLICACIÓN WhDIG LE INFORMA QUE SU NEGOCIO '.$negocio.' NO CUMPLE LAS CONDICIONES NECESARIAS PARA SER VERIFICADO CORRECTAMENTE.</strong><br><br> 
-                <strong>EL NEGOCIO NO FUE DADO DE ALTA.</strong><br><br><br> 
-           
-                <strong>GRACIAS POR CONFIAR EN WhDIG.</strong><br><br><br>';
-                
+        if(!isset($usuario["Administrador"])){
+            $usuario["Administrador"]=0;
+        }
+        if($registrado){
+            Sesion::init();
+            if(!Sesion::exist()){ 
+                Sesion::setValue('email', $usuario["Email"]);
+                Sesion::setValue('administrador', $usuario["Administrador"]);
+           } 
+        }  
         
-        $headers = 'From:'.$destino."\r\n".
-                    'Reply-To:'.$destino."\r\n".
-                    'Content-type: text/html; charset=UTF-8 \r\n'.
-                    'X-Mailer:PHP/'.phpversion();
-                     
-                    
-            return mail(utf8_decode($destino), utf8_decode($asunto), utf8_decode($comentario), $headers);
+    }
+
+       /**
+    * recuperarContrasena
+    *
+    * Obtiene el email y lo valida, modifica la contraseña del usuario y se envia al correo.
+    * 
+    */ 
+    function recuperarContrasena(){
+        
+        $email= $_POST["email"];
+        
+        if((isset($email["email"]))&&($email["email"]!=='')){
+            if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+                echo "email no valido";
+            }else{
+                $usuario["Email"] = $email;
+                    if($this->modelo->comprobarUsuario($usuario)){
+                        $nuevaContrasena = $this->generaContrasena_random(5);
+                        if($this->modelo->modificarContrasenaUsuario($email,$nuevaContrasena)){
+                            if(!$this->enviarEmailNuevaContasena($email,$nuevaContrasena)){
+                                $correcto = "email no enviado";
+                            }else{     
+                                $correcto = true;
+                            }
+                        }else{
+                            $correcto = "Contrasena no modificada";
+                        }
+                    }else{
+                        $correcto =false;
+                    }
+                    echo $correcto;
+            }
+        }else{
+            echo "Datos incompletos";
+        }
     }
     
     /**
-	* enviarCorreoInformativo
-	*
-	* Envia email al propietario.
-	*/
-    function enviarCorreoInformativo(){
-        $destino = $_POST["email"];
-        $asunto = $_POST["asunto"]." [WhDIG]";
-        $comentario = $_POST["texto"];
+    * generaContrasena_random
+    *
+    * Genera contraseña aleatoria.
+    *
+    * @param int $longitud Longitud de la contraseña.
+    * 
+    * @return String Contraseña creada aleatoriamente.
+    */ 
+    function generaContrasena_random($longitud){  
+         $caracteres = 'ABCDEFGHIJuvwxRST234567UVWXYZabcdefghijklmnopqKLMNOPQrstyz0189';
+         $pass = '';
+            for ($i=0; $i<$longitud; ++$i){ 
+                $pass .= substr($caracteres, (mt_rand() % strlen($caracteres)), 1);
+            }
+        return $pass;
+    } 
+    
+     /**
+    * enviarEmailNuevaContasena
+    *
+    * Envia email para obtener la nueva contraseña en caso de olvido
+    *
+    * @param String $destino Email de destino donde se enviara el correo.
+    * @param String $nuevaContrasena Nueva contraseña del usuario.
+    * @return Boolean Se envió correctamente el correo True/False.
+    */
+    public function enviarEmailNuevaContasena($destino, $nuevaContrasena){
+        
+        $asunto = "Nueva contraseña[WhDIG]";
+        $comentario = 
+                '<strong>EMAIL: </strong>'.$destino.'</strong><br>
+                <strong>NUEVA CONTRASEÑA:'.$nuevaContrasena.'</strong><br><br>
+                
+                <strong>ARRIBA PUEDES ENCONTRAR SU NUEVA CONTRASEÑA.</strong><br>
+                <strong>PUEDES CAMBIARLA EN CUALQUIER MOMENTO DESDE LA PESTAÑA MI CUENTA DENTRO DE LA APLICACIÓN.</strong><br><br><br>';            
         
         $headers = 'From:'.$destino."\r\n".
                     'Reply-To:'.$destino."\r\n".
                     'Content-type: text/html; charset=UTF-8 \r\n'.
                     'X-Mailer:PHP/'.phpversion();
-        
-        $correcto = mail(utf8_decode($destino), utf8_decode($asunto), utf8_decode($comentario), $headers);
-        echo $correcto;
+                     
+                    
+           return mail(utf8_decode($destino), utf8_decode($asunto), utf8_decode($comentario), $headers);
     }
+   
         
 }
 

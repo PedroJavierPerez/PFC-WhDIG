@@ -2,7 +2,7 @@
 require_once './Entidades/EntidadEstadisticasEvento.php';
 
 
-class UsuarioNoRegistrado_model extends Modelo{
+class UsuarioNoRegistrado_model extends ModeloUsuario{
     
     public function __construct() {
         parent::__construct();
@@ -105,42 +105,6 @@ class UsuarioNoRegistrado_model extends Modelo{
         
         return $this->db->insert("usuario",$datosUsuario);
         
-    }
-    
-    /**
-    * comprobarUsuario
-    *
-    * Comprueba que esiste un usuario registrado con un email y contraseña.
-    *
-    * @param Array<String> $usuario email y contraseña del usuario.
-    * @param Boolean $completo Indica si se pasara $usuario como arreglo o se formara el String de condición.
-    * @return Boolean Indica si existe el usuario.
-    */
-    public function comprobarUsuario($usuario,$completo = False){
-        
-        if($completo){
-            
-            $where= "Email = '".$usuario["Email"]."' AND Contrasena = '".$usuario["Contrasena"]."'";
-            return $this->db->check("Email","usuario",$where,True);
-       
-        }else{
-           return $this->db->check("Email","usuario",$usuario); 
-        }
-    }
-    
-    /**
-    * modificarContrasenaUsuario
-    *
-    * Modifica la contraseña del usuario.
-    *
-    * @param String $email Email del usuario.
-    * @param String $contrasena Nueva contraseña
-    * @return Boolean Indica si la contraseña se modifico correctamente.
-    */
-    public function modificarContrasenaUsuario($email,$contrasena){
-        
-        $datos["Contrasena"]=$contrasena;
-        return $this->db->update("usuario",$datos,"Email = '".$email."'");
     }
      
     /**

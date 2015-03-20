@@ -6,6 +6,7 @@
         <meta name="description" content="Web de eventos de ocio">
         <meta name="keywords" content="evento,ocio,bar,deporte,pub">
         <title>WhDIG</title>
+        <link rel="shortcut icon" href="<?php echo URL; ?>Public/images/favicon.png" type="image/png" />
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/estilos.css">
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/olvidarContrasena.css">
         <script type="text/javascript" src="<?php echo URL; ?>Public/js/jquery-1.11.1.js"></script>

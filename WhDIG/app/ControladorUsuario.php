@@ -3,7 +3,7 @@ require_once './Entidades/EntidadNegocio.php';
 require_once './Entidades/EntidadEvento.php';
 
 
-    class Controlador{
+    class ControladorUsuario{
 
         function __construct() {
             Sesion::init();

@@ -77,7 +77,7 @@ function modificarDatosUsuario(){
     
     
     $.ajax({
-        url:URL_BASE+"UsuarioRegistrado/modificarDatosUsuario/",
+        url:URL_BASE+"Administrador/modificarDatosUsuario/",
         type:"POST",
         data: data,
         beforeSend: function() {
@@ -95,14 +95,13 @@ function modificarDatosUsuario(){
                             alert("El email no es válido");
                         }else{
                             if(resp == true){
-                                alert("Datos modificados correctamente."); 
+                                 alert("Datos modificados correctamente."); 
                 
-                             }else{
+                            }else{
                 
-                                alert("Los datos del usuario no fueron Modificados. Error de acceso al servidor.");
-                
-                            }
-                        }
+                            alert("Los datos del usuario no fueron Modificados. Error de acceso al servidor.");
+                            }  
+                        } 
                     }
                 } 
         }
@@ -122,7 +121,7 @@ function eliminarCuentaUsuario(){
     var data ="pass="+pass;
     
     $.ajax({
-        url:URL_BASE+"UsuarioRegistrado/eliminarCuentaUsuario",
+        url:URL_BASE+"Administrador/eliminarCuentaUsuario",
         type:"POST",
         data: data,
         beforeSend: function() {
@@ -131,7 +130,7 @@ function eliminarCuentaUsuario(){
         success: function(resp) {
             
             if(resp == true){
-               location.href= URL_BASE+"UsuarioRegistrado/cerrarSesion"; 
+               location.href= URL_BASE+"Administrador/cerrarSesion"; 
                 
             }else{
                 if(resp == false){
@@ -141,9 +140,9 @@ function eliminarCuentaUsuario(){
                     if(resp == 'Datos incompletos'){
                     alert("Campo contraseña incompleto");
                   }else{
-                    alert("La cuenta no se eliminó. Error de acceso al servidor.");
-                    } 
-                 }     
+                        alert("La cuenta no se eliminó. Error de acceso al servidor.");
+                   } 
+                }    
             }
              
         }
@@ -193,7 +192,7 @@ function cambioProvincia(){
        var data = "provincia="+id1;
        if(id1 != ''){
         $.ajax({
-        url:URL_BASE+"UsuarioNoRegistrado/cargarLocalidadesProvincias",
+        url:URL_BASE+"Administrador/cargarLocalidadesProvincias",
         type:"POST",
 //        dataType:"JSON",
         data: data,

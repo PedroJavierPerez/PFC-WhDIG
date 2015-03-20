@@ -74,7 +74,7 @@ function incluirFavorito(idEvento){
     
     
     $.ajax({
-        url:URL_BASE+"UsuarioRegistrado/incluirFavorito/",
+        url:URL_BASE+"Administrador/incluirFavorito/",
         type:"POST",
         data: data,
         beforeSend: function() {
@@ -111,7 +111,7 @@ function eliminarFavorito(idEvento){
     
     
     $.ajax({
-        url:URL_BASE+"UsuarioRegistrado/eliminarFavorito/",
+        url:URL_BASE+"Administrador/eliminarFavorito/",
         type:"POST",
         data: data,
         beforeSend: function() {
@@ -148,7 +148,7 @@ function indicarAsistencia(idEvento){
     
     
     $.ajax({
-        url:URL_BASE+"UsuarioRegistrado/indicarAsistencia/",
+        url:URL_BASE+"Administrador/indicarAsistencia/",
         type:"POST",
         data: data,
         beforeSend: function() {
@@ -185,7 +185,7 @@ function eliminarAsistencia(idEvento){
     
     
     $.ajax({
-        url:URL_BASE+"UsuarioRegistrado/eliminarAsistencia",
+        url:URL_BASE+"Administrador/eliminarAsistencia",
         type:"POST",
         data: data,
         beforeSend: function() {
@@ -224,14 +224,14 @@ function guardarComentario(idEvento){
     
     
     $.ajax({
-        url:URL_BASE+"UsuarioRegistrado/guardarComentario",
+        url:URL_BASE+"Administrador/guardarComentario",
         type:"POST",
         data: data,
         beforeSend: function() {
             console.log("enviando datos a DB")
         },
         success: function(resp) {
-            
+          
             if(resp == true){
                
                alert("Comentario guardado correctamente.Este se publicará una vez que el propietario lo acepte. ");  
@@ -239,13 +239,13 @@ function guardarComentario(idEvento){
             }else{
                 if(resp == 'Datos incompletos'){
                     alert("Campo incompleto");
-                  }else{
+                }else{
                 
-                    alert("Error de acceso al servidor.");
+                     alert("Error de acceso al servidor.");
+                 }   
                 
-                
-                }
-            } 
+            }
+             
         }
     });
     

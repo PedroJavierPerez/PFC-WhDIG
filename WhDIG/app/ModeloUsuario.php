@@ -1,6 +1,6 @@
 <?php
 
-    class Modelo{
+    class ModeloUsuario{
         
         //Crea nueva conexión base de datos
         function __construct() {

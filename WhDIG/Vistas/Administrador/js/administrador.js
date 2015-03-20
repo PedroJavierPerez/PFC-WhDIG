@@ -62,7 +62,7 @@ function aceptarNegocio(Id_negocio){
      var data ="idNegocio="+Id_negocio;
     
     $.ajax({
-        url:URL_BASE+"UsuarioRegistrado/aceptarNegocio",
+        url:URL_BASE+"Administrador/aceptarNegocio",
         type:"POST",
         data: data,
         beforeSend: function() {
@@ -95,7 +95,7 @@ function rechazarNegocio(Id_negocio){
      var data ="idNegocio="+Id_negocio;
     
     $.ajax({
-        url:URL_BASE+"UsuarioRegistrado/rechazarNegocio",
+        url:URL_BASE+"Administrador/rechazarNegocio",
         type:"POST",
         data: data,
         beforeSend: function() {
@@ -175,7 +175,7 @@ function enviarCorreoInformativo(Id_negocio){
         var data ="email="+email+"&asunto="+asunto+"&texto="+texto;
     
     $.ajax({
-        url:URL_BASE+"UsuarioRegistrado/enviarCorreoInformativo",
+        url:URL_BASE+"Administrador/enviarCorreoInformativo",
         type:"POST",
         data: data,
         beforeSend: function() {
@@ -189,10 +189,13 @@ function enviarCorreoInformativo(Id_negocio){
                 
                 
                    }else{
+                       if(resp == 'Datos incompletos'){
+                            alert("Campos incompletos");
+                  }else{
                
               alert("Error de acceso al servidor.");
            
-                
+                  }  
             }
              
         }

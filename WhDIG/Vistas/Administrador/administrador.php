@@ -7,18 +7,20 @@
         <meta name="description" content="Web de eventos de ocio">
         <meta name="keywords" content="evento,ocio,bar,deporte,pub">
         <title>WhDIG</title>
+        <link rel="shortcut icon" href="<?php echo URL; ?>Public/images/favicon.png" type="image/png" />
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/estilos.css">
-        <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/inicio.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/inicioAdministrador.css">
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/administrador.css">
         <script type="text/javascript" src="<?php echo URL; ?>Public/js/jquery-1.11.1.js"></script>
-        <script src="<?php echo URL; ?>Vistas/UsuarioRegistrado/js/administrador.js"></script>
-        <script src="<?php echo URL; ?>Public/js/eventosGenerales.js"></script>
+        <script src="<?php echo URL; ?>Vistas/Administrador/js/administrador.js"></script>
+        
+        <script src="<?php echo URL; ?>Public/js/eventosGeneralesAdmin.js"></script>
     </head>
     <body>
         <header>
             <div id="subheader">
                <div id="logoCompleto">
-                    <div id="logo"><p><a href="<?php echo URL; ?>UsuarioRegistrado"><p>WhDIG</p></a></p></div>
+                    <div id="logo"><p><a href="<?php echo URL; ?>Administrador"><p>WhDIG</p></a></p></div>
                     <div id="logo2"><h2>Where do I go?</h2></div>
                 </div>
                  <nav>
@@ -26,9 +28,7 @@
                          <li><a id="inicio" href="">Inicio</a></li>
                          <li><a id="miCuenta" href="">Mi cuenta</a></li>
                          <li><a id="asistencia" href="">Asistencia a eventos</a></li>
-                         <?php if($this->usuario->obtenerEsAdministrador() == 1){ ?>
                          <li><a id="administrador" href="">Administrador</a></li>
-                         <?php } ?>
                          <li><a id="salir" href="">Salir</a></li>
                     </ul>
                 </nav>

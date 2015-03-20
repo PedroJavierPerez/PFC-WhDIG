@@ -5,28 +5,28 @@ $(document).ready(function(){
     // Cuando el usuario pulsa la opción SALIR se cierra la sesión
     $("#salir").click(function(){
         
-     location.href= URL_BASE+"UsuarioRegistrado/cerrarSesion";
+     location.href= URL_BASE+"Administrador/cerrarSesion";
      return false;
     });
     
     // Cuando el usuario pulsa la opción MI CUENTA le redirige a esa página. 
     $("#miCuenta").click(function(){
         
-     location.href= URL_BASE+"UsuarioRegistrado/miCuenta";
+     location.href= URL_BASE+"Administrador/miCuenta";
      return false;
     });
     
     // Cuando el usuario pulsa la opción MI CUENTA le redirige a esa página. 
     $("#logo").click(function(){
         
-     location.href= URL_BASE+"UsuarioRegistrado";
+     location.href= URL_BASE+"Administrador";
      return false;
     });
     
     // Cuando el usuario pulsa la opción INICIO le redirige a esa página.
     $("#inicio").click(function(){
         
-     location.href= URL_BASE+"UsuarioRegistrado";
+     location.href= URL_BASE+"Administrador";
      return false;
     });
     
@@ -35,14 +35,14 @@ $(document).ready(function(){
     // Cuando el usuario pulsa la opción ASISTENCIA A EVENTOS le redirige a esa página.
     $("#asistencia").click(function(){
         
-     location.href= URL_BASE+"UsuarioRegistrado/asistenciaEventos";
+     location.href= URL_BASE+"Administrador/asistenciaEventos";
      return false;
     });
     
     // Cuando el usuario pulsa la opción OLVIDAR CONTRASEÑA le redirige a esa página.
     $("#olvidarContrasena a").click(function(){
         
-     location.href= URL_BASE+"UsuarioNoRegistrado/olvidarContrasena";
+     location.href= URL_BASE+"Administrador/olvidarContrasena";
      return false;
     });
     
@@ -54,3 +54,4 @@ $(document).ready(function(){
     });
 
 }); 
+

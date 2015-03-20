@@ -4,7 +4,7 @@ require_once './Entidades/EntidadComentario.php';
 require_once './Entidades/EntidadDetallesEvento.php';
 
 
-class UsuarioRegistrado_model extends Modelo{
+class UsuarioRegistrado_model extends ModeloUsuario{
     
     public function __construct() {
         parent::__construct();
@@ -329,74 +329,40 @@ class UsuarioRegistrado_model extends Modelo{
               
      }
      
-    /**
-    * cargarNegociosSinAlta
+     /**
+    * comprobarUsuario
     *
-    * Obtiene los negocios que no han sido dados de alta.
+    * Comprueba que esiste un usuario registrado con un email y contraseña.
     *
-    * @return Array<EntidadNegocio> Negocios.
+    * @param Array<String> $usuario email y contraseña del usuario.
+    * @param Boolean $completo Indica si se pasara $usuario como arreglo o se formara el String de condición.
+    * @return Boolean Indica si existe el usuario.
     */
-      public function cargarNegociosSinAlta() {
-         
-         $negocios = $this->db->select("*","negocio","EstadoAlta = 0");
-           if(isset($negocios)) {
-               foreach ($negocios as $negocio) {
-                   $propietario =  $this->buscarUsuario($negocio["Email"]);
-                       if(isset($propietario)){
-                           $objetosNegocio[] = $this->crearObjetoNegocio($negocio);
-                       }
-               }
-               return $objetosNegocio;
-           } 
-          
+    public function comprobarUsuario($usuario,$completo = False){
+        
+        if($completo){
             
-         
-     }
-     
-     
-     /**
-    * modificarAceptarEstadoAltaNegocio
-    *
-    * Modifica el estado de alta del negocio a aceptado.
-    *
-    * @param String $idNegocio identificador del negocio.
-    * @return Boolean Indica si se modificó correctamente el alta del negocio.
-    */
-    public function modificarAceptarEstadoAltaNegocio($idNegocio){
-        
-        $altaNegocio["EstadoAlta"] = 1;
-       return $this->db->update("negocio",$altaNegocio,"Id_negocio = '".$idNegocio."'");
-        
+            $where= "Email = '".$usuario["Email"]."' AND Contrasena = '".$usuario["Contrasena"]."'";
+            return $this->db->check("Email","usuario",$where,True);
+       
+        }else{
+           return $this->db->check("Email","usuario",$usuario); 
+        }
     }
-     
-      /**
-    * modificarRechazarEstadoAltaNegocio
+    
+    /**
+    * modificarContrasenaUsuario
     *
-    * Elimina el negocio que se ha rechazado.
+    * Modifica la contraseña del usuario.
     *
-    * @param String $idNegocio identificador del negocio.
-    * @return Boolean Indica si se elimino correctamente el negocio.
+    * @param String $email Email del usuario.
+    * @param String $contrasena Nueva contraseña
+    * @return Boolean Indica si la contraseña se modifico correctamente.
     */
-     public function modificarRechazarEstadoAltaNegocio($idNegocio) {
+    public function modificarContrasenaUsuario($email,$contrasena){
         
-        $where = "Id_negocio = '".$idNegocio."'";
-        return $this->db->delete("negocio",$where,True);
-        
-    }
-     
-     /**
-    * modificarEstadoAltaNegocioEnEspera
-    *
-    * Modifica el estado de alta del negocio a en espera.
-    *
-    * @param String $idNegocio identificador del negocio.
-    * @return Boolean Indica si se modificó correctamente el estado del negocio.
-    */
-    public function modificarEstadoAltaNegocioEnEspera($idNegocio){
-        
-        $altaNegocio["EstadoAlta"] = 0;
-       return $this->db->update("negocio",$altaNegocio,"Id_negocio = '".$idNegocio."'");
-        
+        $datos["Contrasena"]=$contrasena;
+        return $this->db->update("usuario",$datos,"Email = '".$email."'");
     }
     
 }

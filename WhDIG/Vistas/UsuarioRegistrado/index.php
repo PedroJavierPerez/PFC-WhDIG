@@ -7,6 +7,7 @@
         <meta name="description" content="Web de eventos de ocio">
         <meta name="keywords" content="evento,ocio,bar,deporte,pub">
         <title>WhDIG</title>
+        <link rel="shortcut icon" href="<?php echo URL; ?>Public/images/favicon.png" type="image/png" />
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/estilos.css">
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/inicio.css">
         <script type="text/javascript" src="<?php echo URL; ?>Public/js/jquery-1.11.1.js"></script>
@@ -25,9 +26,6 @@
                          <li><a id="inicio" href="">Inicio</a></li>
                          <li><a id="miCuenta" href="">Mi cuenta</a></li>
                          <li><a id="asistencia" href="">Asistencia a eventos</a></li>
-                         <?php if($this->usuario->obtenerEsAdministrador() == 1){ ?>
-                         <li><a id="administrador" href="">Administrador</a></li>
-                         <?php } ?>
                          <li><a id="salir" href="">Salir</a></li>
                     </ul>
                 </nav>

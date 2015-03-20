@@ -7,7 +7,7 @@
     *
     * Renderiza la vista.
     *
-    * @param Controlador $controlador El controlador de la vista
+    * @param ControladorUsuario $controlador El controlador de la vista
     * @param String $view nombre de la vista. 
     */
         function render($controlador, $view){

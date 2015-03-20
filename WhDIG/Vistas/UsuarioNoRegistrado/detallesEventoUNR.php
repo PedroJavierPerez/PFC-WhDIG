@@ -15,6 +15,7 @@ require_once './Entidades/EntidadEstadisticasEvento.php';
         <meta name="description" content="Web de eventos de ocio">
         <meta name="keywords" content="evento,ocio,bar,deporte,pub">
         <title>WhDIG</title>
+        <link rel="shortcut icon" href="<?php echo URL; ?>Public/images/favicon.png" type="image/png" />
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/estilosDetallesUNR.css">
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/jquery.lightbox-0.5.css">
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/estilos.css">

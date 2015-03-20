@@ -7,13 +7,34 @@
     if(isset($_GET["url"])){ 
         $url =$_GET["url"];
         $urlAux = explode("/", $url);
-        if((!Sesion::exist()) && ($urlAux[0] == 'UsuarioRegistrado')){
-            $url = "UsuarioNoRegistrado/index";
-
+        if((!Sesion::exist()) && ($urlAux[0] !== 'UsuarioNoRegistrado')){
+            if(isset($urlAux[1])){
+                if(($urlAux[1] !== 'autenticar')&&($urlAux[1] !== 'recuperarContrasena')){
+                    $url = "UsuarioNoRegistrado/index";
+                }
+            }else{
+                $url = "UsuarioNoRegistrado/index";
+            }
+            
+        }else{
+            if(Sesion::exist()){
+                if((Sesion::getValue("administrador") == 1)&&($urlAux[0] !== 'Administrador')){
+                    $url = "Administrador/index"; 
+                }else{
+                    if((Sesion::getValue("administrador") == 0)&&($urlAux[0] !== 'UsuarioRegistrado')){
+                    $url = "UsuarioRegistrado/index"; 
+                    }
+                }
+            }
         }
+        
     }else{
         if(Sesion::exist()){
-        $url = "UsuarioRegistrado/index";   
+            if(Sesion::getValue("administrador") == 1){
+               $url = "Administrador/index"; 
+            }else{
+        $url = "UsuarioRegistrado/index";  
+            }
         }else{
         $url = "UsuarioNoRegistrado/index";
         }

@@ -1,8 +1,9 @@
 <?php
 require_once './Entidades/EntidadNegocio.php';
 require_once './Entidades/EntidadEvento.php';
+require_once './Controladores/UsuarioRegistrado.php';
 
-    class UsuarioNoRegistrado extends Controlador{
+    class UsuarioNoRegistrado extends ControladorUsuario{
         
 
 
@@ -134,7 +135,7 @@ require_once './Entidades/EntidadEvento.php';
                     if($correcto2 == true){
                         $correcto = $this->modelo->guardarDatosNuevoUsuario($datosUsuario);
 
-                            $this->iniciarSesion($correcto,$datosUsuario["Email"]);
+                        UsuarioRegistrado::iniciarSesion($correcto,$datosUsuario["Email"]);
 
                         echo $correcto;
                     }else{
@@ -178,7 +179,9 @@ require_once './Entidades/EntidadEvento.php';
                     }
                     echo $correcto;
                 }
-        }  
+        }else{
+            echo "Datos incompletos";
+        } 
     }
     
     /**
@@ -265,83 +268,7 @@ require_once './Entidades/EntidadEvento.php';
            return mail(utf8_decode($destino), utf8_decode($asunto), utf8_decode($comentario), $headers);
     }
     
-    /**
-    * generaContrasena_random
-    *
-    * Obtiene el email y lo valida, modifica la contraseña del usuario y se envia al correo.
-    * 
-    */ 
-    function recuperarContrasena(){
-        
-        $email= $_POST["email"];
-        
-            if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-                echo "email no valido";
-            }else{
-                $usuario["Email"] = $email;
-                    if($this->modelo->comprobarUsuario($usuario)){
-                        $nuevaContrasena = $this->generaContrasena_random(5);
-                        if($this->modelo->modificarContrasenaUsuario($email,$nuevaContrasena)){
-                            if(!$this->enviarEmailNuevaContasena($email,$nuevaContrasena)){
-                                $correcto = "email no enviado";
-                            }else{     
-                                $correcto = true;
-                            }
-                        }else{
-                            $correcto = "Contrasena no modificada";
-                        }
-                    }else{
-                        $correcto =false;
-                    }
-                    echo $correcto;
-            }
-    }
-    
-    /**
-    * generaContrasena_random
-    *
-    * Genera contraseña aleatoria.
-    *
-    * @param int $longitud Longitud de la contraseña.
-    * 
-    * @return String Contraseña creada aleatoriamente.
-    */ 
-    function generaContrasena_random($longitud){  
-         $caracteres = 'ABCDEFGHIJuvwxRST234567UVWXYZabcdefghijklmnopqKLMNOPQrstyz0189';
-         $pass = '';
-            for ($i=0; $i<$longitud; ++$i){ 
-                $pass .= substr($caracteres, (mt_rand() % strlen($caracteres)), 1);
-            }
-        return $pass;
-    } 
-    
-     /**
-    * enviarEmailNuevaContasena
-    *
-    * Envia email para obtener la nueva contraseña en caso de olvido
-    *
-    * @param String $destino Email de destino donde se enviara el correo.
-    * @param String $nuevaContrasena Nueva contraseña del usuario.
-    * @return Boolean Se envió correctamente el correo True/False.
-    */
-    public function enviarEmailNuevaContasena($destino, $nuevaContrasena){
-        
-        $asunto = "Nueva contraseña[WhDIG]";
-        $comentario = 
-                '<strong>EMAIL: </strong>'.$destino.'</strong><br>
-                <strong>NUEVA CONTRASEÑA:'.$nuevaContrasena.'</strong><br><br>
-                
-                <strong>ARRIBA PUEDES ENCONTRAR SU NUEVA CONTRASEÑA.</strong><br>
-                <strong>PUEDES CAMBIARLA EN CUALQUIER MOMENTO DESDE LA PESTAÑA MI CUENTA DENTRO DE LA APLICACIÓN.</strong><br><br><br>';            
-        
-        $headers = 'From:'.$destino."\r\n".
-                    'Reply-To:'.$destino."\r\n".
-                    'Content-type: text/html; charset=UTF-8 \r\n'.
-                    'X-Mailer:PHP/'.phpversion();
-                     
-                    
-           return mail(utf8_decode($destino), utf8_decode($asunto), utf8_decode($comentario), $headers);
-    }
+ 
 
     /**
     * confirmarEliminarSuscripcion
@@ -353,19 +280,26 @@ require_once './Entidades/EntidadEvento.php';
       public function confirmarEliminarSuscripcion(){
         
         if((isset($_POST["email"]))&& ($_POST["email"]!= '')){
-            if($this->modelo->comprobarUNR($_POST["email"])){
-                
-               $correcto = $this->enviarEmailEliminarSuscribir($_POST["email"]);
-               
-               if(!$correcto){
-                   $correcto = "email no enviado";
-               }
-            }else{
-                $correcto = false;
+            
+            if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
+                    echo "email no valido";
+                }else{
+                if($this->modelo->comprobarUNR($_POST["email"])){
+
+                   $correcto = $this->enviarEmailEliminarSuscribir($_POST["email"]);
+
+                   if(!$correcto){
+                       $correcto = "email no enviado";
+                   }
+                }else{
+                    $correcto = false;
+                }
+
+                 echo $correcto;
             }
-           
-             echo $correcto;
-        }  
+        }else{
+            echo "Datos incompletos";
+        }
       }
     
       /**
@@ -384,39 +318,7 @@ require_once './Entidades/EntidadEvento.php';
          }
     }
     
-    /**
-	* autenticar
-	*
-	* Obtiene el email y contraseña del usuario y comprueba que existe.
-        * LLama a la función iniciar sesión.
-	*/
-    public function autenticar(){
-        $usuario["Email"] = $_POST["email"];
-        $usuario["Contrasena"] = $_POST["pass"];
-        
-        $correcto = $this->modelo->comprobarUsuario($usuario,True);
-        $this->iniciarSesion($correcto, $usuario["Email"]);
-        echo $correcto;
-    }
-
-    /**
-	* iniciarSesion
-	*
-	* Inicia sesión de usuario.
-	*
-	* @param Boolean $registrado Indica si existe usuario con la contraseña y email indicados.True/False
-        * @param Boolean $usuario Email del usuario.
-	*/
-    public function iniciarSesion($registrado,$usuario){
-        
-        if($registrado){
-            Sesion::init();
-            if(!Sesion::exist()){ 
-                Sesion::setValue('email', $usuario);
-           } 
-        }
-        
-    }
+    
     
     /**
     * destruirSesion

@@ -74,7 +74,7 @@ function registrar(){
             console.log("enviando datos a DB")
         },
         success: function(resp) {
-            
+           
          if(resp == 'email no valido'){
                     alert("El email no es válido");
                 }else{

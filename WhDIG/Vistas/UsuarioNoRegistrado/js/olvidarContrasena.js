@@ -31,14 +31,14 @@ function recuperarContrasena(email){
         var data = "email="+email;
     
     $.ajax({
-        url:URL_BASE+"UsuarioNoRegistrado/recuperarContrasena",
+        url:URL_BASE+"UsuarioRegistrado/recuperarContrasena",
         type:"POST",
         data: data,
         beforeSend: function() {
             console.log("enviando datos a DB")
         },
         success: function(resp) {
-            
+           
             if(resp == true){
                 alert("En breve recibirá un email donde obtendra su nueva contraseña");
                 $("#inputEmail").val("");
@@ -46,15 +46,18 @@ function recuperarContrasena(email){
                 if(resp == 'email no valido'){
                     alert("El email no es válido");
                 }else{
+                    if(resp == 'Datos incompletos'){
+                        alert("Campo email incompleto");
+                  }else{
                     if(resp == false){
                          alert("El email introducido no esta registrado");
                          $("#Iemail").val("");
                     }else{
                         alert("Error de acceso al servidor.");
                     }
+                }
             }
-            }
-            
+        }
         }
     });
     

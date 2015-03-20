@@ -278,18 +278,21 @@ function suscribir(){
                 alert("En breve recibirá un email para confirmar la suscripción.");
                 $("#Iemail").val("");
             }else{
-                if(resp == 'email no valido'){
-                    alert("El email no es válido");
-                }else{
-                    if(resp == false){
-                         alert("El email introducido ya esta suscrito");
-                         $("#Iemail").val("");
+                if(resp == 'Datos incompletos'){
+                    alert("Campo email incompleto");
+                  }else{
+                    if(resp == 'email no valido'){
+                        alert("El email no es válido");
                     }else{
-                        alert("Error de acceso al servidor.");
+                        if(resp == false){
+                             alert("El email introducido ya esta suscrito");
+                             $("#Iemail").val("");
+                        }else{
+                            alert("Error de acceso al servidor.");
+                        }
                     }
+                }
             }
-            }
-            
         }
     });
 }
@@ -314,16 +317,24 @@ function eliminarSuscribir(){
             console.log("enviando datos a DB")
         },
         success: function(resp) {
+            
             if(resp == true){
                 alert("En breve recibirá un email para eliminar la suscripción.");
             }else{
-                if( resp== false){
-                alert("El email intruducido no esta suscrito.");
-            }else{
-                alert("Error al eliminar suscripción");
-            }
-            }
-            
+                if(resp == 'Datos incompletos'){
+                    alert("Campo email incompleto");
+                }else{
+                     if(resp == 'email no valido'){
+                        alert("El email no es válido");
+                            }else{
+                                if( resp== false){
+                                     alert("El email intruducido no esta suscrito.");
+                                }else{
+                                    alert("Error al eliminar suscripción");
+                                 }
+                            } 
+                }
+            } 
         }
     });
 }
@@ -348,7 +359,7 @@ function autentificar(){
         };
     
     $.ajax({
-        url:URL_BASE+"UsuarioNoRegistrado/autenticar",
+        url:"UsuarioRegistrado/autenticar",
         type:"POST",
         data: data,
 //        async : true,
@@ -359,19 +370,26 @@ function autentificar(){
 
         },
         success: function(resp) {
-         
-            if(resp== true){
+        
+            if(resp == "NA"){
                 
                 location.href= URL_BASE+"UsuarioRegistrado";
             }else{
-                if(resp == false){
-                alert("Usuario o contraseña incorrecta");
-            }else{
+                if(resp == "A"){
+                  location.href= URL_BASE+"Administrador";  
+                }else{
+                    if(resp == 'email no valido'){
+                        alert("El email no es válido");
+                            }else{
+                                if(resp == false){
+                                    alert("Usuario o contraseña incorrecta");
+                                }else{
                
-                alert("Error de acceso al servidor.");  
+                                    alert("Error de acceso al servidor.");  
+                                }
+                            }
+                }
             }
-            }
-   
      
    
     }

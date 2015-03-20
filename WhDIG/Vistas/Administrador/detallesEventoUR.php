@@ -18,14 +18,14 @@ require_once './Entidades/EntidadEstadisticasEvento.php';
         <link rel="shortcut icon" href="<?php echo URL; ?>Public/images/favicon.png" type="image/png" />
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/jquery.lightbox-0.5.css">
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/estilos.css">
-        <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/inicio.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/inicioAdministrador.css">
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/estilosDetallesUR.css">
         <script type="text/javascript" src="<?php echo URL; ?>Public/js/jquery-1.11.1.js"></script>
         <script type="text/javascript" src="<?php echo URL; ?>Public/js/jquery.lightbox-0.5.js"></script>
         
-        <script type="text/javascript" src="<?php echo URL; ?>Public/js/eventosGenerales.js"></script>
-        <script type="text/javascript" src="<?php echo URL; ?>Vistas/UsuarioRegistrado/js/detallesEventoUR.js"></script>
-      
+        <script type="text/javascript" src="<?php echo URL; ?>Public/js/eventosGeneralesAdmin.js"></script>
+        <script type="text/javascript" src="<?php echo URL; ?>Vistas/Administrador/js/detallesEventoUR.js"></script>
+  
 
 
     </head>
@@ -41,7 +41,9 @@ require_once './Entidades/EntidadEstadisticasEvento.php';
                          <li><a id="inicio" href="">Inicio</a></li>
                          <li><a id="miCuenta" href="">Mi cuenta</a></li>
                          <li><a id="asistencia" href="">Asistencia a eventos</a></li>
-                        
+                         
+                         <li><a id="administrador" href="">Administrador</a></li>
+                         
                          <li><a id="salir" href="">Salir</a></li>
                     </ul>
                 </nav>

@@ -1,0 +1,197 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 08-sep-2014, 17:50:02
+    Author     : pedro
+*/
+
+
+header{
+    min-height: 0px;
+}
+
+#inicio{
+    background: #6699ff;
+}
+
+#subheader{
+    min-height: 0px;
+}
+
+#subheader #logoCompleto{
+   vertical-align: bottom; 
+   width: 35%;
+}
+
+#logo{
+    
+    
+    margin-top: 0px;
+/*    margin-top: 1.8em;*/
+    
+    
+}
+
+
+header #subheader nav{
+    
+    display: inline-block;
+    text-align: center;
+    padding: 10px 0px 10px 0px;  
+ 
+    
+}
+header #subheader nav ul li{
+    display: inline;
+    font-family:sourcesans;
+    
+    
+}
+header #subheader nav ul li a{
+    
+    color:#000;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 2px;
+        -moz-border-radius: 2px;
+        -wetkit-border-radius: 2px;
+}
+header #subheader nav ul li a:hover{
+    color:#fff;
+    background: #1798af;
+    
+}
+
+#eventoshoy{
+      
+    background-color: #2d2d2d;
+    padding: 0px 0.625em 0.315em 0.625em;
+    border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+}
+
+#eventoshoy #ideventoshoy{
+    margin: 0.315em 0.315em;
+    background: #666666;
+    border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+}
+
+#eventoshoy #ideventoshoy p{
+    font-size: 0.81em;
+    color: #000;
+}
+#eventoshoy li{
+    padding: 0.315em 0.315em;
+}
+
+#sectionFiltro{
+    border-top: solid 2px #0033cc;
+}
+
+aside .filtro h3{
+    margin-top: 0.6em;
+}
+aside .filtro{
+    margin-bottom: 1.25em;
+    
+}
+
+#eventoshoy #noEventosHoy{
+    color: #ccccff;
+    text-align: center;
+}
+
+#divPag{
+    margin: auto;
+    text-align: center;
+    
+}
+
+/* Móviles menores 1038*/
+@media screen and (max-width: 1038px){
+    
+    header #subheader nav{
+        display: block;
+        background: #ccccff;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+    }
+    
+    #subheader #logoCompleto{
+    width: 48%;
+    }
+    
+}
+
+/* Móviles menores 768*/
+@media screen and (max-width: 768px){
+    
+    #eventoshoy{
+        width: 70%;
+        margin: auto;
+    }
+    
+    #subheader #logoCompleto{
+    width: 100%;
+    }
+
+
+}
+
+/* Móviles menores 543 para administrador*/
+@media screen and (max-width: 543px){
+    
+    header #subheader nav ul li{
+        display: inline-block;
+        margin-top: 0.6em;
+    }
+    
+}
+
+/* Móviles menores 411*/
+@media screen and (max-width: 411px){
+    
+   header #subheader nav ul li{
+    display: block; 
+    background: #ccccff;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+    margin-bottom: 0.3em;
+    padding: 0.3em;
+}
+
+    header #subheader nav{
+    background:none; 
+    }
+    
+    header #subheader nav ul li:hover{
+    color:#fff;
+    background: #1798af;
+    
+    }
+
+    header #subheader nav ul li a:hover{
+    color:#fff;
+    background: none;
+    
+}
+
+    header #subheader nav ul li a{
+    padding: 4.7px;
+    }
+
+#eventoshoy{
+        width: 97%;
+        margin: auto;
+    }
+
+    
+}

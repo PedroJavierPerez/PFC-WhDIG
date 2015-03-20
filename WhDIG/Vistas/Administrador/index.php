@@ -1,67 +1,66 @@
-<?php
-require_once './Entidades/EntidadNegocio.php';
-require_once './Entidades/EntidadEvento.php';
-
-?>
 <!DOCTYPE html>
+
 
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="description" content="Web de eventos de ocio">
         <meta name="keywords" content="evento,ocio,bar,deporte,pub">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>WhDIG</title>
         <link rel="shortcut icon" href="<?php echo URL; ?>Public/images/favicon.png" type="image/png" />
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/estilos.css">
-        <script type="text/javascript" src="<?php echo URL; ?>Public/js/jquery-1.11.1.js"></script> 
+        <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>Public/css/inicioAdministrador.css">
+        <script type="text/javascript" src="<?php echo URL; ?>Public/js/jquery-1.11.1.js"></script>
+        <script src="<?php echo URL; ?>Vistas/Administrador/js/index.js"></script>
        
-        <script src="<?php echo URL; ?>Vistas/UsuarioNoRegistrado/js/index.js"></script>
-        <script src="<?php echo URL; ?>Public/js/eventosGenerales.js"></script>
-
+        <script src="<?php echo URL; ?>Public/js/eventosGeneralesAdmin.js"></script>
     </head>
     <body>
         <header>
             <div id="subheader">
-                <div id="logoCompleto">
+               <div id="logoCompleto">
                     <div id="logo"><p><a href=""><p>WhDIG</p></a></p></div>
                     <div id="logo2"><h2>Where do I go?</h2></div>
                 </div>
-                
-                <div id="divIdentificarse">
-                  <div id="identificarse">
-                    <div id="formulario">
-                    <form id="formAutentificar">
-                       <div id="labelAutenti"> <label for ="email">Email:</label>
-                        <label for ="contrasena">Contraseña:</label></div>
-                        <div id="inputAutenti"><input type="email" id="email" placeholder="Escribe tu email" required>                       
-                            <input type="password" id="contrasena" placeholder="Escribe tu contraseña" required></div>
-                            <input class="botones" id="btnRegistrarseForm" type="button" value="Regístrate">
-                        <input class="botones" type="submit" value="Entrar" id="btnEntrar">
-                        
-                            
-                    </form>
-                    <div id="olvidarContrasena">
-                    <p><a href="">¿Has olvidado tu contraseña?</a></p>
-                    </div>
-                    </div>
-                </div>
-                
-                <div id="Registrarse"> <input class="botones" id="btnRegistrarse" type="button" value="Regístrate"></div>
+                 <nav>
+                     <ul>
+                         <li><a id="inicio" href="">Inicio</a></li>
+                         <li><a id="miCuenta" href="">Mi cuenta</a></li>
+                         <li><a id="asistencia" href="">Asistencia a eventos</a></li>
+                         <li><a id="administrador" href="">Administrador</a></li>                        
+                         <li><a id="salir" href="">Salir</a></li>
+                    </ul>
+                </nav>
             </div>
-       </div>
+       
         </header>
         
         <section id="wrap">
             <section id ="main">
-
-                <section id="bienvenidos">
-                    <article>
-                        <hgroup><h3>Bienvenido a nuestra web de eventos de ocio</h3></hgroup>
-                    </article>
-                </section>
                 
                 <aside class="aside" id="asideFiltro">
+                    
+                    <section class="filtro">
+                        <div id="eventoshoy">
+                            <hgroup><h3>Eventos de hoy:<br><?php echo date("d-m-Y");?></h3></hgroup>
+                        <ul>
+                            <?php if(isset($this->eventosHoy)) { ?>
+                            <?php foreach ($this->eventosHoy as $eventoHoy) { ?>
+                            <a id="<?php echo $eventoHoy->obtenerIdentificador();?>" href=''><div id ='ideventoshoy'><li><span id='spanHora'><?php echo $eventoHoy->obtenerHora();?></span> - 
+                                       <span id = 'spanNombreEvento'><?php echo $eventoHoy->obtenerNombre();?></span> <br>
+                                       <p id='pNombreLocal'><?php echo $eventoHoy->obtenerNegocio()->obtenerNombre();?></p></li></div></a>
+                           <?php }  ?>
+                            <?php }else{  ?>
+                            <p id="noEventosHoy">No tiene ningún evento para hoy.</p>
+                            <?php }  ?>
+                        </ul>
+                                
+                        </div>
+                        
+                    </section>
+                 
+                
+                   
                     <section id="sectionFiltro" class="filtro">
 
                          <form id= "formFiltro">
@@ -124,13 +123,13 @@ require_once './Entidades/EntidadEvento.php';
                              <input class="botones" type="submit" value="Filtrar" id="btnFiltrar">
                          </form>
                     </section>
-                    </aside>
-                
+                    
+                    
+                    
+                </aside>
                 
                 <section id="eventos">
-                  
-                    
-                   <?php  $i =0;
+                    <?php  $i =0;
                     $numPa = floor((count($this->eventos))/4);
                     $resto = (count($this->eventos))%4;
                     if($resto != 0){ $numPa = $numPa +1;}
@@ -142,12 +141,11 @@ require_once './Entidades/EntidadEvento.php';
                        $i = $i +1;
                        $evenPag = isset($this->cortePag)? ($this->cortePag*4)-4 :0;
                        if(($i>$evenPag)&&($i<=$evenPag + 4)){
-                           
                        $negocio = $evento->obtenerNegocio();
                        ?>
                         
                     
-                    <a id='<?php echo $evento->obtenerIdentificador();?>' href=''><article>
+                    <a class="articulos" id='<?php echo $evento->obtenerIdentificador();?>' href=''><article>
                             <hgroup><h4 class='titulo'><?php echo $evento->obtenerNombre();?> (<?php echo $negocio->obtenerProvincia();?>)</h4></hgroup>
                     <p>
                     <ul>
@@ -175,44 +173,9 @@ require_once './Entidades/EntidadEvento.php';
                    }else{?>
                     <p class='NoFiltro'>No hay eventos disponibles.</p>
                     <?php } ?>
-                    
                 </section>
                 
-                <aside class="aside" id="asideSuscribir">
-                    <section id="sectionSuscribir" class="filtro">
-                        <div id="suscribir" class="informacion">
-                        <div class="cabecera"><hgroup><h3>Suscribir:</h3></hgroup><span class="triangulo"></span></div>
-                        
-                            <form id="formSuscribir">
-                                <label for ="Iemail">Email:</label>
-                                <input type="email" id="Iemail" placeholder="Escribe tu email" required>
-                                <input class="botones" type="submit" value="Recibir" id="btnRecibir">
-                                
-                            </form>
-                            
-                        </div>
-                        
-                    </section>
-                    
-                    <section id="sectionEliminarSuscribir" class="filtro">
-                        <div id="EliminarSuscribir" class="informacion">
-                            <div id="cabeceraEliminarSuscripcion"class="cabecera"><hgroup><h3>Eliminar Suscripción:</h3></hgroup><span class="triangulo"></span></div>
-                        <!--<hgroup><h3>Eliminar Suscripción:</h3></hgroup>-->
-                        
-                            <form id="formEliminarSuscribir">
-                                <label for ="Iemail">Email:</label>
-                                <input type="email" id="NIemail" placeholder="Escribe tu email" required>
-                                
-                                <input  class="botones" type="submit" value="No Recibir" id="btnNoRecibir">
-                            </form>
-                            
-                                
-                        </div>
-                        
-                    </section>
-                    
-                </aside>
-             
+                
             </section>
 
             <div id="copyright"><p>Copyright © 2014 | Pedro Javier Pérez Mora</p></div>
@@ -224,8 +187,3 @@ require_once './Entidades/EntidadEvento.php';
         ?>
     </body>
 </html>
-
-
-
-
-
